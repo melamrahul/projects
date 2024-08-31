@@ -41,25 +41,34 @@
         .project:hover {
             background-color: #035123;
         }
+        button {
+            color: black;
+            text-decoration: none;
+            outline: none;
+            width: 90%;
+        }
         .links {
             display: none;
             margin-top: 10px;
         }
         .link-button {
+            font-size: 16px;
             display: block;
             padding: 10px;
             padding-left: 30px;
             margin: 10px 0;
             border-radius: 20px;
             background-color: lightblue;
-            color: #666;            
+            color: black;            
             text-align: left;
             text-decoration: none;
             transition: background-color 0.3s;
       .link-button:hover {
             background-color: #666;
         }
-        }
+         .link-button:hover { 
+            color: #666;
+         }
        
     </style>
 </head>
@@ -86,9 +95,9 @@
             1. ESP32 Led Control Using Database
         </div>
         <div id="project1Links" class="links">
-            <a href="https://raw.githubusercontent.com/melamrahul/Projects/main/ESP32/IoT/Led-Control-Using-Database/share/dashboard.html" target="_blank" class="link-button">Html Page Code</a>
-            <a href="https://raw.githubusercontent.com/melamrahul/Projects/main/ESP32/IoT/Led-Control-Using-Database/share/esp32code.html" target="_blank" class="link-button">ESP32 Board Code</a>
-            <a href="https://github.com/melamrahul/Projects/raw/main/ESP32/IoT/Led-Control-Using-Database/share/Database_Library_by_Rahul.zip" target="_blank" class="link-button">ESP32 Code Library</a>
+            <button onclick="window.location.href='https://raw.githubusercontent.com/melamrahul/Projects/main/ESP32/IoT/Led-Control-Using-Database/share/dashboard.html'" class="link-button">Html Page Code</button>
+            <button onclick="window.location.href='https://raw.githubusercontent.com/melamrahul/Projects/main/ESP32/IoT/Led-Control-Using-Database/share/esp32code.html'" class="link-button">ESP32 Board Code</button>
+            <button onclick="window.location.href='https://github.com/melamrahul/Projects/raw/main/ESP32/IoT/Led-Control-Using-Database/share/Database_Library_by_Rahul.zip'" class="link-button">ESP32 Code Library</button>
         </div>
 
        
