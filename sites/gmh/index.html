@@ -26,6 +26,8 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <!--font awsome icons-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!--Custom Styles-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     body {
@@ -421,7 +423,7 @@
     @media (min-width: 992px) {
       .dashboard-container {
         display: grid;
-        grid-template-columns: 400px 620px 400px;
+        grid-template-columns: 400px 600px 420px;
         grid-template-rows: 1fr;
         grid-template-areas:
           "medical-team main-content data-card"
@@ -491,6 +493,38 @@
     </div>
 
     <!-- Right Top Card: Data Card -->
+    <!-- <div class="card data-card">
+      <div class="card-body">
+        <h3 class="card-title mb-4" style="text-align: center;">
+          <span id="monthly">August</span>&nbsp;-&nbsp;<span id="yearly">2025</span>
+        </h3>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tr-count.png" style="height: 30px;">
+          Total Registration : <span id="tr-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/male-count.png" style="height: 30px;">
+          Male: <span id="male-count"></span>
+          &nbsp;
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/female-count.png"
+            style="height: 30px;">
+          Female: <span id="female-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/nr-count.png" style="height: 30px;">
+          New Registrations: <span id="nr-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tc-count.png" style="height: 30px">
+          Treatment completed: <span id="tc-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-0" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tv-count.png" style="height: 30px">
+          No. of Visitors : <span id="tv-count"></span>
+        </h5>
+      </div>
+    </div> -->
+
     <div class="card data-card">
       <div class="card-body">
         <h3 class="card-title mb-4" style="text-align: center;">
@@ -543,14 +577,23 @@
       </div>
     </div>
 
-  </section><br>
+  </section><br><br>
   <hr style="border: 0.5px solid #197afe; margin-top: 10px;" id="line-divider"><br>
+  <footer
+    style="background-color: #f8f9fa; padding: 20px 0; text-align: center; margin-top: 40px; border-top: 1px solid #8d8a8a;">
+    <p style="margin: 0; font-size: 16px; color: #333;">
+      &copy; <span id="edit-button" style="">Govt Hospital for Mental Care</span>. All Rights Reserved.</p>
+    <p>This site hosted by <a href="https://melamrahul.github.io/" target="_blank"
+        style="color: #007bff; text-decoration: none;">M.Rahul</a>
+    </p>
+  </footer>
+
 
 
   <!-- Firebase v8 SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script>
+  <!-- <script>
     //Script Variables
     const headertitle = document.getElementById('header-title');
     const desktoptitle = document.getElementById('desktop-title');
@@ -603,7 +646,144 @@
     });
 
 
+  </script> -->
+
+  <script>
+    // Script Variables
+    const headertitle = document.getElementById('header-title');
+    const desktoptitle = document.getElementById('desktop-title');
+
+    // Device check
+    function isDevice() {
+      if (window.innerWidth >= 900) {
+        desktoptitle.innerHTML = headertitle.innerHTML;
+        desktoptitle.style.marginTop = '-1rem';
+        document.getElementById('line-divider').style.marginTop = '-12';
+        headertitle.style.display = 'none';
+      } else {
+        headertitle.style.display = 'block';
+        desktoptitle.innerHTML = '';
+      }
+    }
+    window.onload = isDevice;
+
+    // 🔧 Firebase Config (yours)
+    var firebaseConfig = {
+      apiKey: "0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0",
+      authDomain: "uesi-ap-default-rtdb.firebaseio.com",
+      databaseURL: "https://uesi-ap-default-rtdb.firebaseio.com",
+      projectId: "uesi-ap"
+    };
+
+    // 🔌 Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const summaryRef = firebase.database().ref("projects/sites/gmh/summary");
+
+    // 🔄 Fetch and update display
+    function loadData() {
+      summaryRef.once('value').then(snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          document.getElementById('tr-count').textContent = data.totalRegistrations || 0;
+          document.getElementById('male-count').textContent = data.male || 0;
+          document.getElementById('female-count').textContent = data.female || 0;
+          document.getElementById('nr-count').textContent = data.newRegistrations || 0;
+          document.getElementById('tc-count').textContent = data.treatmentCompleted || 0;
+          document.getElementById('tv-count').textContent = data.visitors || 0;
+        } else {
+          console.warn("No summary data found.");
+        }
+      }).catch(error => {
+        console.error("Error fetching summary data:", error);
+      });
+    }
+
+    loadData(); // Initial load
+
+    // 🔐 Password protection
+    const EDIT_PASSWORD = "gmh@admin"; // Change this as needed
+
+    // ✏️ Edit Button Handler
+    document.getElementById('edit-button').addEventListener('click', () => {
+      Swal.fire({
+        title: 'Enter Password to Edit',
+        input: 'password',
+        inputPlaceholder: 'Enter password',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        preConfirm: (password) => {
+          if (password !== EDIT_PASSWORD) {
+            Swal.showValidationMessage('Incorrect password');
+          }
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          enableEditing();
+        }
+      });
+    });
+
+    // Enable editing
+    function enableEditing() {
+      const fields = [
+        { id: 'tr-count', label: 'totalRegistrations' },
+        { id: 'male-count', label: 'male' },
+        { id: 'female-count', label: 'female' },
+        { id: 'nr-count', label: 'newRegistrations' },
+        { id: 'tc-count', label: 'treatmentCompleted' },
+        { id: 'tv-count', label: 'visitors' },
+      ];
+
+      fields.forEach(field => {
+        const span = document.getElementById(field.id);
+        const value = span.textContent.trim();
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.value = value;
+        input.style.width = '80px';
+        input.id = field.label;
+        span.replaceWith(input);
+      });
+
+      // Show Save Button
+      const saveBtn = document.createElement('button');
+      saveBtn.textContent = 'Save Changes';
+      saveBtn.style.marginTop = '20px';
+      saveBtn.className = 'btn btn-success';
+      saveBtn.id = 'save-button';
+
+      document.querySelector('.card-body').appendChild(saveBtn);
+
+      saveBtn.addEventListener('click', saveChanges);
+    }
+
+    // Save changes to Firebase
+    function saveChanges() {
+      const updatedData = {
+        totalRegistrations: parseInt(document.getElementById('totalRegistrations').value) || 0,
+        male: parseInt(document.getElementById('male').value) || 0,
+        female: parseInt(document.getElementById('female').value) || 0,
+        newRegistrations: parseInt(document.getElementById('newRegistrations').value) || 0,
+        treatmentCompleted: parseInt(document.getElementById('treatmentCompleted').value) || 0,
+        visitors: parseInt(document.getElementById('visitors').value) || 0,
+      };
+
+      summaryRef.set(updatedData)
+        .then(() => {
+          Swal.fire('Success', 'Data updated successfully!', 'success').then(() => {
+            location.reload(); // Reload to show updated view
+          });
+        })
+        .catch((error) => {
+          console.error("Error updating data:", error);
+          Swal.fire('Error', 'Failed to update data.', 'error');
+        });
+    }
   </script>
+
 </body>
 
 </html>
