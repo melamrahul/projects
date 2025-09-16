@@ -221,6 +221,14 @@
         min-height: 450px;
         /* Ensure a minimum height */
       }
+
+      .main-content-card h5 {
+        font-size: 2rem;
+      }
+
+      .main-content-card h6 {
+        font-size: 1.2rem;
+      }
     }
 
     .main-content-card h2 {
@@ -300,15 +308,23 @@
     }
 
     .slogan-card {
-      background-color: #81D4FA;
+      background-color: #0071c1;
       /* Light Blue */
-      color: #1A237E;
+      color: white;
       /* Dark Blue text for contrast */
     }
 
     @media (min-width: 992px) {
       .slogan-card {
         grid-area: slogan-card;
+      }
+
+      .slogan-card h4 {
+        font-size: 2rem;
+      }
+
+      .slogan-card .card-subtitle {
+        font-size: 1.8rem;
       }
     }
 
@@ -333,6 +349,14 @@
       .data-card {
         grid-area: data-card;
       }
+
+      .data-card .card-title {
+        font-size: 2rem;
+      }
+
+      .data-card .card-subtitle {
+        font-size: 1.5rem;
+      }
     }
 
     .data-card h3 {
@@ -350,7 +374,7 @@
     }
 
     .key-role-card {
-      background-color: #6D4C41;
+      background-color: #943634;
       /* Brown */
       color: #fff;
     }
@@ -358,6 +382,18 @@
     @media (min-width: 992px) {
       .key-role-card {
         grid-area: key-role;
+      }
+
+      .key-role-card .card-title {
+        font-size: 2rem;
+      }
+
+      .key-role-card .card-subtitle-title {
+        font-size: 2rem;
+      }
+
+      .key-role-card .card-subtitle {
+        font-size: 1.5rem;
       }
     }
 
@@ -376,6 +412,18 @@
       font-size: 18px;
       color: #FFEB3B;
       /* Yellow for highlight */
+    }
+
+    @media (min-width: 992px) {
+      .dashboard-container {
+        display: grid;
+        grid-template-columns: 400px 600px 400px;
+        grid-template-rows: 1fr;
+        grid-template-areas:
+          "medical-team main-content data-card"
+          "slogan-card main-content key-role";
+        gap: 20px;
+      }
     }
   </style>
 </head>
@@ -396,86 +444,103 @@
     <h3 id="govt-hmc">GOVERNMENT HOSPITAL FOR MENTAL CARE</h3>
     <h4 id="opd-center">OPIOID SUBSTITUTION THERAPY (OST) Center,</h4>
     <h4 id="address">Visakhapatnam (District), A.P</h4>
-  </div>
-  <section>
-    <div class="card" style="background: #00af50;">
+  </div><br>
+
+  <!-- Dashboard Container -->
+  <section id="section1" class="dashboard-container">
+
+    <!-- Main Center Card -->
+    <div class="card main-content-card">
       <div class="card-body">
-        <h5 class="card-title" style="text-decoration: underline; color: rgb(220, 6, 6);">Abstract</h5>
-        <h6 class="card-subtitle mb-2" style="text-align: start; color: #cfff3f;">Under control of APSACS and Guidelines
-          by NACO, Govt. of India.</h6>
-        <h6 class="card-text" style="text-align: left; color: white;">Supervision of Dr.K.V.Ramireddy, Superintendent,
-          Government for Mental Care and Dr.D.Vijaya Lakshmi, HoD, Department of Psychiatry, AMC & Nodal Officer of OST
-          Centre.
-          Monitoring by Dr.R.Ramesh Babu, DTALO, Addl.DMHO, Visakhapatnam.</p>
+        <h5 class="card-title" style="text-decoration: underline; color: red;">Abstract</h5>
+        <h6 class="card-subtitle mb-2" style="text-align: start; color: #cfff3f;">
+          Under control of APSACS and Guidelines by NACO, Govt. of India.
+        </h6>
+        <h6 class="card-text" style="text-align: left; color: white;">
+          Supervision of Dr.K.V.Ramireddy, Superintendent, Government for Mental Care and Dr.D.Vijaya Lakshmi, HoD,
+          Department of Psychiatry, AMC & Nodal Officer of OST Centre. Monitoring by Dr.R.Ramesh Babu, DTALO, Addl.DMHO,
+          Visakhapatnam.
+        </h6>
       </div>
       <div class="card-body">
         <h5 class="card-title" style="text-decoration: underline;">History</h5>
-        <h6 class="card-subtitle mb-2" style="text-align: start; color: white;">OST Centre was established on
-          06-01-2020. Inaugurated by Dr.Radharani, Superintendent, GHMC and Dr.Himakar, HOD of Psychiatry and Dr. Pavan
-          Kumar, Addl.DHMO, Visakhapatnam.</h6>
-        <h6 class="card-text" style="text-align: left; color: #cfff3f;">Treatment for injected Drug Users and Opioid
-          Dependence only</p>
+        <h6 class="card-subtitle mb-2" style="text-align: start; color: white;">
+          OST Centre was established on 06-01-2020. Inaugurated by Dr.Radharani, Superintendent, GHMC and
+          Dr.Himakar, HOD of Psychiatry and Dr. Pavan Kumar, Addl.DHMO, Visakhapatnam.
+        </h6>
+        <h6 class="card-text" style="text-align: left; color: #cfff3f;">
+          Treatment for injected Drug Users and Opioid Dependence only
+        </h6>
       </div>
-    </div><br>
+    </div>
 
-    <div class="card" style="background-color: #16365d; padding: 0;">
+    <!-- Left Top Card: Medical Team -->
+    <div class="card medical-team-card">
       <div class="card-body">
         <h4 class="card-title mb-4" style="text-decoration: underline; color: white;">TRAINED MEDICAL TEAM:</h4>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;">MEDICAL OFFICER-01</h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;">DATA MANAGER-01</h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;">COUNSELLOR-01</h5>
-        <h5 class="card-subtitle mb-0" style="text-align: start; color: white;">STAFF NURSE-01</h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;">MEDICAL OFFICER - 01</h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;">DATA MANAGER - 01</h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;">COUNSELLOR - 01</h5>
+        <h5 class="card-subtitle mb-0" style="text-align: start; color: white;">STAFF NURSE - 01</h5>
       </div>
-    </div><br>
+    </div>
 
-    <div class="card" style="background-color: #0071c1; padding: 0;">
+    <!-- Right Top Card: Data Card -->
+    <div class="card data-card">
       <div class="card-body">
-        <h4 class="card-title mb-4" style="text-decoration: underline; color: white;">Slogan</h4>
-        <h3 class="card-subtitle mb-3" style="text-align: start; color: #FFEB3B;">Let's Come..</h3>
-        <h3 class="card-subtitle mb-3" style="color: #cfff3f;">Cure..</h3>
-        <h3 class="card-subtitle mb-3" style="text-align: start; color: #FFEB3B;">Confidentiality..</h3>
-      </div>
-    </div><br>
-
-    <div class="card" style="background-color: #7030a0; padding: 0;">
-      <div class="card-body">
-        <h3 class="card-title mb-4"
-          style="color: white; font-weight: bold; display: flex; flex-direction: row; justify-content: center;"><span
-            id="monthly" style="margin-right: 5px;">
-            August
-          </span>&nbsp;<span>-</span> &nbsp;<span id="yearly">
-            2025
-          </span></h3>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;"><img
-            src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tr-count.png" style="height: 30px;">
-          Total Registration : <span id="tr-count"></span></h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;"><img
-            src="https://melamrahul.github.io/projects/sites/gmh/assets/images/male-count.png" style="height: 30px;">
-          Male: <span id="male-count"></span> &nbsp;<img
-            src="https://melamrahul.github.io/projects/sites/gmh/assets/images/female-count.png" style="height: 30px;">
-          Female: <span id="female-count"></span></h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;"><img
-            src="https://melamrahul.github.io/projects/sites/gmh/assets/images/nr-count.png" style="height: 30px;"> New
-          Registrations: <span id="nr-count"></span></h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start; color: white;"> <img
-            src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tc-count.png" style="height: 30px">
-          Treatment completed: <span id="tc-count"></span></h5>
-        <h5 class="card-subtitle mb-0" style="text-align: start; color: white;"> <img
-            src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tv-count.png" style="height: 30px"> No.
-          of Visitors : <span id="tv-count"></span></h5>
-      </div>
-    </div><br>
-    <div class="card" style="background-color: #943634; padding: 0;">
-      <div class="card-body">
-        <h5 class="card-title mb-4" style="color: white; font-weight: bold; text-decoration: underline;">Key role GNO:
+        <h3 class="card-title mb-4" style="text-align: center;">
+          <span id="monthly">August</span>&nbsp;-&nbsp;<span id="yearly">2025</span>
+        </h3>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tr-count.png" style="height: 30px;">
+          Total Registration : <span id="tr-count"></span>
         </h5>
-        <h5 class="card-subtitle mb-3" style="text-align: center; color: white;">New registrations through</h5>
-        <h4 class="card-subtitle mb-3" style="text-align: center; color: #cfff3f;">SAMIDA IDU</h4>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/male-count.png" style="height: 30px;">
+          Male: <span id="male-count"></span>
+          &nbsp;
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/female-count.png"
+            style="height: 30px;">
+          Female: <span id="female-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/nr-count.png" style="height: 30px;">
+          New Registrations: <span id="nr-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-3" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tc-count.png" style="height: 30px">
+          Treatment completed: <span id="tc-count"></span>
+        </h5>
+        <h5 class="card-subtitle mb-0" style="text-align: start;">
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tv-count.png" style="height: 30px">
+          No. of Visitors : <span id="tv-count"></span>
+        </h5>
+      </div>
+    </div>
+
+    <!-- Left Bottom Card: Slogan -->
+    <div class="card slogan-card">
+      <div class="card-body">
+        <h4 class="card-title mb-4" style="text-decoration: underline;">Slogan</h4>
+        <h3 class="card-subtitle mb-3" style="color: #FFEB3B;">Let's Come..</h3>
+        <h3 class="card-subtitle mb-3" style="color: #cfff3f;">Cure..</h3>
+        <h3 class="card-subtitle mb-3" style="color: #FFEB3B;">Confidentiality..</h3>
+      </div>
+    </div>
+
+    <!-- Right Bottom Card: Key Role -->
+    <div class="card key-role-card">
+      <div class="card-body">
+        <h5 class="card-title mb-4" style="text-decoration: underline;">Key role GNO:</h5>
+        <h5 class="card-subtitle mb-3" style="text-align: center;">New registrations through</h5>
+        <h4 class="card-subtitle-title mb-3" style="text-align: center; color: #FFEB3B;">SAMIDA IDU</h4>
         <h5 class="card-subtitle mb-3" style="text-align: center; color: #cfff3f;">Visakhapatnam</h5>
       </div>
     </div>
 
-  </section>
+  </section><br>
+  <hr style="border: 0.5px solid #197afe; margin-top: 10px;" id="line-divider"><br>
+
 
 
   <script>
@@ -498,6 +563,7 @@
       }
     }
     window.onload = isDevice; // Check on page load
+
   </script>
 </body>
 
