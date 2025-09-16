@@ -1,12 +1,38 @@
 <html>
 
 <head>
-  <title>Government Hospital for Mental Care (OST) Center</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  <title>Government Hospital for Mental Care (OST) Center</title>
+
+  <!-- Required OG tags -->
+  <meta property="og:title" content="Government Hospital for Mental Care (OST) Center, Visakhapatnam" />
+  <meta property="og:description"
+    content="OPIOID SUBSTITUTION THERAPY (OST) Center, Visakhapatnam (District), A.P" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://melamrahul.github.io/projects/sites/gmh/" />
+  <meta property="og:image" content="https://melamrahul.github.io/projects/sites/gmh/assets/images/govt-hmc.png" />
+
+  <!-- Standard Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
+
+<!-- Apple Touch Icon (iOS) -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
+
+  <!-- Optional -->
+  <meta property="og:site_name" content="Govt of Andhra Pradesh" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- Twitter Card (optional but recommended) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Government Hospital for Mental Care (OST) Center, Visakhapatnam">
+  <meta name="twitter:description" content="OPIOID SUBSTITUTION THERAPY (OST) Center, Visakhapatnam (District), A.P">
+  <meta name="twitter:image" content="https://melamrahul.github.io/projects/sites/gmh/assets/images/govt-hmc.png">
+
 
   <!--fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -582,7 +608,8 @@
   <footer
     style="background-color: #f8f9fa; padding: 20px 0; text-align: center; margin-top: 40px; border-top: 1px solid #8d8a8a;">
     <p style="margin: 0; font-size: 16px; color: #333;">
-      &copy; <span id="edit-button" style="">Govt Hospital for Mental Care</span>. All Rights Reserved.</p>
+      &copy; <span id="edit-button" style="cursor: pointer;">Govt Hospital for Mental Care</span>. All Rights Reserved.
+    </p>
     <p>This site hosted by <a href="https://melamrahul.github.io/" target="_blank"
         style="color: #007bff; text-decoration: none;">M.Rahul</a>
     </p>
@@ -667,6 +694,22 @@
     }
     window.onload = isDevice;
 
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    // Get today's date
+    const today = new Date();
+
+    // Get month and year
+    const currentMonth = monthNames[today.getMonth()];
+    const currentYear = today.getFullYear();
+
+    // Update DOM
+    document.getElementById("monthly").textContent = currentMonth;
+    document.getElementById("yearly").textContent = currentYear;
+
     // 🔧 Firebase Config (yours)
     var firebaseConfig = {
       apiKey: "0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0",
@@ -749,7 +792,7 @@
       });
 
       // Show Save Button
-      const saveBtn = document.createElement('button');
+      const saveBtn = document.createElement('save-changes-button');
       saveBtn.textContent = 'Save Changes';
       saveBtn.style.marginTop = '20px';
       saveBtn.className = 'btn btn-success';
