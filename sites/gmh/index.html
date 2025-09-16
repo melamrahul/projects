@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +31,6 @@
   <meta name="twitter:title" content="Government Hospital for Mental Care (OST) Center, Visakhapatnam">
   <meta name="twitter:description" content="OPIOID SUBSTITUTION THERAPY (OST) Center, Visakhapatnam (District), A.P">
   <meta name="twitter:image" content="https://melamrahul.github.io/projects/sites/gmh/assets/images/govt-hmc.png">
-
 
   <!--fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -606,7 +604,7 @@
   </section><br><br>
   <hr style="border: 0.5px solid #197afe; margin-top: 10px;" id="line-divider"><br>
   <footer
-    style="background-color: #f8f9fa; padding: 20px 0; text-align: center; margin-top: 40px; border-top: 1px solid #8d8a8a;">
+    style="background-color: #f8f9fa; padding: 10px 0; text-align: center; margin-top: 40px; border-top: 1px solid #8d8a8a;">
     <p style="margin: 0; font-size: 16px; color: #333;">
       &copy; <span id="edit-button" style="cursor: pointer;">Govt Hospital for Mental Care</span>. All Rights Reserved.
     </p>
@@ -615,66 +613,9 @@
     </p>
   </footer>
 
-
-
   <!-- Firebase v8 SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <!-- <script>
-    //Script Variables
-    const headertitle = document.getElementById('header-title');
-    const desktoptitle = document.getElementById('desktop-title');
-
-    //Script Functions
-    // Function to check if the device is mobile or desktop
-    function isDevice() {
-      if (window.innerWidth >= 900) {
-        // If the device width is 900px or more, it's likely a desktop
-        desktoptitle.innerHTML = headertitle.innerHTML;
-        desktoptitle.style.marginTop = '-1rem'; // Add margin to the desktop title
-        document.getElementById('line-divider').style.marginTop = '-12'; // Adjust line divider margin
-        headertitle.style.display = 'none'; // Hide the original title on desktop
-      } else {
-        headertitle.style.display = 'block'; // Show the original title on mobile
-        desktoptitle.innerHTML = ''; // Clear the desktop title
-      }
-    }
-    window.onload = isDevice; // Check on page load
-
-    // 🔧 Firebase Config (yours)
-    var firebaseConfig = {
-      apiKey: "0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0",
-      authDomain: "uesi-ap-default-rtdb.firebaseio.com",
-      databaseURL: "https://uesi-ap-default-rtdb.firebaseio.com",
-      projectId: "uesi-ap"
-    };
-
-    // 🔌 Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // 📌 Reference to the summary data
-    const summaryRef = firebase.database().ref("projects/sites/gmh/summary");
-
-    // 🔄 Fetch and update the DOM
-    summaryRef.once('value').then(snapshot => {
-      const data = snapshot.val();
-      if (data) {
-        document.getElementById('tr-count').textContent = data.totalRegistrations || 0;
-        document.getElementById('male-count').textContent = data.male || 0;
-        document.getElementById('female-count').textContent = data.female || 0;
-        document.getElementById('nr-count').textContent = data.newRegistrations || 0;
-        document.getElementById('tc-count').textContent = data.treatmentCompleted || 0;
-        document.getElementById('tv-count').textContent = data.visitors || 0;
-      } else {
-        console.warn("No summary data found.");
-      }
-    }).catch(error => {
-      console.error("Error fetching summary data:", error);
-    });
-
-
-  </script> -->
-
   <script>
     // Script Variables
     const headertitle = document.getElementById('header-title');
