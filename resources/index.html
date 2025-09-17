@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.Rahul Projects</title>
+    <style>
+        body {
+            font-family: 'Google Sans', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 10px 10px;
+            height: 100%;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            margin-top: 10px; 
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .project {
+            cursor: pointer;
+            padding: 10px;
+            padding-left: 30px;
+            margin: 10px 0;
+            color: white;
+            background-color: #035914;
+            border-radius: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .project:hover {
+            background-color: #035123;
+        }
+        button {
+            color: black;
+            text-decoration: none;
+            border: 2px solid #aaa;
+            width: 90%;
+        }
+        .links {
+            display: none;
+            margin-top: 10px;
+        }
+        .link-button {
+            font-size: 16px;
+            display: block;
+            padding: 10px;
+            padding-left: 30px;
+            margin: 10px 0;
+            border-radius: 20px;
+            background-color: lightblue;
+            color: black;            
+            text-align: left;
+            text-decoration: none;
+            transition: background-color 0.3s;
+      .link-button:hover {
+            background-color: #666;
+        }
+         .link-button:hover { 
+            color: #666;
+         }
+       
+    </style>
+</head>
+<body>
+    <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; z-index: 999; box-shadow: 0 0 10px #ccc; margin-lef;padding; margin-top:-10px; margin-right: -10px;font-family: 'Nunito', sans-serif; margin-left: -10px; display: flex; gap: 15px; font-size: 21px; height: 50px">
+                <img src="https://gcdnb.pbrd.co/images/1uT7O2anUaNL.png"
+                    alt="logo" class="mr-2" width="50" height="50" style="margin-left: 10px;">
+                <h3 class="name-container" style="margin-top: 10px">M.Rahul</h3>
+            </div>
+    <div class="contaier">
+   <div style="display: flex; align-items: center; margin-top: 0px; margin-bottom: 5px;">
+    <h5 style="margin-left: 7px; margin-right: 10px;">Rahul's Projects</h5>
+    <h5 style="margin: 0 10px 0 0; color: green;">></h5>
+    <h5 style="margin: 0; color: lightcoral;">Resources</h5>
+</div>
+    <p style="margin: 0 0px; border-bottom: 1px solid #aaa; margin-bottom: 5px; margin-left: -20px; margin-right: -20px"></p>
+</div>
+<div style="display: flex; align-items: center; margin-top: 5px; margin-bottom: 0px;">
+    <h3 style="margin-left: 7px; margin-right: 10px;">ESP32 Wi-Fi Module Projects</h3>
+    </div>
+        <!-- Project 1 -->
+        <div class="project" onclick="toggleLinks('project1Links')">
+            1. ESP32 Led Control Using Database
+        </div>
+        <div id="project1Links" class="links">
+            <button onclick="window.location.href='https://raw.githubusercontent.com/melamrahul/Projects/main/ESP32/IoT/Led-Control-Using-Database/share/dashboard.html'" class="link-button">Html Page Code</button>
+            <button onclick="window.location.href='https://raw.githubusercontent.com/melamrahul/Projects/main/ESP32/IoT/Led-Control-Using-Database/share/esp32code.html'" class="link-button">ESP32 Board Code</button>
+            <button onclick="window.location.href='https://github.com/melamrahul/Projects/raw/main/ESP32/IoT/Led-Control-Using-Database/share/Database_Library_by_Rahul.zip'" class="link-button">ESP32 Code Library</button>
+        </div>
+
+       
+<footer style="position: fixed; bottom: 10px; width: 100%; text-align: center; padding: 5px 0; font-family: 'Google Sans', sans-serif; height: 30px;">
+    <p style="margin: 0; font-size: 17px;">©2024 Designed with ❤️ by <a href="https://rahul.serv00.net/profile" style="text-decoration: underline; color: #197afe;"><strong>Rahul</strong></a></p>
+</footer>
+
+    <script>
+        function toggleLinks(id) {
+            var links = document.getElementById(id);
+            if (links.style.display === "none" || links.style.display === "") {
+                links.style.display = "block";
+            } else {
+                links.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
