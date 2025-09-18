@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +10,20 @@
 
   <!-- Required OG tags -->
   <meta property="og:title" content="Government Hospital for Mental Care (OST) Center, Visakhapatnam" />
-  <meta property="og:description"
-    content="OPIOID SUBSTITUTION THERAPY (OST) Center, Visakhapatnam (District), A.P" />
+  <meta property="og:description" content="OPIOID SUBSTITUTION THERAPY (OST) Center, Visakhapatnam (District), A.P" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://melamrahul.github.io/projects/sites/gmh/" />
   <meta property="og:image" content="https://melamrahul.github.io/projects/sites/gmh/assets/images/govt-hmc.png" />
 
   <!-- Standard Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
 
-<!-- Apple Touch Icon (iOS) -->
-<link rel="apple-touch-icon" sizes="180x180" href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
+  <!-- Apple Touch Icon (iOS) -->
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="https://melamrahul.github.io//projects/sites/gmh/assets/images/govt-hmc.png">
 
   <!-- Optional -->
   <meta property="og:site_name" content="Govt of Andhra Pradesh" />
@@ -46,6 +49,8 @@
   <!--bookman old style-->
   <link href="https://fonts.googleapis.com/css2?family=Bookman+Old+Style:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
+  <!--nirmala UI font-->
+  <link href="https://fonts.googleapis.com/css2?family=Nirmala+UI:wght@400;700&display=swap" rel="stylesheet">
   <!--Bootstrap Styles-->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <!--font awsome icons-->
@@ -84,6 +89,25 @@
       padding: 0;
       align-items: center;
       font-family: 'Times New Roman', sans-serif;
+    }
+
+    #chief-logos {
+      height: 150px;
+    }
+
+    .secTitle {
+      font-size: 24px;
+      font-family: 'bookman old style', serif;
+    }
+
+    .secSubTitle {
+      font-size: 22px;
+      font-family: 'verdana', serif;
+    }
+
+    .header-title-2 {
+      text-align: center;
+      padding: 2rem;
     }
 
     #desktop-title {
@@ -128,6 +152,24 @@
         /* Slightly smaller for tablets */
       }
 
+      #chief-logos {
+        height: 120px;
+      }
+
+      .secTitle {
+        font-size: 22px;
+        /* Even smaller for mobile devices */
+      }
+
+      .secSubTitle {
+        font-size: 20px;
+        /* Even smaller for mobile devices */
+      }
+
+      .header-title-2 {
+        padding: 0.5rem;
+      }
+
       #govt-hmc {
         font-size: 20px;
       }
@@ -147,6 +189,24 @@
         /* Even smaller for mobile devices */
       }
 
+      #chief-logos {
+        height: 110px;
+      }
+
+      .secTitle {
+        font-size: 20px;
+        /* Even smaller for mobile devices */
+      }
+
+      .secSubTitle {
+        font-size: 18px;
+        /* Even smaller for mobile devices */
+      }
+
+      .header-title-2 {
+        padding: 0.5rem;
+      }
+
       #govt-hmc {
         font-size: 18px;
       }
@@ -164,6 +224,10 @@
       #govt-ap {
         font-size: 15px;
         /* Smaller for very small devices */
+      }
+
+      #chief-logos {
+        height: 100px;
       }
 
       #govt-hmc {
@@ -455,6 +519,60 @@
         gap: 20px;
       }
     }
+
+    #title-2-cards {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100vh;
+      /* full screen height */
+      background: url("https://melamrahul.github.io/projects/sites/gmh/assets/images/boy-injection.png") no-repeat center center;
+      background-size: contain;
+      /* keep image in the center */
+    }
+
+    /* Common card styling */
+    #title-2-cards .card {
+      position: absolute;
+      max-width: 320px;
+      background: linear-gradient(0deg, #fff 0%, #eee 100%);
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Place cards at corners */
+    .top-left {
+      top: 1rem;
+      left: 1rem;
+    }
+
+    .top-right {
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .bottom-left {
+      bottom: 1rem;
+      left: 1rem;
+    }
+
+    .bottom-right {
+      bottom: 1rem;
+      right: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      #title-2-cards {
+        height: auto;
+        background-size: cover;
+      }
+
+      #title-2-cards .card {
+        position: static;
+        margin: 1rem auto;
+        display: block;
+      }
+    }
   </style>
 </head>
 
@@ -502,6 +620,10 @@
         <h6 class="card-text" style="text-align: left; color: #cfff3f;">
           Treatment for injected Drug Users and Opioid Dependence only
         </h6>
+        <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/injection.png" alt="Injection"
+          style="border-radius: 10px; height:70px; margin-top: 10px;">
+        <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/medicine.png" alt="Medicine"
+          style="border-radius: 10px; height:50px; margin-top: 10px;">
       </div>
     </div>
 
@@ -515,39 +637,6 @@
         <h5 class="card-subtitle mb-0" style="text-align: start; color: white;">STAFF NURSE - 01</h5>
       </div>
     </div>
-
-    <!-- Right Top Card: Data Card -->
-    <!-- <div class="card data-card">
-      <div class="card-body">
-        <h3 class="card-title mb-4" style="text-align: center;">
-          <span id="monthly">August</span>&nbsp;-&nbsp;<span id="yearly">2025</span>
-        </h3>
-        <h5 class="card-subtitle mb-3" style="text-align: start;">
-          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tr-count.png" style="height: 30px;">
-          Total Registration : <span id="tr-count"></span>
-        </h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start;">
-          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/male-count.png" style="height: 30px;">
-          Male: <span id="male-count"></span>
-          &nbsp;
-          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/female-count.png"
-            style="height: 30px;">
-          Female: <span id="female-count"></span>
-        </h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start;">
-          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/nr-count.png" style="height: 30px;">
-          New Registrations: <span id="nr-count"></span>
-        </h5>
-        <h5 class="card-subtitle mb-3" style="text-align: start;">
-          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tc-count.png" style="height: 30px">
-          Treatment completed: <span id="tc-count"></span>
-        </h5>
-        <h5 class="card-subtitle mb-0" style="text-align: start;">
-          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/tv-count.png" style="height: 30px">
-          No. of Visitors : <span id="tv-count"></span>
-        </h5>
-      </div>
-    </div> -->
 
     <div class="card data-card">
       <div class="card-body">
@@ -594,7 +683,7 @@
     <!-- Right Bottom Card: Key Role -->
     <div class="card key-role-card">
       <div class="card-body">
-        <h5 class="card-title mb-4" style="text-decoration: underline;">Key role GNO:</h5>
+        <h5 class="card-title mb-4" style="text-decoration: underline;">Key role NGO:</h5>
         <h5 class="card-subtitle mb-3" style="text-align: center;">New registrations through</h5>
         <h4 class="card-subtitle-title mb-3" style="text-align: center; color: #FFEB3B;">SAMIDA IDU</h4>
         <h5 class="card-subtitle mb-3" style="text-align: center; color: #cfff3f;">Visakhapatnam</h5>
@@ -602,7 +691,143 @@
     </div>
 
   </section><br><br>
+
   <hr style="border: 0.5px solid #197afe; margin-top: 10px;" id="line-divider"><br>
+  <!-- Title 2 Section with Cards at Corners -->
+  <section id="section2" style="">
+    <span style="background-color: white;">
+      <div
+        style="display: flex; justify-content: space-evenly; align-items: center; margin-bottom: 20px; background-color: white;">
+        <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/chandra-babu.png" id="chief-logos"
+          alt="Logo" style="border: 1.5px solid; border-radius: 10px; margin-right: 10px; background-color: white;">
+        <div id="desktopSecond-Title"></div>
+        <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/narendra-modi.jpeg" id="chief-logos"
+          alt="Logo" style="border: 1.5px solid; border-radius: 10px; margin-left: 10px; background-color: white;">
+      </div>
+      <div id="header-title-2" style="background-color: white;">
+        <div class="header-title-2"
+          style="background-color: #FFEB3B; border-radius: 20px; border-left: 8px solid #80d7a8; border-bottom: 8px solid #80d7a8;">
+          <h2 id="govt-ap"></h2>
+          <h3 id="govt-hmc" style="text-align: center; color: #1A237E;">OPIOID SUBSTITUTION THERAPY(OST)</h3>
+          <h4 id="opd-center" style="text-align: center; color: #1A237E;">GOVERNMENT HOSPITAL FOR MENTAL CARE</h4>
+          <h4 id="opd-center" style="text-align: center; color: #1A237E;">CHINNA WALTAIR,</h4>
+          <h4 id="address" style="text-align: center; color: #1A237E;">VISAKHAPATNAM. 530017</h4>
+        </div><br>
+      </div>
+    </span>
+
+    <span id="title-2-cards"
+      style="justify-content: space-between; background-image: url(https://melamrahul.github.io/projects/sites/gmh/assets/images/boy-injection.png);">
+      <div class="card card top-left"
+        style="background: linear-gradient(0deg, #fff 0%, #4CAF50 0%, #eee 100%); max-width: 500px;">
+        <div class="card-body">
+          <h4 class="card-title"
+            style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">చికిత్స
+            ఎవరు కోసం</h4>
+          <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+            INJECTIONS & OPIOIDS మాదకద్రవ్యాలు..
+          </h6>
+          <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+            పెంటాజోసిన్,హెరాయిన్, ఓపియమ్, ట్రమడాల్ ఇంజెక్షన్స్
+          </h6>
+          <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+            వాడుతున్న వారికీ
+            దీర్ఘకాల వ్యసనాల నుండి విముక్తి పొందటానికి
+          </h6>
+          <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+            ప్రభుత్వం ఉచితం గా చికిత్స అందిస్తుంది.
+          </h6>
+        </div>
+      </div>
+      <br>
+      <div class="card card top-right"
+        style="max-width: 500px; background: linear-gradient(0deg, #fff 0%, #9abd59 0%, #eee 100%);">
+        <div class="card-body">
+          <h4 class="card-title"
+            style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">WHAT IS
+            OST?</h4>
+          <h5>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+              Medication –assisted treatment
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+              Reduces craving & withdrawal
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+              Supports recovery & well being
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+              Confidentiality & Non Judgmental
+            </li>
+          </h5>
+        </div>
+      </div><br>
+      <div class="card card bottom-left"
+        style="max-width: 500px; background: linear-gradient(0deg, #fff 0%, #faccaa 0%, #eee 100%);">
+        <div class="card-body">
+          <h4 class="card-title"
+            style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">Who Can
+            Benfit? </h4>
+          <h5 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+            Individuals dependent on Opioids
+          </h5>
+          <h5>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.5rem; font-weight: bold;">
+              Opium
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.1rem; font-weight: bold;">
+              Heroine /brown sugar/ smack
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.1rem; font-weight: bold;">
+              Inj Pentazocin/Fortwin
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.1rem; font-weight: bold;">
+              Inj Fentanyl
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.1rem; font-weight: bold;">
+              Inj Tramadol/ TabTramadol
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.1rem; font-weight: bold;">
+              Inj Dextropropoxyphene
+            </li>
+            <li class="card-subtitle mb-2" style="text-align: start; margin-top: 0.1rem; font-weight: bold;">
+              Condeine Syrup
+            </li>
+          </h5>
+        </div>
+      </div><br>
+      <div class="card card bottom-right"
+        style="max-width: 400px; align-items: center; justify-content: center; border: 2px solid #ff0202; background: linear-gradient(0deg, #fff 0%, #eee 100%);">
+        <div class="card-body">
+          <h4 class="card-title"
+            style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">FOR
+            TREATMENT</h4>
+
+          <h5 class="card-subtitle mb-2"
+            style="text-align: start; color: #00af50; margin-top: 1rem; font-weight: bold;">
+            MONDAY-SATURDAY
+          </h5>
+          <h6 class="card-subtitle mb-2"
+            style="text-align: center; color: #ff0202; margin-top: 1rem; font-weight: bold;">
+            9 AM TO 4 PM
+          </h6>
+          <h5 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+            PUBLIC HOLIDAYS
+          </h5>
+          <h6 class="card-subtitle mb-2" style="text-align: center; margin-top: 1rem; font-weight: bold;">
+            9 AM TO 12 PM
+          </h6>
+          <h6 class="card-subtitle mb-2"
+            style="text-align: center; color: #ff0202; margin-top: 1rem; font-weight: bold;">
+            SUNDAY HOLIDAY
+          </h6>
+        </div>
+      </div>
+    </span>
+
+  </section>
+
+
   <footer
     style="background-color: #f8f9fa; padding: 10px 0; text-align: center; margin-top: 40px; border-top: 1px solid #8d8a8a;">
     <p style="margin: 0; font-size: 16px; color: #333;">
@@ -620,6 +845,9 @@
     // Script Variables
     const headertitle = document.getElementById('header-title');
     const desktoptitle = document.getElementById('desktop-title');
+    const desktoptitle2 = document.getElementById('desktopSecond-Title');
+    const headertitle2 = document.getElementById('header-title-2');
+    title2cards = document.getElementById('title-2-cards');
 
     // Device check
     function isDevice() {
@@ -628,9 +856,15 @@
         desktoptitle.style.marginTop = '-1rem';
         document.getElementById('line-divider').style.marginTop = '-12';
         headertitle.style.display = 'none';
+        desktoptitle2.innerHTML = headertitle2.innerHTML;
+        desktoptitle2.style.justifyContent = 'space-around';
+        headertitle2.style.display = 'none';
+        title2cards.style.display = 'flex';
       } else {
         headertitle.style.display = 'block';
         desktoptitle.innerHTML = '';
+        desktoptitle2.innerHTML = '';
+        headertitle2.style.display = 'block';
       }
     }
     window.onload = isDevice;
