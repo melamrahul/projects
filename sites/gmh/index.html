@@ -72,7 +72,7 @@
     }
 
     .header-logos img {
-      height: 100px;
+      height: 110px;
     }
 
     .header-title {
@@ -82,6 +82,7 @@
 
     /* Base styles */
     #govt-ap,
+    #mid-slogan,
     #govt-hmc,
     #opd-center,
     #address {
@@ -89,6 +90,10 @@
       padding: 0;
       align-items: center;
       font-family: 'Times New Roman', sans-serif;
+    }
+
+    #say-no-drugs {
+      height: 200px;
     }
 
     #chief-logos {
@@ -125,6 +130,14 @@
       /* Default size */
     }
 
+    #mid-slogan {
+      font-size: 40px;
+      color: #197afe;
+      font-weight: bold;
+      font-family: 'bookman old style', serif;
+      /* Default size */
+    }
+
     #govt-hmc {
       font-size: 22px;
       color: red;
@@ -149,6 +162,19 @@
     @media (max-width: 1200px) {
       #govt-ap {
         font-size: 22px;
+        /* Slightly smaller for tablets */
+      }
+
+      .header-logos img {
+        height: 65px;
+      }
+
+      #say-no-drugs {
+        height: 180px;
+      }
+
+      #mid-slogan {
+        font-size: 28px;
         /* Slightly smaller for tablets */
       }
 
@@ -189,6 +215,19 @@
         /* Even smaller for mobile devices */
       }
 
+      .header-logos img {
+        height: 60px;
+      }
+
+      #say-no-drugs {
+        height: 150px;
+      }
+
+      #mid-slogan {
+        font-size: 24px;
+        /* Even smaller for mobile devices */
+      }
+
       #chief-logos {
         height: 110px;
       }
@@ -224,6 +263,19 @@
       #govt-ap {
         font-size: 15px;
         /* Smaller for very small devices */
+      }
+
+      .header-logos img {
+        height: 50px;
+      }
+
+      #say-no-drugs {
+        height: 130px;
+      }
+
+      #mid-slogan {
+        font-size: 20px;
+        /* Even smaller for mobile devices */
       }
 
       #chief-logos {
@@ -579,6 +631,7 @@
 <body>
 
   <div class="header-logos">
+    <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/naco-logo.png" alt="Logo" id="govt-ap-logo">
     <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/govt-ap.png" alt="Logo" id="govt-ap-logo">
     <span id="desktop-title"></span>
     <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/govt-hmc.png" alt="Logo"
@@ -606,7 +659,8 @@
           Under control of APSACS and Guidelines by NACO, Govt. of India.
         </h6>
         <h6 class="card-text" style="text-align: left; color: white;">
-          Supervision of Dr.K.V.Ramireddy, Superintendent, Government for Mental Care and Dr.D.Vijaya Lakshmi, HoD,
+          Supervision of <span style="color: blue;">Dr.K.V.Ramireddy,</span> Superintendent, Government for Mental Care
+          and <span style="color: blue;">Dr.D.Vijaya Lakshmi</span>, HoD,
           Department of Psychiatry, AMC & Nodal Officer of OST Centre. Monitoring by Dr.R.Ramesh Babu, DTALO, Addl.DMHO,
           Visakhapatnam.
         </h6>
@@ -681,14 +735,33 @@
     </div>
 
     <!-- Right Bottom Card: Key Role -->
-    <div class="card key-role-card">
+    <!-- <div class="card key-role-card">
       <div class="card-body">
         <h5 class="card-title mb-4" style="text-decoration: underline;">Key role NGO:</h5>
         <h5 class="card-subtitle mb-3" style="text-align: center;">New registrations through</h5>
         <h4 class="card-subtitle-title mb-3" style="text-align: center; color: #FFEB3B;">SAMIDA IDU</h4>
         <h5 class="card-subtitle mb-3" style="text-align: center; color: #cfff3f;">Visakhapatnam</h5>
       </div>
+    </div> -->
+
+    <div class="card key-role-card">
+      <div class="card-body">
+        <h5 class="card-title mb-4" style="text-decoration: underline;">Key role NGO:</h5>
+        <h5 class="card-subtitle mb-3">New registrations through</h5>
+
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+          <!-- Subtitles grouped together -->
+          <div style="text-align: center;">
+            <h4 class="card-subtitle-title mb-3" style="color: #FFEB3B;">SAMIDA IDU</h4>
+            <h5 class="card-subtitle mb-3" style="color: #cfff3f;">Visakhapatnam</h5>
+          </div>
+
+          <!-- Single image for all -->
+          <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/samida-logo.jpg" alt="icon" style="height: 80px; border-radius: 10px;">
+        </div>
+      </div>
     </div>
+
 
   </section><br><br>
 
@@ -696,22 +769,20 @@
   <!-- Title 2 Section with Cards at Corners -->
   <section id="section2" style="">
     <span style="background-color: white;">
-      <div
+      <!-- <div
         style="display: flex; justify-content: space-evenly; align-items: center; margin-bottom: 20px; background-color: white;">
         <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/chandra-babu.png" id="chief-logos"
           alt="Logo" style="border: 1.5px solid; border-radius: 10px; margin-right: 10px; background-color: white;">
         <div id="desktopSecond-Title"></div>
         <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/narendra-modi.jpeg" id="chief-logos"
           alt="Logo" style="border: 1.5px solid; border-radius: 10px; margin-left: 10px; background-color: white;">
-      </div>
+      </div> -->
       <div id="header-title-2" style="background-color: white;">
-        <div class="header-title-2"
-          style="background-color: #FFEB3B; border-radius: 20px; border-left: 8px solid #80d7a8; border-bottom: 8px solid #80d7a8;">
+        <div class="header-title-2" style="background-color: #FFEB3B; border-radius: 0px; border: 4px solid #f59347;">
           <h2 id="govt-ap"></h2>
-          <h3 id="govt-hmc" style="text-align: center; color: #1A237E;">OPIOID SUBSTITUTION THERAPY(OST)</h3>
-          <h4 id="opd-center" style="text-align: center; color: #1A237E;">GOVERNMENT HOSPITAL FOR MENTAL CARE</h4>
-          <h4 id="opd-center" style="text-align: center; color: #1A237E;">CHINNA WALTAIR,</h4>
-          <h4 id="address" style="text-align: center; color: #1A237E;">VISAKHAPATNAM. 530017</h4>
+          <h1 id="mid-slogan" style="text-align: center; color: #1A237E;"> <span style="color: #1A237E;">DRUG FREE
+              ANDHRA</span> - <span style="color: red;">SAY NO TO DRUGS</span> - <span style="color: green;">SAVE
+              YOUNG</span></h1>
         </div><br>
       </div>
     </span>
@@ -723,11 +794,12 @@
         <div class="card-body">
           <h4 class="card-title"
             style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">చికిత్స
-            ఎవరు కోసం</h4>
+            ఎవరి కోసం</h4>
           <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
-            INJECTIONS & OPIOIDS మాదకద్రవ్యాలు..
+            పెంటాజోసిస్, హెరాయిన్, ఓపియమ్, ట్రమడాల్ ఇంజెక్షన్స్ ద్వారా దీర్ఘకాల వ్యసనాల నుండి విముక్తి పొందటానికి
+            ప్రభుత్వం చికిత్స అందిస్తుంది.
           </h6>
-          <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
+          <!-- <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
             పెంటాజోసిన్,హెరాయిన్, ఓపియమ్, ట్రమడాల్ ఇంజెక్షన్స్
           </h6>
           <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
@@ -736,7 +808,7 @@
           </h6>
           <h6 class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
             ప్రభుత్వం ఉచితం గా చికిత్స అందిస్తుంది.
-          </h6>
+          </h6> -->
         </div>
       </div>
       <br>
@@ -744,7 +816,7 @@
         style="max-width: 500px; background: linear-gradient(0deg, #fff 0%, #9abd59 0%, #eee 100%);">
         <div class="card-body">
           <h4 class="card-title"
-            style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">WHAT IS
+            style="text-decoration: underline; color: rgb(191, 5, 5); text-align: center; font-weight: bold;">What is
             OST?</h4>
           <h5>
             <li class="card-subtitle mb-2" style="text-align: start; margin-top: 1rem; font-weight: bold;">
@@ -824,8 +896,13 @@
         </div>
       </div>
     </span>
+  </section><br>
+  <div class="card" style="max-width: 400px; border: 2px solid #ff0202; margin: 0 auto;">
+    <img src="https://melamrahul.github.io/projects/sites/gmh/assets/images/say-no-drugs.png" alt="OST Logo"
+      id="say-no-drugs" style="display: block; margin: 0 auto;">
+  </div>
 
-  </section>
+
 
 
   <footer
