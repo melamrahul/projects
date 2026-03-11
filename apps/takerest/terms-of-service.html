@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Take Rest – Terms of Service</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --text: #202124;
+            --sub: #5f6368;
+            --border: #e0e0e0;
+            --accent: #1a73e8;
+            --bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, system-ui;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* HEADER */
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+        }
+
+        .header-wrap {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #1a73e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* LAYOUT */
+
+        .wrapper {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 40px;
+            padding: 40px 20px;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+
+        .sidebar h4 {
+            font-size: 12px;
+            color: var(--sub);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: var(--sub);
+            font-size: 14px;
+            padding: 6px 0;
+        }
+
+        .sidebar a:hover {
+            color: var(--accent);
+        }
+
+        /* CONTENT */
+
+        .content {
+            max-width: 720px;
+        }
+
+        .hero {
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: var(--sub);
+        }
+
+        section {
+            margin-bottom: 38px;
+        }
+
+        section h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        section p {
+            font-size: 15px;
+            color: var(--sub);
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        section ul {
+            padding-left: 20px;
+        }
+
+        section li {
+            margin-bottom: 8px;
+            color: var(--sub);
+        }
+
+        .warning {
+            background: #fff4e5;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 14px;
+            font-size: 14px;
+            margin-top: 14px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--sub);
+            margin-top: 60px;
+        }
+
+        @media (max-width:900px) {
+
+            .wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-wrap">
+
+            <div class="brand">
+
+                <div class="logo">TR</div>
+                Take Rest
+
+            </div>
+
+            <div style="font-size:14px;color:#5f6368">
+                Terms of Service
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="wrapper">
+
+        <!-- SIDEBAR -->
+
+        <div class="sidebar">
+
+            <h4>Contents</h4>
+
+            <a href="#acceptance">Acceptance of Terms</a>
+            <a href="#features">What Take Rest Does</a>
+            <a href="#admin">Device Administrator</a>
+            <a href="#use">Intended Use</a>
+            <a href="#warranty">Disclaimer of Warranties</a>
+            <a href="#liability">Limitation of Liability</a>
+            <a href="#changes">Changes to Terms</a>
+            <a href="#law">Governing Law</a>
+            <a href="#contact">Contact</a>
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="content">
+
+            <div class="hero">
+
+                <h1>Terms of Service</h1>
+
+                <div class="meta">
+                    Effective date: January 1, 2025 · Last updated: January 1, 2025
+                </div>
+
+            </div>
+
+            <section id="acceptance">
+
+                <h2>Acceptance of Terms</h2>
+
+                <p>
+                    By downloading, installing, or using Take Rest ("the app"), you agree to be bound by these Terms of
+                    Service. If you do not agree to these terms, please do not use the application.
+                </p>
+
+            </section>
+
+            <section id="features">
+
+                <h2>What Take Rest Does</h2>
+
+                <p>
+                    Take Rest is a screen-time management tool designed to help users build healthier digital habits by
+                    locking their device during scheduled periods or on demand.
+                </p>
+
+                <ul>
+
+                    <li>Quick Lock — instantly lock your device for a chosen duration</li>
+
+                    <li>Schedule Lock — automatically lock the device during recurring time windows</li>
+
+                    <li>Tab Protection — delay-based PIN protection to prevent accidental changes</li>
+
+                    <li>App Lock PIN — restricts access to Take Rest settings</li>
+
+                </ul>
+
+            </section>
+
+            <section id="admin">
+
+                <h2>Device Administrator Permission</h2>
+
+                <p>
+                    Take Rest requests Device Administrator permission only to lock your screen using Android's
+                    DevicePolicyManager API.
+                </p>
+
+                <ul>
+
+                    <li>The permission is used only to call <code>lockNow()</code></li>
+
+                    <li>The app cannot wipe, track, or remotely manage your device</li>
+
+                    <li>You can revoke this permission anytime through device settings</li>
+
+                </ul>
+
+                <div class="warning">
+
+                    ⚠️ If you enable Admin Protection inside the app, you must disable that option within Take Rest
+                    before removing the Device Administrator permission.
+
+                </div>
+
+            </section>
+
+            <section id="use">
+
+                <h2>Intended Use</h2>
+
+                <p>
+                    Take Rest is intended for personal use by the device owner to support healthier digital habits.
+                </p>
+
+                <ul>
+
+                    <li>Do not use the app to lock another person's device without consent</li>
+
+                    <li>Do not use the app in ways that violate local laws</li>
+
+                    <li>Do not reverse engineer or modify the app for malicious purposes</li>
+
+                </ul>
+
+            </section>
+
+            <section id="warranty">
+
+                <h2>Disclaimer of Warranties</h2>
+
+                <p>
+                    Take Rest is provided "as is" without warranties of any kind. We do not guarantee that the
+                    application will function without interruption or error on all devices or Android versions.
+                </p>
+
+            </section>
+
+            <section id="liability">
+
+                <h2>Limitation of Liability</h2>
+
+                <p>
+                    To the fullest extent permitted by law, the developer shall not be liable for damages resulting from
+                    the use or inability to use the application.
+                </p>
+
+            </section>
+
+            <section id="changes">
+
+                <h2>Changes to These Terms</h2>
+
+                <p>
+                    We may update these Terms of Service occasionally. When updates occur, the effective date at the top
+                    of this document will be updated.
+                </p>
+
+            </section>
+
+            <section id="law">
+
+                <h2>Governing Law</h2>
+
+                <p>
+                    These terms are governed by applicable local laws and jurisdiction.
+                </p>
+
+            </section>
+
+            <section id="contact">
+
+                <h2>Contact</h2>
+
+                <p>
+                    If you have questions regarding these Terms of Service, please contact us through the GitHub
+                    repository associated with this project or the app's store listing.
+                </p>
+
+            </section>
+
+        </div>
+
+    </div>
+
+    <footer>
+
+        Take Rest • Digital wellbeing tool
+
+    </footer>
+
+</body>
+
+</html>
