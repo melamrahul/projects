@@ -1,7 +1,7 @@
 {
-  "versionCode": 1,
-  "versionName": "1.0",
+  "versionCode": 2,
+  "versionName": "2.1.0",
   "apkUrl": "https://github.com/melamrahul/projects/releases/download/v1/Daily.Tools.apk",
   "forceUpdate": false,
-  "message": "Initial release of Daily Tools."
+  "message": "✨ What's New in v2.1.0\n\n• Fixed QR scanner related bugs and improved stability\n• Added In-App Update system (App Sentinel)\n• Improved app performance and startup speed\n• Minor UI improvements and smoother animations\n• General bug fixes and optimizations for better experience\n\nThank you for using Daily Tools!"
 }
