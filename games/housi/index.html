@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Housie Live — Join a Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --surface:#161a20; --surface-2:#1e242c; --surface-3:#262e38;
+  --border:#2a323d; --text:#e8eaed; --text-dim:#9aa0a6; --text-muted:#5f6368;
+  --primary:#8ab4f8; --primary-container:#1a73e8; --on-primary:#202124;
+  --accent:#fbbc04; --success:#81c995; --danger:#f28b82;
+  --shadow-1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);
+  --shadow-2:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15);
+  --shadow-3:0 4px 8px rgba(0,0,0,.3),0 8px 24px 4px rgba(0,0,0,.15);
+  --radius-s:8px; --radius-m:12px; --radius-l:16px; --radius-xl:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Roboto','Google Sans',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100vh; display:flex; flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+/* Top app bar */
+.app-bar{
+  height:64px; padding:0 24px; display:flex; align-items:center; gap:16px;
+  background:var(--surface); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:10;
+}
+.app-bar .logo{
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,#8ab4f8,#fbbc04);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; font-weight:700; color:#202124;
+}
+.app-bar h1{font-family:'Google Sans';font-size:22px;font-weight:500;letter-spacing:-.2px}
+.app-bar .spacer{flex:1}
+.app-bar a{
+  color:var(--primary); text-decoration:none; font-size:14px; font-weight:500;
+  padding:8px 16px; border-radius:20px; transition:background .2s;
+}
+.app-bar a:hover{background:rgba(138,180,248,.08)}
+
+/* Main */
+main{flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px}
+.hero-card{
+  width:100%; max-width:520px; background:var(--surface);
+  border-radius:var(--radius-xl); padding:48px 40px;
+  border:1px solid var(--border); box-shadow:var(--shadow-3);
+  text-align:center; animation:fadeUp .5s ease;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.status-pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 14px; border-radius:100px; font-size:13px; font-weight:500;
+  margin-bottom:24px; border:1px solid var(--border);
+  background:var(--surface-2); color:var(--text-dim);
+}
+.status-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted)}
+.status-pill.live{background:rgba(129,201,149,.12);border-color:rgba(129,201,149,.3);color:var(--success)}
+.status-pill.live .dot{background:var(--success);animation:pulse 1.6s infinite}
+.status-pill.waiting{background:rgba(251,188,4,.1);border-color:rgba(251,188,4,.3);color:var(--accent)}
+.status-pill.waiting .dot{background:var(--accent)}
+.status-pill.stopped{background:rgba(242,139,130,.12);border-color:rgba(242,139,130,.3);color:var(--danger)}
+.status-pill.stopped .dot{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.hero-card h2{
+  font-family:'Google Sans'; font-size:32px; font-weight:400;
+  margin-bottom:8px; letter-spacing:-.5px;
+}
+.hero-card .sub{color:var(--text-dim); font-size:15px; margin-bottom:32px; line-height:1.5}
+
+.session-card{
+  background:var(--surface-2); border-radius:var(--radius-l);
+  padding:20px; margin-bottom:28px; text-align:left;
+  border:1px solid var(--border);
+}
+.session-card .lbl{
+  font-size:11px; font-weight:500; letter-spacing:.8px;
+  text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;
+}
+.session-card .val{font-family:'Google Sans';font-size:18px;font-weight:500;color:var(--text)}
+.session-card .meta{margin-top:12px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:16px; font-size:13px; color:var(--text-dim)}
+.session-card .meta strong{color:var(--text); font-weight:500}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:14px 28px; border-radius:100px; border:none;
+  font-family:'Google Sans'; font-size:15px; font-weight:500;
+  cursor:pointer; transition:all .2s; letter-spacing:.2px;
+}
+.btn-primary{background:var(--primary);color:#202124;width:100%}
+.btn-primary:hover{background:#aecbfa;box-shadow:var(--shadow-2)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{background:var(--surface-3); color:var(--text-muted); cursor:not-allowed; box-shadow:none}
+.btn-outlined{background:transparent;color:var(--primary);border:1px solid var(--border)}
+.btn-outlined:hover{background:rgba(138,180,248,.08);border-color:var(--primary)}
+
+.hint{margin-top:16px; font-size:13px; color:var(--text-dim); line-height:1.5}
+.hint.err{color:var(--danger)}
+.spinner{
+  width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:#202124; border-radius:50%;
+  animation:spin .8s linear infinite; display:inline-block;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header class="app-bar">
+  <div class="logo">H</div>
+  <h1>Housie Live</h1>
+  <div class="spacer"></div>
+  <a href="admin.html">Admin Panel</a>
+</header>
+
+<main>
+  <div class="hero-card">
+    <div class="status-pill" id="statusPill">
+      <span class="dot"></span>
+      <span id="statusText">Checking session…</span>
+    </div>
+    <h2>Join the game</h2>
+    <p class="sub">Get your ticket and play live with everyone in the session.</p>
+
+    <div class="session-card">
+      <div class="lbl">Current Session</div>
+      <div class="val" id="sessionName">—</div>
+      <div class="meta">
+        <div>Players: <strong id="playerCount">0</strong></div>
+        <div>Numbers called: <strong id="calledCount">0</strong></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="joinBtn" disabled>
+      <span id="joinBtnText">Join Housie</span>
+    </button>
+    <p class="hint" id="hint">Waiting for the admin to start a session…</p>
+  </div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+const statusPill = document.getElementById('statusPill');
+const statusText = document.getElementById('statusText');
+const sessionNameEl = document.getElementById('sessionName');
+const playerCountEl = document.getElementById('playerCount');
+const calledCountEl = document.getElementById('calledCount');
+const joinBtn = document.getElementById('joinBtn');
+const joinBtnText = document.getElementById('joinBtnText');
+const hint = document.getElementById('hint');
+
+let currentSessionId = null;
+let listeners = [];
+
+function detachAll() { listeners.forEach(fn => fn()); listeners = []; }
+
+function setStatus(state, text) {
+  statusPill.className = 'status-pill' + (state ? ' ' + state : '');
+  statusText.textContent = text;
+}
+
+db.ref('housie/activeSessionId').on('value', snap => {
+  currentSessionId = snap.val();
+  detachAll();
+  if (!currentSessionId) {
+    sessionNameEl.textContent = 'No active session';
+    setStatus('stopped', 'No active session');
+    joinBtn.disabled = true;
+    joinBtnText.textContent = 'Join Housie';
+    hint.textContent = 'The admin has not created a session yet. Please wait.';
+    hint.className = 'hint';
+    return;
+  }
+  attachSession(currentSessionId);
+});
+
+function attachSession(sessionId) {
+  const ref = db.ref(`housie/sessions/${sessionId}`);
+  const onVal = ref.on('value', snap => {
+    const s = snap.val();
+    if (!s) { setStatus('stopped', 'Session ended'); joinBtn.disabled = true; return; }
+    sessionNameEl.textContent = s.name || 'Unnamed Session';
+    playerCountEl.textContent = s.players ? Object.keys(s.players).length : 0;
+    const called = s.calledNumbers ? Object.keys(s.calledNumbers).length : 0;
+    calledCountEl.textContent = called;
+
+    if (s.status === 'active') {
+      setStatus('live', 'Session is LIVE');
+      joinBtn.disabled = false;
+      joinBtnText.textContent = 'Join Housie';
+      hint.textContent = `Playing as ticket holder. Numbers called: ${called}/90`;
+      hint.className = 'hint';
+    } else if (s.status === 'waiting') {
+      setStatus('waiting', 'Waiting to start');
+      joinBtn.disabled = true;
+      joinBtnText.textContent = 'Waiting for admin…';
+      hint.textContent = 'The admin will start the session soon.';
+      hint.className = 'hint';
+    } else {
+      setStatus('stopped', 'Session ended');
+      joinBtn.disabled = true;
+      joinBtnText.textContent = 'Session ended';
+      hint.textContent = 'This session has ended.';
+      hint.className = 'hint';
+    }
+  });
+  listeners.push(() => ref.off('value', onVal));
+}
+
+joinBtn.addEventListener('click', () => {
+  if (!currentSessionId) return;
+  joinBtn.disabled = true;
+  joinBtn.innerHTML = '<span class="spinner"></span> Joining…';
+  window.location.href = `player.html?session=${currentSessionId}`;
+});
+</script>
+</body>
+  </html>
