@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Housie — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --surface:#161a20; --surface-2:#1e242c; --surface-3:#262e38;
+  --border:#2a323d; --text:#e8eaed; --text-dim:#9aa0a6; --text-muted:#5f6368;
+  --primary:#8ab4f8; --accent:#fbbc04; --success:#81c995; --danger:#f28b82;
+  --shadow-1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);
+  --shadow-2:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15);
+  --shadow-3:0 4px 8px rgba(0,0,0,.3),0 8px 24px 4px rgba(0,0,0,.15);
+  --radius-s:8px; --radius-m:12px; --radius-l:16px; --radius-xl:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Roboto','Google Sans',system-ui,sans-serif;
+  background:var(--bg); color:var(--text); min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.app-bar{
+  height:64px; padding:0 24px; display:flex; align-items:center; gap:16px;
+  background:var(--surface); border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:20;
+}
+.app-bar .logo{
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,#8ab4f8,#fbbc04);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; font-weight:700; color:#202124;
+}
+.app-bar h1{font-family:'Google Sans';font-size:20px;font-weight:500}
+.app-bar .spacer{flex:1}
+.app-bar a{
+  color:var(--primary); text-decoration:none; font-size:14px; font-weight:500;
+  padding:8px 16px; border-radius:20px; transition:background .2s;
+}
+.app-bar a:hover{background:rgba(138,180,248,.08)}
+
+main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction:column; gap:24px}
+
+/* Stat cards */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px}
+.stat{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-l); padding:20px; box-shadow:var(--shadow-1);
+}
+.stat .lbl{font-size:12px; letter-spacing:.8px; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px}
+.stat .val{font-family:'Google Sans'; font-size:28px; font-weight:500; color:var(--text)}
+.stat .val.small{font-size:18px}
+
+/* Sections */
+.grid-2{display:grid; grid-template-columns:1.2fr 1fr; gap:24px}
+@media(max-width:1000px){ .grid-2{grid-template-columns:1fr} }
+
+.card{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-l); box-shadow:var(--shadow-1);
+  padding:24px;
+}
+.card-title{
+  font-family:'Google Sans'; font-size:16px; font-weight:500;
+  margin-bottom:18px; display:flex; align-items:center; justify-content:space-between;
+}
+.card-title .badge{
+  background:var(--surface-3); color:var(--text-dim);
+  font-size:11px; padding:2px 10px; border-radius:100px; font-weight:500;
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:10px 20px; border-radius:100px; border:none;
+  font-family:'Google Sans'; font-size:14px; font-weight:500;
+  cursor:pointer; transition:all .2s; letter-spacing:.2px;
+}
+.btn-primary{background:var(--primary); color:#202124}
+.btn-primary:hover{background:#aecbfa; box-shadow:var(--shadow-2)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{background:var(--surface-3); color:var(--text-muted); cursor:not-allowed; box-shadow:none}
+.btn-success{background:var(--success); color:#202124}
+.btn-success:hover{background:#a5dab5}
+.btn-danger{background:var(--danger); color:#202124}
+.btn-danger:hover{background:#f6a8a0}
+.btn-outlined{background:transparent; color:var(--primary); border:1px solid var(--border)}
+.btn-outlined:hover{background:rgba(138,180,248,.08); border-color:var(--primary)}
+.btn-sm{padding:6px 14px; font-size:12px}
+
+.action-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px}
+
+/* Session form */
+.form-row{display:flex; gap:10px; margin-bottom:16px}
+.form-row input{
+  flex:1; padding:12px 16px; border-radius:var(--radius-m);
+  border:1px solid var(--border); background:var(--surface-2);
+  color:var(--text); font-size:14px; outline:none; font-family:'Roboto';
+}
+.form-row input:focus{border-color:var(--primary); box-shadow:0 0 0 3px rgba(138,180,248,.15)}
+
+/* Rotator panel */
+.rotator-panel{
+  background:var(--surface-2); border-radius:var(--radius-l);
+  padding:24px; text-align:center; margin-bottom:16px;
+}
+.rotator-mini{
+  width:120px; height:120px; border-radius:50%; margin:0 auto 16px;
+  background:radial-gradient(circle at 30% 30%, #2d3541, #1a1f26);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Google Sans'; font-size:56px; font-weight:700;
+  color:var(--accent); border:2px solid var(--surface-3);
+  box-shadow:inset 0 0 30px rgba(251,188,4,.08);
+}
+.rotator-mini.spin{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.85);opacity:.6}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+.rotator-info{font-size:13px; color:var(--text-dim)}
+.rotator-info strong{color:var(--text)}
+
+/* Leaderboard */
+.leaderboard{display:flex; flex-direction:column; gap:8px; max-height:400px; overflow-y:auto}
+.lb-row{
+  display:grid; grid-template-columns:32px 1fr auto auto; gap:12px;
+  align-items:center; padding:12px 14px; border-radius:var(--radius-m);
+  background:var(--surface-2); border:1px solid var(--border);
+  transition:all .2s;
+}
+.lb-row.win15{
+  background:rgba(251,188,4,.08); border-color:rgba(251,188,4,.3);
+}
+.lb-row.win5{
+  background:rgba(138,180,248,.06); border-color:rgba(138,180,248,.25);
+}
+.lb-rank{
+  width:28px; height:28px; border-radius:50%;
+  background:var(--surface-3); display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:600; color:var(--text-dim);
+}
+.lb-rank.gold{background:var(--accent); color:#202124}
+.lb-rank.silver{background:#c0c0c0; color:#202124}
+.lb-rank.bronze{background:#cd7f32; color:#fff}
+.lb-name{font-size:14px; font-weight:500; color:var(--text)}
+.lb-name small{display:block; font-size:11px; font-weight:400; color:var(--text-muted); margin-top:2px}
+.lb-meta{font-size:11px; color:var(--text-muted); text-align:right; white-space:nowrap}
+.lb-marked{
+  font-family:'Google Sans'; font-size:14px; font-weight:500;
+  color:var(--text-dim); min-width:56px; text-align:right;
+}
+.lb-marked strong{color:var(--accent)}
+.empty{color:var(--text-muted); font-size:13px; text-align:center; padding:24px 0; font-style:italic}
+
+/* Player table */
+.players-table{width:100%; border-collapse:collapse}
+.players-table th{
+  text-align:left; font-size:11px; text-transform:uppercase;
+  letter-spacing:.8px; color:var(--text-muted); font-weight:500;
+  padding:8px 12px; border-bottom:1px solid var(--border);
+}
+.players-table td{
+  padding:12px; font-size:13px; color:var(--text);
+  border-bottom:1px solid var(--border);
+}
+.players-table tr:last-child td{border-bottom:none}
+.chip{
+  display:inline-block; padding:2px 8px; border-radius:100px;
+  font-size:11px; font-weight:500;
+}
+.chip.blue{background:rgba(138,180,248,.15); color:var(--primary)}
+.chip.green{background:rgba(129,201,149,.15); color:var(--success)}
+.chip.gold{background:rgba(251,188,4,.15); color:var(--accent)}
+.chip.muted{background:var(--surface-3); color:var(--text-muted)}
+
+/* Recent calls */
+.calls-strip{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+.call-chip{
+  background:var(--surface-3); color:var(--text-dim);
+  padding:6px 12px; border-radius:100px; font-size:13px; font-weight:500;
+}
+.call-chip.latest{background:var(--accent); color:#202124; font-weight:700}
+
+/* Toast */
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--surface-3); color:var(--text);
+  padding:14px 24px; border-radius:var(--radius-m);
+  box-shadow:var(--shadow-3); border:1px solid var(--border);
+  font-size:14px; opacity:0; pointer-events:none;
+  transition:all .3s ease; z-index:1000;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+.toast.err{border-color:rgba(242,139,130,.5); color:var(--danger)}
+</style>
+</head>
+<body>
+<header class="app-bar">
+  <div class="logo">H</div>
+  <h1>Admin Dashboard</h1>
+  <div class="spacer"></div>
+  <a href="index.html" target="_blank">Open Player View →</a>
+</header>
+
+<main>
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="lbl">Session status</div>
+      <div class="val small" id="statStatus">—</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Players joined</div>
+      <div class="val" id="statPlayers">0</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Numbers called</div>
+      <div class="val" id="statCalled">0</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">First-5 winners</div>
+      <div class="val" id="statWin5">0</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Full house winners</div>
+      <div class="val" id="statWin15">0</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Left: session control + rotator -->
+    <div style="display:flex; flex-direction:column; gap:24px">
+      <div class="card">
+        <div class="card-title">Session control</div>
+        <div class="form-row">
+          <input type="text" id="newSessionName" placeholder="Session name (e.g. Friday Game Night)" maxlength="40">
+        </div>
+        <div class="action-row">
+          <button class="btn btn-primary" id="createBtn">＋ Create Session</button>
+          <button class="btn btn-success" id="startBtn" disabled>▶ Start</button>
+          <button class="btn btn-danger" id="stopBtn" disabled>■ Stop</button>
+        </div>
+        <div style="font-size:13px; color:var(--text-dim); line-height:1.6" id="sessionInfo">
+          No session loaded.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          Rotator
+          <span class="badge" id="rotatorBadge">—</span>
+        </div>
+        <div class="rotator-panel">
+          <div class="rotator-mini" id="rotatorMini">—</div>
+          <div class="rotator-info">
+            Called <strong id="rotatorCalled">0</strong>/90 •
+            Remaining <strong id="rotatorRemaining">90</strong>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="spinBtn" style="width:100%; padding:14px" disabled>
+          🎲 Spin next number
+        </button>
+        <div class="calls-strip" id="callsStrip"></div>
+      </div>
+    </div>
+
+    <!-- Right: leaderboard + players -->
+    <div style="display:flex; flex-direction:column; gap:24px">
+      <div class="card">
+        <div class="card-title">
+          Leaderboard
+          <span class="badge" id="lbBadge">0 players</span>
+        </div>
+        <div class="leaderboard" id="leaderboard">
+          <div class="empty">No players yet.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">All players</div>
+        <div style="max-height:320px; overflow-y:auto">
+          <table class="players-table">
+            <thead>
+              <tr><th>Name</th><th>Marked</th><th>Status</th></tr>
+            </thead>
+            <tbody id="playersTbody">
+              <tr><td colspan="3" class="empty">No players joined yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let activeSessionId = null;
+let sessionListeners = [];
+
+function toast(msg, isErr) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' err' : '');
+  setTimeout(() => t.className = 'toast', 2600);
+}
+
+function detach() { sessionListeners.forEach(fn => fn()); sessionListeners = []; }
+
+// Watch active session pointer
+db.ref('housie/activeSessionId').on('value', snap => {
+  activeSessionId = snap.val();
+  detach();
+  if (!activeSessionId) {
+    clearUI();
+    return;
+  }
+  attachSession(activeSessionId);
+});
+
+function clearUI() {
+  $('statStatus').textContent = '—';
+  $('statPlayers').textContent = '0';
+  $('statCalled').textContent = '0';
+  $('statWin5').textContent = '0';
+  $('statWin15').textContent = '0';
+  $('rotatorMini').textContent = '—';
+  $('rotatorCalled').textContent = '0';
+  $('rotatorRemaining').textContent = '90';
+  $('callsStrip').innerHTML = '';
+  $('leaderboard').innerHTML = '<div class="empty">No players yet.</div>';
+  $('playersTbody').innerHTML = '<tr><td colspan="3" class="empty">No players joined yet.</td></tr>';
+  $('spinBtn').disabled = true;
+  $('startBtn').disabled = true;
+  $('stopBtn').disabled = true;
+  $('sessionInfo').textContent = 'No active session. Create one to begin.';
+  $('lbBadge').textContent = '0 players';
+  $('rotatorBadge').textContent = '—';
+}
+
+function attachSession(sessionId) {
+  const ref = db.ref(`housie/sessions/${sessionId}`);
+
+  const onVal = ref.on('value', snap => {
+    const s = snap.val();
+    if (!s) { clearUI(); return; }
+    renderSession(s, sessionId);
+  });
+  sessionListeners.push(() => ref.off('value', onVal));
+}
+
+function renderSession(s, sessionId) {
+  const called = s.calledNumbers ? Object.keys(s.calledNumbers).map(Number) : [];
+  const players = s.players ? Object.values(s.players) : [];
+  const win5 = players.filter(p => p.won5).length;
+  const win15 = players.filter(p => p.won15).length;
+
+  // Stats
+  $('statStatus').textContent = s.status === 'active' ? '🟢 Live' : s.status === 'waiting' ? '⏳ Waiting' : '⛔ Stopped';
+  $('statPlayers').textContent = players.length;
+  $('statCalled').textContent = called.length;
+  $('statWin5').textContent = win5;
+  $('statWin15').textContent = win15;
+
+  // Session controls
+  $('sessionInfo').innerHTML = `
+    <strong style="color:#e8eaed">${HousieUtils.escapeHtml(s.name || 'Unnamed')}</strong><br>
+    ID: <code style="color:#8ab4f8">${sessionId}</code><br>
+    Status: ${s.status}
+  `;
+  $('startBtn').disabled = s.status !== 'waiting';
+  $('stopBtn').disabled = s.status !== 'active';
+  $('spinBtn').disabled = s.status !== 'active' || called.length >= 90;
+  $('rotatorBadge').textContent = s.status === 'active' ? 'LIVE' : s.status.toUpperCase();
+
+  // Rotator
+  const last = s.lastCalled;
+  if (last) {
+    if ($('rotatorMini').textContent !== String(last)) {
+      $('rotatorMini').textContent = last;
+      $('rotatorMini').classList.remove('spin');
+      void $('rotatorMini').offsetWidth;
+      $('rotatorMini').classList.add('spin');
+    }
+  } else {
+    $('rotatorMini').textContent = '—';
+  }
+  $('rotatorCalled').textContent = called.length;
+  $('rotatorRemaining').textContent = 90 - called.length;
+
+  // Recent calls strip
+  const recent = [...called].slice(-12).reverse();
+  if (recent.length === 0) {
+    $('callsStrip').innerHTML = '';
+  } else {
+    $('callsStrip').innerHTML = recent.map((n, i) =>
+      `<span class="call-chip ${i === 0 ? 'latest' : ''}">${n}</span>`
+    ).join('');
+  }
+
+  // Players table
+  if (players.length === 0) {
+    $('playersTbody').innerHTML = '<tr><td colspan="3" class="empty">No players joined yet.</td></tr>';
+  } else {
+    const sorted = [...players].sort((a, b) => {
+      if (a.won15 && !b.won15) return -1;
+      if (!a.won15 && b.won15) return 1;
+      return (b.marked?.length || 0) - (a.marked?.length || 0);
+    });
+    $('playersTbody').innerHTML = sorted.map(p => {
+      const marked = (p.marked || []).length;
+      let statusChip = '<span class="chip muted">Playing</span>';
+      if (p.won15) statusChip = '<span class="chip gold">🏆 Full House</span>';
+      else if (p.won5) statusChip = '<span class="chip green">✅ First 5</span>';
+      return `<tr>
+        <td><strong>${HousieUtils.escapeHtml(p.name)}</strong></td>
+        <td><span class="chip blue">${marked}/15</span></td>
+        <td>${statusChip}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Leaderboard
+  const winners = players.filter(p => p.won5 || p.won15);
+  $('lbBadge').textContent = `${winners.length} winner${winners.length !== 1 ? 's' : ''}`;
+  if (winners.length === 0) {
+    $('leaderboard').innerHTML = '<div class="empty">Waiting for the first winner…</div>';
+  } else {
+    // Sort: win15 first by won15At, then win5 by won5At
+    const fullHouse = winners.filter(p => p.won15).sort((a,b) => (a.won15At||0) - (b.won15At||0));
+    const first5 = winners.filter(p => p.won5 && !p.won15).sort((a,b) => (a.won5At||0) - (b.won5At||0));
+
+    let rows = [];
+    fullHouse.forEach((p, i) => rows.push({ p, rank: i+1, type: 'full' }));
+    first5.forEach((p, i) => rows.push({ p, rank: i+1, type: 'first5' }));
+
+    $('leaderboard').innerHTML = rows.map(r => {
+      const p = r.p;
+      const isFull = r.type === 'full';
+      const rankClass = isFull && r.rank <= 3 ? ['gold','silver','bronze'][r.rank-1] : '';
+      const rowClass = isFull ? 'win15' : 'win5';
+      const marked = (p.marked || []).length;
+      const time = isFull ? HousieUtils.formatTime(p.won15At) : HousieUtils.formatTime(p.won5At);
+      return `
+        <div class="lb-row ${rowClass}">
+          <div class="lb-rank ${rankClass}">${r.rank}</div>
+          <div class="lb-name">
+            ${HousieUtils.escapeHtml(p.name)}
+            <small>${isFull ? '🏆 Full house' : '✅ First 5'} • ${time}</small>
+          </div>
+          <div class="lb-marked"><strong>${marked}</strong>/15</div>
+          <div class="lb-meta">${isFull ? 'WINNER' : 'FIRST 5'}</div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// Create session
+$('createBtn').addEventListener('click', async () => {
+  const name = $('newSessionName').value.trim();
+  if (!name) { toast('Enter a session name.', true); return; }
+  try {
+    const id = 's_' + Date.now();
+    await db.ref(`housie/sessions/${id}`).set({
+      name,
+      status: 'waiting',
+      createdAt: Date.now(),
+      calledNumbers: {},
+      players: {}
+    });
+    await db.ref('housie/activeSessionId').set(id);
+    $('newSessionName').value = '';
+    toast('Session created: ' + name);
+  } catch (e) {
+    toast('Create failed: ' + e.message, true);
+  }
+});
+
+// Start
+$('startBtn').addEventListener('click', async () => {
+  if (!activeSessionId) return;
+  try {
+    await db.ref(`housie/sessions/${activeSessionId}/status`).set('active');
+    await db.ref(`housie/sessions/${activeSessionId}/startedAt`).set(Date.now());
+    toast('Session started');
+  } catch (e) { toast('Start failed: ' + e.message, true); }
+});
+
+// Stop
+$('stopBtn').addEventListener('click', async () => {
+  if (!activeSessionId) return;
+  if (!confirm('Stop this session? Players will not be able to join or mark numbers.')) return;
+  try {
+    await db.ref(`housie/sessions/${activeSessionId}/status`).set('stopped');
+    await db.ref(`housie/sessions/${activeSessionId}/stoppedAt`).set(Date.now());
+    toast('Session stopped');
+  } catch (e) { toast('Stop failed: ' + e.message, true); }
+});
+
+// Spin
+$('spinBtn').addEventListener('click', async () => {
+  if (!activeSessionId) return;
+  const ref = db.ref(`housie/sessions/${activeSessionId}`);
+  try {
+    const snap = await ref.once('value');
+    const s = snap.val();
+    if (!s || s.status !== 'active') { toast('Session is not active.', true); return; }
+    const called = s.calledNumbers ? Object.keys(s.calledNumbers).map(Number) : [];
+    if (called.length >= 90) { toast('All 90 numbers have been called.', true); return; }
+
+    let num;
+    do { num = Math.floor(Math.random() * 90) + 1; } while (called.includes(num));
+
+    await ref.child(`calledNumbers/${num}`).set(true);
+    await ref.child('lastCalled').set(num);
+
+    // Check if any player auto-won 5 or 15? No—players mark manually.
+    toast('Called: ' + num);
+  } catch (e) { toast('Spin failed: ' + e.message, true); }
+});
+
+// Initialize
+clearUI();
+</script>
+</body>
+  </html>
