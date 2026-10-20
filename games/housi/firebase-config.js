@@ -11,7 +11,7 @@ if (!firebase.apps.length) {
 }
 const db = firebase.database();
 
-// Shared utility
+// Shared utility functions
 const HousieUtils = {
     // Generate a standard 3x9 ticket with 15 numbers
     generateTicket() {
