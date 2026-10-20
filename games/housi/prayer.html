@@ -23,7 +23,6 @@ body{
   background:var(--bg); color:var(--text); min-height:100vh;
   -webkit-font-smoothing:antialiased;
 }
-/* App bar */
 .app-bar{
   height:64px; padding:0 24px; display:flex; align-items:center; gap:16px;
   background:var(--surface); border-bottom:1px solid var(--border);
@@ -50,7 +49,6 @@ body{
 }
 .user-chip .name{font-weight:500; color:var(--text)}
 
-/* Status strip */
 .status-strip{
   padding:10px 24px; display:flex; align-items:center; gap:8px;
   background:var(--surface-2); border-bottom:1px solid var(--border);
@@ -61,20 +59,17 @@ body{
 .status-dot.stopped{background:var(--danger)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* Main layout */
 main{
   max-width:1280px; margin:0 auto; padding:24px;
   display:grid; grid-template-columns:1fr 380px; gap:24px;
 }
 @media(max-width:1000px){ main{grid-template-columns:1fr} }
 
-/* Card base */
 .card{
   background:var(--surface); border:1px solid var(--border);
   border-radius:var(--radius-l); box-shadow:var(--shadow-1);
 }
 
-/* Rotator card */
 .rotator-card{padding:28px; margin-bottom:24px; display:flex; flex-direction:column; align-items:center}
 .rotator-label{font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px}
 .rotator-number{
@@ -88,12 +83,9 @@ main{
 }
 .rotator-number.spin{animation:pop .35s ease}
 @keyframes pop{0%{transform:scale(.85);opacity:.6}50%{transform:scale(1.1)}100%{transform:scale(1)}}
-.rotator-meta{
-  margin-top:16px; display:flex; gap:24px; font-size:13px; color:var(--text-dim);
-}
+.rotator-meta{margin-top:16px; display:flex; gap:24px; font-size:13px; color:var(--text-dim)}
 .rotator-meta strong{color:var(--text); font-weight:500}
 
-/* Grid card */
 .grid-card{padding:24px}
 .card-title{
   font-family:'Google Sans'; font-size:16px; font-weight:500;
@@ -103,9 +95,7 @@ main{
   background:var(--surface-3); color:var(--text-dim);
   font-size:11px; padding:2px 8px; border-radius:100px; font-weight:500;
 }
-.grid-90{
-  display:grid; grid-template-columns:repeat(10, 1fr); gap:6px;
-}
+.grid-90{display:grid; grid-template-columns:repeat(10, 1fr); gap:6px}
 .num-cell{
   aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
   background:var(--surface-2); border-radius:var(--radius-s);
@@ -122,19 +112,15 @@ main{
   transform:scale(1.08); z-index:2;
 }
 
-/* Sidebar */
 .sidebar{display:flex; flex-direction:column; gap:16px}
 
-/* Ticket card */
 .ticket-card{padding:20px}
 .ticket-header{
   display:flex; justify-content:space-between; align-items:center;
   margin-bottom:14px;
 }
 .ticket-header h3{font-family:'Google Sans';font-size:15px;font-weight:500}
-.ticket-header .count{
-  font-size:13px; color:var(--text-dim);
-}
+.ticket-header .count{font-size:13px; color:var(--text-dim)}
 .ticket-header .count strong{color:var(--accent); font-weight:500}
 .ticket-grid{
   display:grid; grid-template-columns:repeat(9, 1fr); gap:4px;
@@ -161,7 +147,6 @@ main{
   50%{box-shadow:0 0 12px rgba(138,180,248,.5)}
 }
 
-/* Progress card */
 .progress-card{padding:20px}
 .progress-track{
   height:6px; background:var(--surface-3); border-radius:100px;
@@ -173,7 +158,6 @@ main{
 }
 .progress-row{display:flex; justify-content:space-between; font-size:13px; color:var(--text-dim)}
 
-/* Status msg */
 .status-msg{
   padding:14px 16px; border-radius:var(--radius-m);
   background:var(--surface-2); border:1px solid var(--border);
@@ -190,7 +174,6 @@ main{
 }
 .status-msg .icon{font-size:16px}
 
-/* Modal */
 .modal-overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.7);
   backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center;
@@ -234,7 +217,6 @@ main{
 </head>
 <body>
 
-<!-- Name modal -->
 <div class="modal-overlay" id="nameModal">
   <div class="modal">
     <h2>Join the session</h2>
@@ -245,7 +227,6 @@ main{
   </div>
 </div>
 
-<!-- Game UI -->
 <div id="gameRoot" class="hidden">
   <header class="app-bar">
     <div class="logo">H</div>
@@ -263,7 +244,6 @@ main{
   </div>
 
   <main>
-    <!-- Left: rotator + grid -->
     <div>
       <div class="card rotator-card">
         <div class="rotator-label">Last called number</div>
@@ -280,7 +260,6 @@ main{
       </div>
     </div>
 
-    <!-- Right: ticket + progress -->
     <div class="sidebar">
       <div class="card ticket-card">
         <div class="ticket-header">
@@ -330,11 +309,9 @@ if (!sessionId) {
 let playerId = null, playerName = null, myTicket = null;
 let myMarked = [], calledNumbers = [], lastCalled = null;
 let hasWon5 = false, hasWon15 = false;
-let listeners = [];
 
 const $ = id => document.getElementById(id);
 
-// DOM refs
 const nameModal = $('nameModal');
 const nameInput = $('nameInput');
 const confirmNameBtn = $('confirmNameBtn');
@@ -354,7 +331,6 @@ const statusMsg = $('statusMsg');
 const chipName = $('chipName');
 const avatarInitials = $('avatarInitials');
 
-// Build 90 grid
 function buildGrid() {
   grid90.innerHTML = '';
   for (let i = 1; i <= 90; i++) {
@@ -367,7 +343,6 @@ function buildGrid() {
 }
 buildGrid();
 
-// Ticket rendering
 function renderTicket() {
   ticketGrid.innerHTML = '';
   for (let r = 0; r < 3; r++) {
@@ -395,7 +370,6 @@ function renderTicket() {
   win15Label.textContent = hasWon15 ? '🏆 Yes' : '—';
 }
 
-// Mark handling
 async function handleMark(num) {
   if (hasWon15) { showStatus('win', '🏆 You already completed a full house!'); return; }
   if (myMarked.includes(num)) { showStatus('info', `${num} is already marked.`); return; }
@@ -429,7 +403,6 @@ function showStatus(type, text) {
   statusMsg.innerHTML = `<span class="icon">${type === 'win' ? '🏆' : '🎯'}</span><span>${HousieUtils.escapeHtml(text)}</span>`;
 }
 
-// Register
 confirmNameBtn.addEventListener('click', async () => {
   const name = nameInput.value.trim();
   modalErr.classList.remove('show');
@@ -481,11 +454,10 @@ function startGame() {
   attachListeners();
 }
 
-// Listeners
 function attachListeners() {
   const sessionRef = db.ref(`housie/sessions/${sessionId}`);
 
-  const onCalled = snap => {
+  sessionRef.child('calledNumbers').on('value', snap => {
     const val = snap.val() || {};
     calledNumbers = Object.keys(val).map(Number);
     calledCountEl.textContent = calledNumbers.length;
@@ -494,11 +466,9 @@ function attachListeners() {
       cell.classList.toggle('called', calledNumbers.includes(n));
     });
     renderTicket();
-  };
-  sessionRef.child('calledNumbers').on('value', onCalled);
-  listeners.push(() => sessionRef.child('calledNumbers').off('value', onCalled));
+  });
 
-  const onLast = snap => {
+  sessionRef.child('lastCalled').on('value', snap => {
     const last = snap.val();
     if (last) {
       lastCalled = last;
@@ -511,11 +481,9 @@ function attachListeners() {
         cell.classList.toggle('last-called', n === last);
       });
     }
-  };
-  sessionRef.child('lastCalled').on('value', onLast);
-  listeners.push(() => sessionRef.child('lastCalled').off('value', onLast));
+  });
 
-  const onMe = snap => {
+  sessionRef.child(`players/${playerId}`).on('value', snap => {
     const d = snap.val();
     if (!d) return;
     if (Array.isArray(d.marked) && d.marked.length !== myMarked.length) {
@@ -524,23 +492,18 @@ function attachListeners() {
     }
     if (d.won5 && !hasWon5) { hasWon5 = true; renderTicket(); }
     if (d.won15 && !hasWon15) { hasWon15 = true; renderTicket(); showStatus('win', '🏆 Full house complete!'); }
-  };
-  sessionRef.child(`players/${playerId}`).on('value', onMe);
-  listeners.push(() => sessionRef.child(`players/${playerId}`).off('value', onMe));
+  });
 
-  const onStatus = snap => {
+  sessionRef.child('status').on('value', snap => {
     const s = snap.val();
     if (s === 'stopped') {
       $('statusDot').className = 'status-dot stopped';
       $('statusLabel').textContent = 'Session ended';
       showStatus('info', '⛔ The admin has stopped this session.');
     }
-  };
-  sessionRef.child('status').on('value', onStatus);
-  listeners.push(() => sessionRef.child('status').off('value', onStatus));
+  });
 }
 
-// Auto recover
 (function recover() {
   const saved = localStorage.getItem(`housie_${sessionId}_player`);
   if (!saved) return;
