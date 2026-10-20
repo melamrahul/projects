@@ -3,61 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Housie Live — Join a Session</title>
+<title>Housie Live</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0f1115; --surface:#161a20; --surface-2:#1e242c; --surface-3:#262e38;
   --border:#2a323d; --text:#e8eaed; --text-dim:#9aa0a6; --text-muted:#5f6368;
   --primary:#8ab4f8; --accent:#fbbc04; --success:#81c995; --danger:#f28b82;
-  --shadow-1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);
   --shadow-2:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15);
   --shadow-3:0 4px 8px rgba(0,0,0,.3),0 8px 24px 4px rgba(0,0,0,.15);
-  --radius-s:8px; --radius-m:12px; --radius-l:16px; --radius-xl:28px;
+  --radius-s:8px; --radius-m:12px; --radius-l:16px; --radius-xl:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:'Roboto','Google Sans',system-ui,sans-serif;
-  background:var(--bg); color:var(--text);
-  min-height:100vh; display:flex; flex-direction:column;
-  -webkit-font-smoothing:antialiased;
-}
-.app-bar{
-  height:64px; padding:0 24px; display:flex; align-items:center; gap:16px;
-  background:var(--surface); border-bottom:1px solid var(--border);
-  position:sticky; top:0; z-index:10;
-}
-.app-bar .logo{
-  width:36px; height:36px; border-radius:50%;
-  background:linear-gradient(135deg,#8ab4f8,#fbbc04);
-  display:flex; align-items:center; justify-content:center;
-  font-size:18px; font-weight:700; color:#202124;
-}
-.app-bar h1{font-family:'Google Sans';font-size:22px;font-weight:500;letter-spacing:-.2px}
+body{font-family:'Roboto','Google Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.app-bar{height:60px;padding:0 20px;display:flex;align-items:center;gap:12px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.app-bar .logo{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#8ab4f8,#fbbc04);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#202124}
+.app-bar h1{font-family:'Google Sans';font-size:19px;font-weight:500}
 .app-bar .spacer{flex:1}
-.app-bar a{
-  color:var(--primary); text-decoration:none; font-size:14px; font-weight:500;
-  padding:8px 16px; border-radius:20px; transition:background .2s;
-}
-.app-bar a:hover{background:rgba(138,180,248,.08)}
+.user-chip{display:flex;align-items:center;gap:8px;background:var(--surface-2);padding:5px 12px 5px 5px;border-radius:100px;border:1px solid var(--border);font-size:13px}
+.user-chip .avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#8ab4f8,#fbbc04);display:flex;align-items:center;justify-content:center;font-weight:600;color:#202124;font-size:12px}
+.user-chip .name{font-weight:500}
+.status-strip{padding:8px 20px;display:flex;align-items:center;gap:8px;background:var(--surface-2);border-bottom:1px solid var(--border);font-size:12px;color:var(--text-dim)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted)}
+.status-dot.live{background:var(--success);animation:pulse 1.6s infinite}
+.status-dot.stopped{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-main{flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px}
-.hero-card{
-  width:100%; max-width:520px; background:var(--surface);
-  border-radius:var(--radius-xl); padding:48px 40px;
-  border:1px solid var(--border); box-shadow:var(--shadow-3);
-  text-align:center; animation:fadeUp .5s ease;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-.status-pill{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:6px 14px; border-radius:100px; font-size:13px; font-weight:500;
-  margin-bottom:24px; border:1px solid var(--border);
-  background:var(--surface-2); color:var(--text-dim);
-}
+/* landing */
+.landing{display:flex;align-items:center;justify-content:center;padding:32px 16px;min-height:calc(100vh - 60px)}
+.hero-card{width:100%;max-width:460px;background:var(--surface);border-radius:var(--radius-xl);padding:40px 32px;border:1px solid var(--border);box-shadow:var(--shadow-3);text-align:center}
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:500;margin-bottom:20px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-dim)}
 .status-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted)}
 .status-pill.live{background:rgba(129,201,149,.12);border-color:rgba(129,201,149,.3);color:var(--success)}
 .status-pill.live .dot{background:var(--success);animation:pulse 1.6s infinite}
@@ -65,159 +41,451 @@ main{flex:1; display:flex; align-items:center; justify-content:center; padding:3
 .status-pill.waiting .dot{background:var(--accent)}
 .status-pill.stopped{background:rgba(242,139,130,.12);border-color:rgba(242,139,130,.3);color:var(--danger)}
 .status-pill.stopped .dot{background:var(--danger)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-card h2{font-family:'Google Sans';font-size:26px;font-weight:400;margin-bottom:8px}
+.hero-card .sub{color:var(--text-dim);font-size:14px;margin-bottom:24px;line-height:1.5}
+.session-card{background:var(--surface-2);border-radius:var(--radius-l);padding:18px;margin-bottom:24px;text-align:left;border:1px solid var(--border)}
+.session-card .lbl{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+.session-card .val{font-family:'Google Sans';font-size:17px;font-weight:500}
+.session-card .meta{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:16px;font-size:12px;color:var(--text-dim)}
+.session-card .meta strong{color:var(--text);font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:100px;border:none;font-family:'Google Sans';font-size:15px;font-weight:500;cursor:pointer;transition:all .2s;width:100%}
+.btn-primary{background:var(--primary);color:#202124}
+.btn-primary:hover{background:#aecbfa}
+.btn-primary:disabled{background:var(--surface-3);color:var(--text-muted);cursor:not-allowed}
+.hint{margin-top:14px;font-size:13px;color:var(--text-dim);line-height:1.5}
 
-.hero-card h2{
-  font-family:'Google Sans'; font-size:32px; font-weight:400;
-  margin-bottom:8px; letter-spacing:-.5px;
-}
-.hero-card .sub{color:var(--text-dim); font-size:15px; margin-bottom:32px; line-height:1.5}
+/* player */
+main.player{max-width:1200px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1fr 340px;gap:16px}
+@media(max-width:900px){ main.player{grid-template-columns:1fr} }
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l)}
+.rotator-card{padding:20px;margin-bottom:16px;display:flex;flex-direction:column;align-items:center}
+.rotator-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
+.rotator-number{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #2d3541, #1a1f26);display:flex;align-items:center;justify-content:center;font-family:'Google Sans';font-size:62px;font-weight:700;color:var(--accent);border:3px solid var(--surface-3);box-shadow:inset 0 0 40px rgba(251,188,4,.08)}
+.rotator-number.spin{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.85);opacity:.6}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+.rotator-meta{margin-top:12px;display:flex;gap:20px;font-size:12px;color:var(--text-dim)}
+.rotator-meta strong{color:var(--text);font-weight:500}
+.grid-card{padding:16px}
+.card-title{font-family:'Google Sans';font-size:14px;font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card-title .badge{background:var(--surface-3);color:var(--text-dim);font-size:10px;padding:2px 8px;border-radius:100px;font-weight:500}
+.grid-90{display:grid;grid-template-columns:repeat(10, 1fr);gap:4px}
+.num-cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border-radius:6px;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .2s;border:1px solid transparent}
+.num-cell.called{background:rgba(138,180,248,.12);color:var(--primary);border-color:rgba(138,180,248,.25)}
+.num-cell.last-called{background:var(--accent);color:#202124;font-weight:700;box-shadow:0 0 12px rgba(251,188,4,.4);transform:scale(1.06);z-index:2}
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.ticket-card{padding:16px}
+.ticket-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ticket-header h3{font-family:'Google Sans';font-size:14px;font-weight:500}
+.ticket-header .count{font-size:12px;color:var(--text-dim)}
+.ticket-header .count strong{color:var(--accent);font-weight:500}
+.ticket-grid{display:grid;grid-template-columns:repeat(9, 1fr);gap:3px;background:var(--surface-2);padding:6px;border-radius:var(--radius-m)}
+.ticket-cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:var(--surface);border-radius:5px;font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;transition:all .2s;user-select:none;border:1px solid var(--border)}
+.ticket-cell.empty{background:transparent;border-color:transparent;cursor:default}
+.ticket-cell.marked{background:var(--accent);color:#202124;font-weight:700;border-color:var(--accent);box-shadow:0 0 6px rgba(251,188,4,.35)}
+.ticket-cell.called-now{border-color:var(--primary);color:var(--primary);animation:glow 1.6s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 rgba(138,180,248,0)}50%{box-shadow:0 0 10px rgba(138,180,248,.5)}}
+.progress-card{padding:16px}
+.progress-track{height:6px;background:var(--surface-3);border-radius:100px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#8ab4f8,#fbbc04);border-radius:100px;transition:width .4s ease}
+.progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim)}
+.status-msg{padding:12px 14px;border-radius:var(--radius-m);background:var(--surface-2);border:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.5}
+.status-msg.win{background:rgba(129,201,149,.1);border-color:rgba(129,201,149,.3);color:var(--success)}
+.status-msg.info{background:rgba(138,180,248,.08);border-color:rgba(138,180,248,.25);color:var(--primary)}
+.hidden{display:none !important}
 
-.session-card{
-  background:var(--surface-2); border-radius:var(--radius-l);
-  padding:20px; margin-bottom:28px; text-align:left;
-  border:1px solid var(--border);
-}
-.session-card .lbl{
-  font-size:11px; font-weight:500; letter-spacing:.8px;
-  text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;
-}
-.session-card .val{font-family:'Google Sans';font-size:18px;font-weight:500;color:var(--text)}
-.session-card .meta{margin-top:12px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:16px; font-size:13px; color:var(--text-dim)}
-.session-card .meta strong{color:var(--text); font-weight:500}
-
-.btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:14px 28px; border-radius:100px; border:none;
-  font-family:'Google Sans'; font-size:15px; font-weight:500;
-  cursor:pointer; transition:all .2s; letter-spacing:.2px;
-}
-.btn-primary{background:var(--primary);color:#202124;width:100%}
-.btn-primary:hover{background:#aecbfa;box-shadow:var(--shadow-2)}
-.btn-primary:active{transform:scale(.98)}
-.btn-primary:disabled{background:var(--surface-3); color:var(--text-muted); cursor:not-allowed; box-shadow:none}
-
-.hint{margin-top:16px; font-size:13px; color:var(--text-dim); line-height:1.5}
-.hint.err{color:var(--danger)}
-.spinner{
-  width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
-  border-top-color:#202124; border-radius:50%;
-  animation:spin .8s linear infinite; display:inline-block;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px 24px;max-width:400px;width:100%;box-shadow:var(--shadow-3)}
+.modal h2{font-family:'Google Sans';font-size:22px;font-weight:400;margin-bottom:8px}
+.modal p{color:var(--text-dim);font-size:13px;margin-bottom:20px;line-height:1.5}
+.modal input{width:100%;padding:12px 16px;border-radius:var(--radius-m);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:15px;outline:none}
+.modal input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(138,180,248,.15)}
+.modal .btn{margin-top:14px;padding:12px;font-size:14px}
+.modal .err{color:var(--danger);font-size:13px;margin-top:10px;padding:8px 12px;background:rgba(242,139,130,.1);border:1px solid rgba(242,139,130,.3);border-radius:var(--radius-s);display:none}
+.modal .err.show{display:block}
 </style>
 </head>
 <body>
+
+<!-- NAME MODAL (only shown when session param exists) -->
+<div class="modal-overlay hidden" id="nameModal">
+  <div class="modal">
+    <h2>Join the session</h2>
+    <p>Enter your name to receive your ticket.</p>
+    <input type="text" id="nameInput" placeholder="Your name" maxlength="30" autocomplete="off">
+    <div class="err" id="modalErr"></div>
+    <button class="btn btn-primary" id="confirmNameBtn">Get my ticket</button>
+  </div>
+</div>
+
+<!-- HEADER -->
 <header class="app-bar">
   <div class="logo">H</div>
   <h1>Housie Live</h1>
   <div class="spacer"></div>
-  <a href="admin.html">Admin Panel</a>
+  <div class="user-chip hidden" id="userChip">
+    <div class="avatar" id="avatarInitials">?</div>
+    <span class="name" id="chipName">—</span>
+  </div>
 </header>
 
-<main>
+<!-- LANDING VIEW -->
+<div class="landing" id="landingView">
   <div class="hero-card">
-    <div class="status-pill" id="statusPill">
-      <span class="dot"></span>
-      <span id="statusText">Checking session…</span>
-    </div>
+    <div class="status-pill" id="statusPill"><span class="dot"></span><span id="statusText">Checking…</span></div>
     <h2>Join the game</h2>
-    <p class="sub">Get your ticket and play live with everyone in the session.</p>
-
+    <p class="sub">Get your ticket and play live with everyone.</p>
     <div class="session-card">
       <div class="lbl">Current Session</div>
       <div class="val" id="sessionName">—</div>
       <div class="meta">
         <div>Players: <strong id="playerCount">0</strong></div>
-        <div>Numbers called: <strong id="calledCount">0</strong></div>
+        <div>Called: <strong id="calledCount">0</strong></div>
       </div>
     </div>
-
-    <button class="btn btn-primary" id="joinBtn" disabled>
-      <span id="joinBtnText">Join Housie</span>
-    </button>
-    <p class="hint" id="hint">Waiting for the admin to start a session…</p>
+    <button class="btn btn-primary" id="joinBtn" disabled>Join Housie</button>
+    <p class="hint" id="hint">Waiting for admin to start a session…</p>
   </div>
-</main>
+</div>
+
+<!-- PLAYER VIEW -->
+<div class="hidden" id="playerView">
+  <div class="status-strip">
+    <span class="status-dot live" id="statusDot"></span>
+    <span id="statusLabel">Connected</span>
+  </div>
+  <main class="player">
+    <div>
+      <div class="card rotator-card">
+        <div class="rotator-label">Last called number</div>
+        <div class="rotator-number" id="bigNumber">—</div>
+        <div class="rotator-meta">
+          <div>Called: <strong id="calledCountMeta">0</strong>/90</div>
+          <div>Marked: <strong id="markedCountMeta">0</strong>/15</div>
+        </div>
+      </div>
+      <div class="card grid-card">
+        <div class="card-title">Numbers Board <span class="badge">1–90</span></div>
+        <div class="grid-90" id="grid90"></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="card ticket-card">
+        <div class="ticket-header">
+          <h3>Your ticket</h3>
+          <div class="count"><strong id="markedCount">0</strong>/15</div>
+        </div>
+        <div class="ticket-grid" id="ticketGrid"></div>
+      </div>
+      <div class="card progress-card">
+        <div class="progress-row"><span>Progress</span><span id="progressLabel">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-row" style="margin-top:10px"><span>First 5</span><span id="win5Label">—</span></div>
+        <div class="progress-row"><span>Full house</span><span id="win15Label">—</span></div>
+      </div>
+      <div class="status-msg" id="statusMsg">🎯 Waiting for the first number…</div>
+    </div>
+  </main>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<script src="firebase-config.js"></script>
 <script>
-const statusPill = document.getElementById('statusPill');
-const statusText = document.getElementById('statusText');
-const sessionNameEl = document.getElementById('sessionName');
-const playerCountEl = document.getElementById('playerCount');
-const calledCountEl = document.getElementById('calledCount');
-const joinBtn = document.getElementById('joinBtn');
-const joinBtnText = document.getElementById('joinBtnText');
-const hint = document.getElementById('hint');
+// ============ FIREBASE CONFIG (INLINED) ============
+const firebaseConfig = {
+    apiKey: '0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0',
+    authDomain: 'uesi-ap-default-rtdb.firebaseio.com',
+    databaseURL: 'https://uesi-ap-default-rtdb.firebaseio.com',
+    projectId: 'uesi-ap'
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ============ TICKET GENERATOR ============
+function generateTicket() {
+    const colRanges = [[1,9],[10,19],[20,29],[30,39],[40,49],[50,59],[60,69],[70,79],[80,90]];
+    let grid = null, attempts = 0;
+    while (attempts < 500 && !grid) {
+        attempts++;
+        const g = Array(3).fill().map(() => Array(9).fill(null));
+        for (let r = 0; r < 3; r++) {
+            const cols = [0,1,2,3,4,5,6,7,8].sort(() => Math.random() - 0.5).slice(0, 5);
+            cols.forEach(c => g[r][c] = 'fill');
+        }
+        let ok = true;
+        for (let c = 0; c < 9; c++) if (!g[0][c] && !g[1][c] && !g[2][c]) { ok = false; break; }
+        if (ok) grid = g;
+    }
+    if (!grid) return generateTicket();
+    for (let c = 0; c < 9; c++) {
+        const [min, max] = colRanges[c];
+        const avail = [];
+        for (let n = min; n <= max; n++) avail.push(n);
+        avail.sort(() => Math.random() - 0.5);
+        const rows = [0,1,2].filter(r => grid[r][c] === 'fill');
+        rows.forEach((r, i) => grid[r][c] = avail[i]);
+    }
+    return grid;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+
+// ============ STATE ============
+const params = new URLSearchParams(window.location.search);
+const sessionId = params.get('session');
+const $ = id => document.getElementById(id);
 
 let currentSessionId = null;
-let listeners = [];
+let playerId = null, playerName = null, myTicket = null;
+let myMarked = [], calledNumbers = [];
+let hasWon5 = false, hasWon15 = false;
+let landingListeners = [], playerListeners = [];
 
-function detachAll() { listeners.forEach(fn => fn()); listeners = []; }
-
-function setStatus(state, text) {
-  statusPill.className = 'status-pill' + (state ? ' ' + state : '');
-  statusText.textContent = text;
+// ============ VIEW SWITCH ============
+if (sessionId) {
+    // Player mode
+    $('landingView').classList.add('hidden');
+    $('playerView').classList.remove('hidden');
+    $('nameModal').classList.remove('hidden');
+    initPlayerMode();
+} else {
+    // Landing mode
+    initLandingMode();
 }
 
-db.ref('housie/activeSessionId').on('value', snap => {
-  currentSessionId = snap.val();
-  detachAll();
-  if (!currentSessionId) {
-    sessionNameEl.textContent = 'No active session';
-    setStatus('stopped', 'No active session');
-    joinBtn.disabled = true;
-    joinBtnText.textContent = 'Join Housie';
-    hint.textContent = 'The admin has not created a session yet. Please wait.';
-    hint.className = 'hint';
-    return;
-  }
-  attachSession(currentSessionId);
-});
+// ============ LANDING MODE ============
+function initLandingMode() {
+    db.ref('housie/activeSessionId').on('value', snap => {
+        currentSessionId = snap.val();
+        landingListeners.forEach(fn => fn()); landingListeners = [];
+        if (!currentSessionId) {
+            $('sessionName').textContent = 'No active session';
+            $('statusPill').className = 'status-pill stopped';
+            $('statusText').textContent = 'No session';
+            $('joinBtn').disabled = true;
+            $('hint').textContent = 'Admin hasn\'t created a session yet.';
+            return;
+        }
+        const ref = db.ref(`housie/sessions/${currentSessionId}`);
+        const onVal = ref.on('value', s => {
+            const sess = s.val();
+            if (!sess) return;
+            $('sessionName').textContent = sess.name || 'Unnamed';
+            $('playerCount').textContent = sess.players ? Object.keys(sess.players).length : 0;
+            const called = sess.calledNumbers ? Object.keys(sess.calledNumbers).length : 0;
+            $('calledCount').textContent = called;
+            if (sess.status === 'active') {
+                $('statusPill').className = 'status-pill live';
+                $('statusText').textContent = 'LIVE';
+                $('joinBtn').disabled = false;
+                $('hint').textContent = `Session is live. ${called}/90 numbers called.`;
+            } else if (sess.status === 'waiting') {
+                $('statusPill').className = 'status-pill waiting';
+                $('statusText').textContent = 'Waiting';
+                $('joinBtn').disabled = true;
+                $('hint').textContent = 'Admin will start the session soon.';
+            } else {
+                $('statusPill').className = 'status-pill stopped';
+                $('statusText').textContent = 'Ended';
+                $('joinBtn').disabled = true;
+                $('hint').textContent = 'This session has ended.';
+            }
+        });
+        landingListeners.push(() => ref.off('value', onVal));
+    });
 
-function attachSession(sessionId) {
-  const ref = db.ref(`housie/sessions/${sessionId}`);
-  const onVal = ref.on('value', snap => {
-    const s = snap.val();
-    if (!s) { setStatus('stopped', 'Session ended'); joinBtn.disabled = true; return; }
-    sessionNameEl.textContent = s.name || 'Unnamed Session';
-    playerCountEl.textContent = s.players ? Object.keys(s.players).length : 0;
-    const called = s.calledNumbers ? Object.keys(s.calledNumbers).length : 0;
-    calledCountEl.textContent = called;
+    $('joinBtn').addEventListener('click', () => {
+        if (!currentSessionId) return;
+        // Same page, just add session param
+        const base = window.location.href.split('?')[0].split('#')[0];
+        window.location.href = base + '?session=' + encodeURIComponent(currentSessionId);
+    });
+}
 
-    if (s.status === 'active') {
-      setStatus('live', 'Session is LIVE');
-      joinBtn.disabled = false;
-      joinBtnText.textContent = 'Join Housie';
-      hint.textContent = `Playing as ticket holder. Numbers called: ${called}/90`;
-      hint.className = 'hint';
-    } else if (s.status === 'waiting') {
-      setStatus('waiting', 'Waiting to start');
-      joinBtn.disabled = true;
-      joinBtnText.textContent = 'Waiting for admin…';
-      hint.textContent = 'The admin will start the session soon.';
-      hint.className = 'hint';
-    } else {
-      setStatus('stopped', 'Session ended');
-      joinBtn.disabled = true;
-      joinBtnText.textContent = 'Session ended';
-      hint.textContent = 'This session has ended.';
-      hint.className = 'hint';
+// ============ PLAYER MODE ============
+function initPlayerMode() {
+    // Build 90-grid
+    for (let i = 1; i <= 90; i++) {
+        const d = document.createElement('div');
+        d.className = 'num-cell';
+        d.textContent = i;
+        d.dataset.num = i;
+        $('grid90').appendChild(d);
     }
-  });
-  listeners.push(() => ref.off('value', onVal));
+
+    $('confirmNameBtn').addEventListener('click', async () => {
+        const name = $('nameInput').value.trim();
+        $('modalErr').classList.remove('show');
+        if (!name) { $('modalErr').textContent = 'Enter your name.'; $('modalErr').classList.add('show'); return; }
+        $('confirmNameBtn').disabled = true;
+        $('confirmNameBtn').textContent = 'Joining…';
+        try {
+            const sessionRef = db.ref(`housie/sessions/${sessionId}`);
+            const snap = await sessionRef.once('value');
+            const session = snap.val();
+            if (!session) throw new Error('Session not found.');
+            if (session.status !== 'active') throw new Error('Session not active.');
+            const playersSnap = await sessionRef.child('players').once('value');
+            const existing = playersSnap.val() || {};
+            for (const pid in existing) {
+                if ((existing[pid].name || '').toLowerCase() === name.toLowerCase())
+                    throw new Error('Name already taken.');
+            }
+            myTicket = generateTicket();
+            playerId = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+            await sessionRef.child(`players/${playerId}`).set({
+                name, ticket: myTicket, marked: [], joinedAt: Date.now(), won5: false, won15: false
+            });
+            localStorage.setItem(`housie_${sessionId}_player`, JSON.stringify({ playerId, name, ticket: myTicket }));
+            playerName = name;
+            startPlayerGame();
+        } catch (err) {
+            $('modalErr').textContent = err.message;
+            $('modalErr').classList.add('show');
+            $('confirmNameBtn').disabled = false;
+            $('confirmNameBtn').textContent = 'Get my ticket';
+        }
+    });
+    $('nameInput').addEventListener('keypress', e => { if (e.key === 'Enter') $('confirmNameBtn').click(); });
+
+    // Auto-recover
+    const saved = localStorage.getItem(`housie_${sessionId}_player`);
+    if (saved) {
+        try {
+            const d = JSON.parse(saved);
+            if (d.playerId && d.ticket) {
+                db.ref(`housie/sessions/${sessionId}/players/${d.playerId}`).once('value').then(snap => {
+                    if (snap.exists()) {
+                        const v = snap.val();
+                        playerId = d.playerId; playerName = v.name; myTicket = v.ticket;
+                        myMarked = Array.isArray(v.marked) ? v.marked : [];
+                        hasWon5 = !!v.won5; hasWon15 = !!v.won15;
+                        startPlayerGame();
+                    } else {
+                        localStorage.removeItem(`housie_${sessionId}_player`);
+                    }
+                });
+            }
+        } catch(e) {}
+    }
 }
 
-joinBtn.addEventListener('click', () => {
-  if (!currentSessionId) return;
-  joinBtn.disabled = true;
-  joinBtn.innerHTML = '<span class="spinner"></span> Joining…';
-  // Use player.html with .html extension explicitly
-  window.location.href = 'player.html?session=' + encodeURIComponent(currentSessionId);
-});
+function startPlayerGame() {
+    $('nameModal').classList.add('hidden');
+    $('userChip').classList.remove('hidden');
+    $('chipName').textContent = playerName;
+    $('avatarInitials').textContent = playerName.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+    renderTicket();
+    attachPlayerListeners();
+}
+
+function renderTicket() {
+    $('ticketGrid').innerHTML = '';
+    for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 9; c++) {
+            const num = myTicket[r][c];
+            const cell = document.createElement('div');
+            if (num === null) { cell.className = 'ticket-cell empty'; }
+            else {
+                cell.className = 'ticket-cell';
+                cell.textContent = num;
+                if (myMarked.includes(num)) cell.classList.add('marked');
+                else if (calledNumbers.includes(num)) cell.classList.add('called-now');
+                cell.addEventListener('click', () => handleMark(num));
+            }
+            $('ticketGrid').appendChild(cell);
+        }
+    }
+    const pct = Math.round((myMarked.length / 15) * 100);
+    $('markedCount').textContent = myMarked.length;
+    $('markedCountMeta').textContent = myMarked.length;
+    $('progressFill').style.width = pct + '%';
+    $('progressLabel').textContent = pct + '%';
+    $('win5Label').textContent = hasWon5 ? '✅ Yes' : (myMarked.length >= 5 ? '✔ Ready' : '—');
+    $('win15Label').textContent = hasWon15 ? '🏆 Yes' : '—';
+}
+
+async function handleMark(num) {
+    if (hasWon15) { showStatus('win', '🏆 Already full house!'); return; }
+    if (myMarked.includes(num)) { showStatus('info', `${num} already marked.`); return; }
+    if (!calledNumbers.includes(num)) { showStatus('info', `⏳ ${num} not called yet.`); return; }
+    myMarked.push(num);
+    renderTicket();
+    try {
+        const pRef = db.ref(`housie/sessions/${sessionId}/players/${playerId}`);
+        await pRef.child('marked').set(myMarked);
+        if (myMarked.length === 5 && !hasWon5) {
+            hasWon5 = true;
+            await pRef.update({ won5: true, won5At: Date.now() });
+            showStatus('win', '🎉 First 5 complete!');
+        } else if (myMarked.length === 15 && !hasWon15) {
+            hasWon15 = true;
+            await pRef.update({ won15: true, won15At: Date.now() });
+            showStatus('win', '🏆 FULL HOUSE!');
+        } else {
+            showStatus('info', `✅ Marked ${num} — ${myMarked.length}/15`);
+        }
+    } catch (e) { showStatus('info', 'Sync error: ' + e.message); }
+}
+
+function showStatus(type, text) {
+    $('statusMsg').className = 'status-msg' + (type === 'win' ? ' win' : type === 'info' ? ' info' : '');
+    $('statusMsg').textContent = (type === 'win' ? '🏆 ' : '🎯 ') + text;
+}
+
+function attachPlayerListeners() {
+    const sessionRef = db.ref(`housie/sessions/${sessionId}`);
+
+    const onCalled = snap => {
+        const val = snap.val() || {};
+        calledNumbers = Object.keys(val).map(Number);
+        $('calledCountMeta').textContent = calledNumbers.length;
+        document.querySelectorAll('.num-cell').forEach(cell => {
+            const n = parseInt(cell.dataset.num, 10);
+            cell.classList.toggle('called', calledNumbers.includes(n));
+        });
+        renderTicket();
+    };
+    sessionRef.child('calledNumbers').on('value', onCalled);
+    playerListeners.push(() => sessionRef.child('calledNumbers').off('value', onCalled));
+
+    const onLast = snap => {
+        const last = snap.val();
+        if (last) {
+            $('bigNumber').textContent = last;
+            $('bigNumber').classList.remove('spin');
+            void $('bigNumber').offsetWidth;
+            $('bigNumber').classList.add('spin');
+            document.querySelectorAll('.num-cell').forEach(cell => {
+                cell.classList.toggle('last-called', parseInt(cell.dataset.num, 10) === last);
+            });
+        }
+    };
+    sessionRef.child('lastCalled').on('value', onLast);
+    playerListeners.push(() => sessionRef.child('lastCalled').off('value', onLast));
+
+    const onMe = snap => {
+        const d = snap.val();
+        if (!d) return;
+        if (Array.isArray(d.marked) && d.marked.length !== myMarked.length) {
+            myMarked = d.marked.slice();
+            renderTicket();
+        }
+        if (d.won5 && !hasWon5) { hasWon5 = true; renderTicket(); }
+        if (d.won15 && !hasWon15) { hasWon15 = true; renderTicket(); showStatus('win', 'Full house complete!'); }
+    };
+    sessionRef.child(`players/${playerId}`).on('value', onMe);
+    playerListeners.push(() => sessionRef.child(`players/${playerId}`).off('value', onMe));
+
+    const onStatus = snap => {
+        if (snap.val() === 'stopped') {
+            $('statusDot').className = 'status-dot stopped';
+            $('statusLabel').textContent = 'Session ended';
+            showStatus('info', '⛔ Admin stopped the session.');
+        }
+    };
+    sessionRef.child('status').on('value', onStatus);
+    playerListeners.push(() => sessionRef.child('status').off('value', onStatus));
+}
 </script>
 </body>
 </html>
