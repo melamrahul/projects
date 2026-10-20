@@ -44,7 +44,53 @@ body{
 
 main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction:column; gap:24px}
 
-/* Stat cards */
+.share-banner{
+  background:linear-gradient(135deg, rgba(138,180,248,.12), rgba(251,188,4,.08));
+  border:1px solid rgba(138,180,248,.3);
+  border-radius:var(--radius-l); padding:24px;
+  box-shadow:var(--shadow-2);
+}
+.share-banner-header{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+.share-banner-header .icon{
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(138,180,248,.2); display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+}
+.share-banner-header h2{font-family:'Google Sans'; font-size:16px; font-weight:500; color:var(--text)}
+.share-banner-header p{font-size:13px; color:var(--text-dim); margin-top:2px}
+.share-link-row{display:flex; gap:10px; align-items:stretch}
+.share-link-input{
+  flex:1; padding:14px 18px; border-radius:var(--radius-m);
+  border:1px solid var(--border); background:var(--surface);
+  color:var(--text); font-size:13px; font-family:'Roboto Mono', monospace;
+  outline:none; transition:all .2s;
+}
+.share-link-input:focus{border-color:var(--primary); box-shadow:0 0 0 3px rgba(138,180,248,.15)}
+.copy-btn{
+  padding:14px 24px; border-radius:var(--radius-m); border:none;
+  background:var(--primary); color:#202124; font-family:'Google Sans';
+  font-size:14px; font-weight:500; cursor:pointer; transition:all .2s;
+  white-space:nowrap;
+}
+.copy-btn:hover{background:#aecbfa}
+.copy-btn:active{transform:scale(.97)}
+.copy-btn.copied{background:var(--success)}
+.share-actions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
+.share-action-btn{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:8px 16px; border-radius:100px; border:1px solid var(--border);
+  background:var(--surface); color:var(--text-dim); font-size:13px;
+  font-weight:500; cursor:pointer; transition:all .2s; text-decoration:none;
+}
+.share-action-btn:hover{background:var(--surface-2); color:var(--text); border-color:var(--primary)}
+.qr-wrapper{display:flex; gap:20px; align-items:center; margin-top:16px; padding-top:16px; border-top:1px solid var(--border)}
+.qr-box{
+  background:#fff; padding:8px; border-radius:var(--radius-s);
+  width:120px; height:120px; display:flex; align-items:center; justify-content:center;
+}
+.qr-info{flex:1; font-size:13px; color:var(--text-dim); line-height:1.6}
+.qr-info strong{color:var(--text); font-weight:500}
+
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px}
 .stat{
   background:var(--surface); border:1px solid var(--border);
@@ -54,7 +100,6 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 .stat .val{font-family:'Google Sans'; font-size:28px; font-weight:500; color:var(--text)}
 .stat .val.small{font-size:18px}
 
-/* Sections */
 .grid-2{display:grid; grid-template-columns:1.2fr 1fr; gap:24px}
 @media(max-width:1000px){ .grid-2{grid-template-columns:1fr} }
 
@@ -72,12 +117,11 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
   font-size:11px; padding:2px 10px; border-radius:100px; font-weight:500;
 }
 
-/* Buttons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
   padding:10px 20px; border-radius:100px; border:none;
   font-family:'Google Sans'; font-size:14px; font-weight:500;
-  cursor:pointer; transition:all .2s; letter-spacing:.2px;
+  cursor:pointer; transition:all .2s;
 }
 .btn-primary{background:var(--primary); color:#202124}
 .btn-primary:hover{background:#aecbfa; box-shadow:var(--shadow-2)}
@@ -87,13 +131,9 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 .btn-success:hover{background:#a5dab5}
 .btn-danger{background:var(--danger); color:#202124}
 .btn-danger:hover{background:#f6a8a0}
-.btn-outlined{background:transparent; color:var(--primary); border:1px solid var(--border)}
-.btn-outlined:hover{background:rgba(138,180,248,.08); border-color:var(--primary)}
-.btn-sm{padding:6px 14px; font-size:12px}
 
 .action-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px}
 
-/* Session form */
 .form-row{display:flex; gap:10px; margin-bottom:16px}
 .form-row input{
   flex:1; padding:12px 16px; border-radius:var(--radius-m);
@@ -102,7 +142,6 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 }
 .form-row input:focus{border-color:var(--primary); box-shadow:0 0 0 3px rgba(138,180,248,.15)}
 
-/* Rotator panel */
 .rotator-panel{
   background:var(--surface-2); border-radius:var(--radius-l);
   padding:24px; text-align:center; margin-bottom:16px;
@@ -120,20 +159,14 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 .rotator-info{font-size:13px; color:var(--text-dim)}
 .rotator-info strong{color:var(--text)}
 
-/* Leaderboard */
 .leaderboard{display:flex; flex-direction:column; gap:8px; max-height:400px; overflow-y:auto}
 .lb-row{
   display:grid; grid-template-columns:32px 1fr auto auto; gap:12px;
   align-items:center; padding:12px 14px; border-radius:var(--radius-m);
   background:var(--surface-2); border:1px solid var(--border);
-  transition:all .2s;
 }
-.lb-row.win15{
-  background:rgba(251,188,4,.08); border-color:rgba(251,188,4,.3);
-}
-.lb-row.win5{
-  background:rgba(138,180,248,.06); border-color:rgba(138,180,248,.25);
-}
+.lb-row.win15{background:rgba(251,188,4,.08); border-color:rgba(251,188,4,.3)}
+.lb-row.win5{background:rgba(138,180,248,.06); border-color:rgba(138,180,248,.25)}
 .lb-rank{
   width:28px; height:28px; border-radius:50%;
   background:var(--surface-3); display:flex; align-items:center; justify-content:center;
@@ -152,7 +185,6 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 .lb-marked strong{color:var(--accent)}
 .empty{color:var(--text-muted); font-size:13px; text-align:center; padding:24px 0; font-style:italic}
 
-/* Player table */
 .players-table{width:100%; border-collapse:collapse}
 .players-table th{
   text-align:left; font-size:11px; text-transform:uppercase;
@@ -173,7 +205,6 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 .chip.gold{background:rgba(251,188,4,.15); color:var(--accent)}
 .chip.muted{background:var(--surface-3); color:var(--text-muted)}
 
-/* Recent calls */
 .calls-strip{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
 .call-chip{
   background:var(--surface-3); color:var(--text-dim);
@@ -181,7 +212,6 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 }
 .call-chip.latest{background:var(--accent); color:#202124; font-weight:700}
 
-/* Toast */
 .toast{
   position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
   background:var(--surface-3); color:var(--text);
@@ -199,36 +229,48 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
   <div class="logo">H</div>
   <h1>Admin Dashboard</h1>
   <div class="spacer"></div>
-  <a href="index.html" target="_blank">Open Player View →</a>
+  <a href="index.html" target="_blank">🏠 Home</a>
+  <a href="player.html" target="_blank">Open Player View →</a>
 </header>
 
 <main>
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat">
-      <div class="lbl">Session status</div>
-      <div class="val small" id="statStatus">—</div>
+  <div class="share-banner" id="shareBanner" style="display:none">
+    <div class="share-banner-header">
+      <div class="icon">🔗</div>
+      <div>
+        <h2>Share this player link with your group</h2>
+        <p>Anyone who opens it can join the session directly.</p>
+      </div>
     </div>
-    <div class="stat">
-      <div class="lbl">Players joined</div>
-      <div class="val" id="statPlayers">0</div>
+    <div class="share-link-row">
+      <input type="text" class="share-link-input" id="shareLink" readonly>
+      <button class="copy-btn" id="copyLinkBtn">📋 Copy</button>
     </div>
-    <div class="stat">
-      <div class="lbl">Numbers called</div>
-      <div class="val" id="statCalled">0</div>
+    <div class="share-actions">
+      <a class="share-action-btn" id="openLinkBtn" target="_blank">🌐 Test open</a>
+      <a class="share-action-btn" id="whatsappBtn" target="_blank">💬 WhatsApp</a>
+      <a class="share-action-btn" id="telegramBtn" target="_blank">✈️ Telegram</a>
+      <button class="share-action-btn" id="nativeShareBtn" style="display:none">📤 Share…</button>
     </div>
-    <div class="stat">
-      <div class="lbl">First-5 winners</div>
-      <div class="val" id="statWin5">0</div>
-    </div>
-    <div class="stat">
-      <div class="lbl">Full house winners</div>
-      <div class="val" id="statWin15">0</div>
+    <div class="qr-wrapper">
+      <div class="qr-box" id="qrCode"></div>
+      <div class="qr-info">
+        <strong>Scan to join</strong><br>
+        Players can scan this QR from another device to open the same session.<br>
+        <span style="color:var(--text-muted);font-size:12px">Session ID: <code id="sessionIdCode" style="color:var(--primary)">—</code></span>
+      </div>
     </div>
   </div>
 
+  <div class="stats">
+    <div class="stat"><div class="lbl">Session status</div><div class="val small" id="statStatus">—</div></div>
+    <div class="stat"><div class="lbl">Players joined</div><div class="val" id="statPlayers">0</div></div>
+    <div class="stat"><div class="lbl">Numbers called</div><div class="val" id="statCalled">0</div></div>
+    <div class="stat"><div class="lbl">First-5 winners</div><div class="val" id="statWin5">0</div></div>
+    <div class="stat"><div class="lbl">Full house winners</div><div class="val" id="statWin15">0</div></div>
+  </div>
+
   <div class="grid-2">
-    <!-- Left: session control + rotator -->
     <div style="display:flex; flex-direction:column; gap:24px">
       <div class="card">
         <div class="card-title">Session control</div>
@@ -264,7 +306,6 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
       </div>
     </div>
 
-    <!-- Right: leaderboard + players -->
     <div style="display:flex; flex-direction:column; gap:24px">
       <div class="card">
         <div class="card-title">
@@ -302,6 +343,7 @@ main{max-width:1400px; margin:0 auto; padding:24px; display:flex; flex-direction
 const $ = id => document.getElementById(id);
 let activeSessionId = null;
 let sessionListeners = [];
+let currentShareUrl = '';
 
 function toast(msg, isErr) {
   const t = $('toast');
@@ -312,14 +354,76 @@ function toast(msg, isErr) {
 
 function detach() { sessionListeners.forEach(fn => fn()); sessionListeners = []; }
 
-// Watch active session pointer
+// ═══════════════════════════════════════════════════════
+// Robust player link builder — works on GitHub Pages,
+// custom domains, local file://, or any static host.
+// Always produces: <origin><dir>player.html?session=xxx
+// ═══════════════════════════════════════════════════════
+function buildPlayerLink(sessionId) {
+  let path = window.location.pathname;
+  // If the URL points to a file (e.g. admin.html), strip the filename
+  if (!path.endsWith('/')) {
+    path = path.substring(0, path.lastIndexOf('/') + 1);
+  }
+  return `${window.location.origin}${path}player.html?session=${encodeURIComponent(sessionId)}`;
+}
+
+function renderShareBanner(sessionId, session) {
+  if (!sessionId) {
+    $('shareBanner').style.display = 'none';
+    return;
+  }
+  $('shareBanner').style.display = 'block';
+  currentShareUrl = buildPlayerLink(sessionId);
+  $('shareLink').value = currentShareUrl;
+  $('sessionIdCode').textContent = sessionId;
+  $('openLinkBtn').href = currentShareUrl;
+  $('whatsappBtn').href = `https://wa.me/?text=${encodeURIComponent('🎲 Join my Housie game: ' + currentShareUrl)}`;
+  $('telegramBtn').href = `https://t.me/share/url?url=${encodeURIComponent(currentShareUrl)}&text=${encodeURIComponent('🎲 Join my Housie game!')}`;
+
+  if (navigator.share) {
+    $('nativeShareBtn').style.display = 'inline-flex';
+    $('nativeShareBtn').onclick = () => {
+      navigator.share({
+        title: 'Housie Live',
+        text: `🎲 Join my Housie game — ${session.name || 'session'}`,
+        url: currentShareUrl
+      }).catch(() => {});
+    };
+  }
+
+  const qrSize = 240;
+  $('qrCode').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(currentShareUrl)}&bgcolor=ffffff&color=202124" style="width:100%;height:100%;border-radius:4px" alt="QR code">`;
+}
+
+$('copyLinkBtn').addEventListener('click', async () => {
+  if (!currentShareUrl) return;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(currentShareUrl);
+    } else {
+      const input = $('shareLink');
+      input.select();
+      input.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+    }
+    const btn = $('copyLinkBtn');
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    toast('Link copied to clipboard!');
+    setTimeout(() => {
+      btn.textContent = '📋 Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  } catch (e) {
+    toast('Copy failed — please select and copy manually.', true);
+  }
+});
+
 db.ref('housie/activeSessionId').on('value', snap => {
   activeSessionId = snap.val();
   detach();
-  if (!activeSessionId) {
-    clearUI();
-    return;
-  }
+  if (!activeSessionId) { clearUI(); return; }
   attachSession(activeSessionId);
 });
 
@@ -341,11 +445,11 @@ function clearUI() {
   $('sessionInfo').textContent = 'No active session. Create one to begin.';
   $('lbBadge').textContent = '0 players';
   $('rotatorBadge').textContent = '—';
+  $('shareBanner').style.display = 'none';
 }
 
 function attachSession(sessionId) {
   const ref = db.ref(`housie/sessions/${sessionId}`);
-
   const onVal = ref.on('value', snap => {
     const s = snap.val();
     if (!s) { clearUI(); return; }
@@ -360,14 +464,12 @@ function renderSession(s, sessionId) {
   const win5 = players.filter(p => p.won5).length;
   const win15 = players.filter(p => p.won15).length;
 
-  // Stats
   $('statStatus').textContent = s.status === 'active' ? '🟢 Live' : s.status === 'waiting' ? '⏳ Waiting' : '⛔ Stopped';
   $('statPlayers').textContent = players.length;
   $('statCalled').textContent = called.length;
   $('statWin5').textContent = win5;
   $('statWin15').textContent = win15;
 
-  // Session controls
   $('sessionInfo').innerHTML = `
     <strong style="color:#e8eaed">${HousieUtils.escapeHtml(s.name || 'Unnamed')}</strong><br>
     ID: <code style="color:#8ab4f8">${sessionId}</code><br>
@@ -378,7 +480,6 @@ function renderSession(s, sessionId) {
   $('spinBtn').disabled = s.status !== 'active' || called.length >= 90;
   $('rotatorBadge').textContent = s.status === 'active' ? 'LIVE' : s.status.toUpperCase();
 
-  // Rotator
   const last = s.lastCalled;
   if (last) {
     if ($('rotatorMini').textContent !== String(last)) {
@@ -393,17 +494,10 @@ function renderSession(s, sessionId) {
   $('rotatorCalled').textContent = called.length;
   $('rotatorRemaining').textContent = 90 - called.length;
 
-  // Recent calls strip
   const recent = [...called].slice(-12).reverse();
-  if (recent.length === 0) {
-    $('callsStrip').innerHTML = '';
-  } else {
-    $('callsStrip').innerHTML = recent.map((n, i) =>
-      `<span class="call-chip ${i === 0 ? 'latest' : ''}">${n}</span>`
-    ).join('');
-  }
+  $('callsStrip').innerHTML = recent.length === 0 ? '' :
+    recent.map((n, i) => `<span class="call-chip ${i === 0 ? 'latest' : ''}">${n}</span>`).join('');
 
-  // Players table
   if (players.length === 0) {
     $('playersTbody').innerHTML = '<tr><td colspan="3" class="empty">No players joined yet.</td></tr>';
   } else {
@@ -425,20 +519,16 @@ function renderSession(s, sessionId) {
     }).join('');
   }
 
-  // Leaderboard
   const winners = players.filter(p => p.won5 || p.won15);
   $('lbBadge').textContent = `${winners.length} winner${winners.length !== 1 ? 's' : ''}`;
   if (winners.length === 0) {
     $('leaderboard').innerHTML = '<div class="empty">Waiting for the first winner…</div>';
   } else {
-    // Sort: win15 first by won15At, then win5 by won5At
     const fullHouse = winners.filter(p => p.won15).sort((a,b) => (a.won15At||0) - (b.won15At||0));
     const first5 = winners.filter(p => p.won5 && !p.won15).sort((a,b) => (a.won5At||0) - (b.won5At||0));
-
     let rows = [];
     fullHouse.forEach((p, i) => rows.push({ p, rank: i+1, type: 'full' }));
     first5.forEach((p, i) => rows.push({ p, rank: i+1, type: 'first5' }));
-
     $('leaderboard').innerHTML = rows.map(r => {
       const p = r.p;
       const isFull = r.type === 'full';
@@ -459,9 +549,10 @@ function renderSession(s, sessionId) {
       `;
     }).join('');
   }
+
+  renderShareBanner(sessionId, s);
 }
 
-// Create session
 $('createBtn').addEventListener('click', async () => {
   const name = $('newSessionName').value.trim();
   if (!name) { toast('Enter a session name.', true); return; }
@@ -482,7 +573,6 @@ $('createBtn').addEventListener('click', async () => {
   }
 });
 
-// Start
 $('startBtn').addEventListener('click', async () => {
   if (!activeSessionId) return;
   try {
@@ -492,7 +582,6 @@ $('startBtn').addEventListener('click', async () => {
   } catch (e) { toast('Start failed: ' + e.message, true); }
 });
 
-// Stop
 $('stopBtn').addEventListener('click', async () => {
   if (!activeSessionId) return;
   if (!confirm('Stop this session? Players will not be able to join or mark numbers.')) return;
@@ -503,7 +592,6 @@ $('stopBtn').addEventListener('click', async () => {
   } catch (e) { toast('Stop failed: ' + e.message, true); }
 });
 
-// Spin
 $('spinBtn').addEventListener('click', async () => {
   if (!activeSessionId) return;
   const ref = db.ref(`housie/sessions/${activeSessionId}`);
@@ -513,20 +601,15 @@ $('spinBtn').addEventListener('click', async () => {
     if (!s || s.status !== 'active') { toast('Session is not active.', true); return; }
     const called = s.calledNumbers ? Object.keys(s.calledNumbers).map(Number) : [];
     if (called.length >= 90) { toast('All 90 numbers have been called.', true); return; }
-
     let num;
     do { num = Math.floor(Math.random() * 90) + 1; } while (called.includes(num));
-
     await ref.child(`calledNumbers/${num}`).set(true);
     await ref.child('lastCalled').set(num);
-
-    // Check if any player auto-won 5 or 15? No—players mark manually.
     toast('Called: ' + num);
   } catch (e) { toast('Spin failed: ' + e.message, true); }
 });
 
-// Initialize
 clearUI();
 </script>
 </body>
-  </html>
+</html>
