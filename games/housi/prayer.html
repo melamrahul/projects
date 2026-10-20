@@ -399,4 +399,170 @@ function renderTicket() {
 async function handleMark(num) {
   if (hasWon15) { showStatus('win', '🏆 You already completed a full house!'); return; }
   if (myMarked.includes(num)) { showStatus('info', `${num} is already marked.`); return; }
-  if (!calledNumbers.includes(num)) {
+  if (!calledNumbers.includes(num)) { showStatus('info', `⏳ ${num} hasn't been called yet.`); return; }
+
+  myMarked.push(num);
+  renderTicket();
+
+  try {
+    const pRef = db.ref(`housie/sessions/${sessionId}/players/${playerId}`);
+    await pRef.child('marked').set(myMarked);
+
+    if (myMarked.length === 5 && !hasWon5) {
+      hasWon5 = true;
+      await pRef.update({ won5: true, won5At: Date.now() });
+      showStatus('win', '🎉 First 5 complete! You are on the leaderboard.');
+    } else if (myMarked.length === 15 && !hasWon15) {
+      hasWon15 = true;
+      await pRef.update({ won15: true, won15At: Date.now() });
+      showStatus('win', '🏆🏆 FULL HOUSE! You completed all 15 numbers!');
+    } else {
+      showStatus('info', `✅ Marked ${num} — ${myMarked.length}/15`);
+    }
+  } catch (e) {
+    showStatus('info', '⚠️ Sync error: ' + e.message);
+  }
+}
+
+function showStatus(type, text) {
+  statusMsg.className = 'status-msg' + (type === 'win' ? ' win' : type === 'info' ? ' info' : '');
+  statusMsg.innerHTML = `<span class="icon">${type === 'win' ? '🏆' : '🎯'}</span><span>${HousieUtils.escapeHtml(text)}</span>`;
+}
+
+// Register
+confirmNameBtn.addEventListener('click', async () => {
+  const name = nameInput.value.trim();
+  modalErr.classList.remove('show');
+  if (!name) { modalErr.textContent = 'Please enter your name.'; modalErr.classList.add('show'); return; }
+  confirmNameBtn.disabled = true;
+  confirmNameBtn.textContent = 'Joining…';
+
+  try {
+    const sessionRef = db.ref(`housie/sessions/${sessionId}`);
+    const snap = await sessionRef.once('value');
+    const session = snap.val();
+    if (!session) throw new Error('Session not found.');
+    if (session.status !== 'active') throw new Error('Session is not active.');
+
+    const playersSnap = await sessionRef.child('players').once('value');
+    const existing = playersSnap.val() || {};
+    for (const pid in existing) {
+      if ((existing[pid].name || '').toLowerCase() === name.toLowerCase()) {
+        throw new Error('This name is already taken in this session.');
+      }
+    }
+
+    const ticket = HousieUtils.generateTicket();
+    playerId = 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+
+    await sessionRef.child(`players/${playerId}`).set({
+      name, ticket, marked: [], joinedAt: Date.now(), won5: false, won15: false
+    });
+
+    localStorage.setItem(`housie_${sessionId}_player`, JSON.stringify({ playerId, name, ticket }));
+    playerName = name;
+    myTicket = ticket;
+    startGame();
+  } catch (err) {
+    modalErr.textContent = err.message;
+    modalErr.classList.add('show');
+    confirmNameBtn.disabled = false;
+    confirmNameBtn.textContent = 'Get my ticket';
+  }
+});
+nameInput.addEventListener('keypress', e => { if (e.key === 'Enter') confirmNameBtn.click(); });
+
+function startGame() {
+  nameModal.classList.add('hidden');
+  gameRoot.classList.remove('hidden');
+  chipName.textContent = playerName;
+  avatarInitials.textContent = playerName.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+  renderTicket();
+  attachListeners();
+}
+
+// Listeners
+function attachListeners() {
+  const sessionRef = db.ref(`housie/sessions/${sessionId}`);
+
+  const onCalled = snap => {
+    const val = snap.val() || {};
+    calledNumbers = Object.keys(val).map(Number);
+    calledCountEl.textContent = calledNumbers.length;
+    document.querySelectorAll('.num-cell').forEach(cell => {
+      const n = parseInt(cell.dataset.num, 10);
+      cell.classList.toggle('called', calledNumbers.includes(n));
+    });
+    renderTicket();
+  };
+  sessionRef.child('calledNumbers').on('value', onCalled);
+  listeners.push(() => sessionRef.child('calledNumbers').off('value', onCalled));
+
+  const onLast = snap => {
+    const last = snap.val();
+    if (last) {
+      lastCalled = last;
+      bigNumberEl.textContent = last;
+      bigNumberEl.classList.remove('spin');
+      void bigNumberEl.offsetWidth;
+      bigNumberEl.classList.add('spin');
+      document.querySelectorAll('.num-cell').forEach(cell => {
+        const n = parseInt(cell.dataset.num, 10);
+        cell.classList.toggle('last-called', n === last);
+      });
+    }
+  };
+  sessionRef.child('lastCalled').on('value', onLast);
+  listeners.push(() => sessionRef.child('lastCalled').off('value', onLast));
+
+  const onMe = snap => {
+    const d = snap.val();
+    if (!d) return;
+    if (Array.isArray(d.marked) && d.marked.length !== myMarked.length) {
+      myMarked = d.marked.slice();
+      renderTicket();
+    }
+    if (d.won5 && !hasWon5) { hasWon5 = true; renderTicket(); }
+    if (d.won15 && !hasWon15) { hasWon15 = true; renderTicket(); showStatus('win', '🏆 Full house complete!'); }
+  };
+  sessionRef.child(`players/${playerId}`).on('value', onMe);
+  listeners.push(() => sessionRef.child(`players/${playerId}`).off('value', onMe));
+
+  const onStatus = snap => {
+    const s = snap.val();
+    if (s === 'stopped') {
+      $('statusDot').className = 'status-dot stopped';
+      $('statusLabel').textContent = 'Session ended';
+      showStatus('info', '⛔ The admin has stopped this session.');
+    }
+  };
+  sessionRef.child('status').on('value', onStatus);
+  listeners.push(() => sessionRef.child('status').off('value', onStatus));
+}
+
+// Auto recover
+(function recover() {
+  const saved = localStorage.getItem(`housie_${sessionId}_player`);
+  if (!saved) return;
+  try {
+    const d = JSON.parse(saved);
+    if (!d.playerId || !d.name || !d.ticket) return;
+    db.ref(`housie/sessions/${sessionId}/players/${d.playerId}`).once('value').then(snap => {
+      if (snap.exists()) {
+        const v = snap.val();
+        playerId = d.playerId;
+        playerName = v.name;
+        myTicket = v.ticket;
+        myMarked = Array.isArray(v.marked) ? v.marked : [];
+        hasWon5 = !!v.won5;
+        hasWon15 = !!v.won15;
+        startGame();
+      } else {
+        localStorage.removeItem(`housie_${sessionId}_player`);
+      }
+    });
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>
