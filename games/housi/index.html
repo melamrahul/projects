@@ -11,8 +11,7 @@
 :root{
   --bg:#0f1115; --surface:#161a20; --surface-2:#1e242c; --surface-3:#262e38;
   --border:#2a323d; --text:#e8eaed; --text-dim:#9aa0a6; --text-muted:#5f6368;
-  --primary:#8ab4f8; --primary-container:#1a73e8; --on-primary:#202124;
-  --accent:#fbbc04; --success:#81c995; --danger:#f28b82;
+  --primary:#8ab4f8; --accent:#fbbc04; --success:#81c995; --danger:#f28b82;
   --shadow-1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);
   --shadow-2:0 1px 3px rgba(0,0,0,.3),0 4px 8px 3px rgba(0,0,0,.15);
   --shadow-3:0 4px 8px rgba(0,0,0,.3),0 8px 24px 4px rgba(0,0,0,.15);
@@ -25,7 +24,6 @@ body{
   min-height:100vh; display:flex; flex-direction:column;
   -webkit-font-smoothing:antialiased;
 }
-/* Top app bar */
 .app-bar{
   height:64px; padding:0 24px; display:flex; align-items:center; gap:16px;
   background:var(--surface); border-bottom:1px solid var(--border);
@@ -45,7 +43,6 @@ body{
 }
 .app-bar a:hover{background:rgba(138,180,248,.08)}
 
-/* Main */
 main{flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px}
 .hero-card{
   width:100%; max-width:520px; background:var(--surface);
@@ -99,8 +96,6 @@ main{flex:1; display:flex; align-items:center; justify-content:center; padding:3
 .btn-primary:hover{background:#aecbfa;box-shadow:var(--shadow-2)}
 .btn-primary:active{transform:scale(.98)}
 .btn-primary:disabled{background:var(--surface-3); color:var(--text-muted); cursor:not-allowed; box-shadow:none}
-.btn-outlined{background:transparent;color:var(--primary);border:1px solid var(--border)}
-.btn-outlined:hover{background:rgba(138,180,248,.08);border-color:var(--primary)}
 
 .hint{margin-top:16px; font-size:13px; color:var(--text-dim); line-height:1.5}
 .hint.err{color:var(--danger)}
@@ -117,7 +112,7 @@ main{flex:1; display:flex; align-items:center; justify-content:center; padding:3
   <div class="logo">H</div>
   <h1>Housie Live</h1>
   <div class="spacer"></div>
-  <!--<a href="admin.html">Admin Panel</a>-->
+  <a href="admin.html">Admin Panel</a>
 </header>
 
 <main>
@@ -220,8 +215,9 @@ joinBtn.addEventListener('click', () => {
   if (!currentSessionId) return;
   joinBtn.disabled = true;
   joinBtn.innerHTML = '<span class="spinner"></span> Joining…';
-  window.location.href = `player.html?session=${currentSessionId}`;
+  // Use player.html with .html extension explicitly
+  window.location.href = 'player.html?session=' + encodeURIComponent(currentSessionId);
 });
 </script>
 </body>
-  </html>
+</html>
