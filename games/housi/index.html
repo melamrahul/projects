@@ -5,23 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Jeldhi 5 - Player</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg-dark: #0b1a35; --bg-light: #1a3b73;
-  --gold: #ffd700; --gold-shadow: #b8860b;
-  --green: #00e676; --green-shadow: #009624;
-  --blue: #29b6f6; --blue-shadow: #0277bd;
-  --red: #ff5252; --red-shadow: #c62828;
-  --purple: #ab47bc; --purple-shadow: #6a1b9a;
-  --text-light: #ffffff;
-  --cell-bg: #fff8e1; --cell-text: #333;
-}
+:root { --bg-dark: #0b1a35; --bg-light: #1a3b73; --gold: #ffd700; --gold-shadow: #b8860b; --green: #00e676; --green-shadow: #009624; --blue: #29b6f6; --blue-shadow: #0277bd; --red: #ff5252; --red-shadow: #c62828; --purple: #ab47bc; --purple-shadow: #6a1b9a; --text-light: #ffffff; --cell-bg: #fff8e1; --cell-text: #333; }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background: linear-gradient(135deg, var(--bg-dark), var(--bg-light)); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: normal; letter-spacing: 1px; }
 
-/* 3D Glossy Buttons */
 .btn-3d { display: flex; justify-content: center; align-items: center; padding: 16px 24px; border: none; border-radius: 20px; font-size: 18px; font-weight: 800; color: white; text-transform: uppercase; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; width: 100%; margin-bottom: 16px; outline: none; }
 .btn-3d:active { transform: translateY(6px); box-shadow: none !important; }
 .btn-green { background: var(--green); box-shadow: 0 6px 0 var(--green-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 var(--green-shadow); }
@@ -29,7 +20,6 @@ h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: norma
 .btn-red { background: var(--red); box-shadow: 0 6px 0 var(--red-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 var(--red-shadow); }
 .btn-gold { background: var(--gold); color: #333; box-shadow: 0 6px 0 var(--gold-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 rgba(255,255,255,0.5); }
 .btn-purple { background: var(--purple); box-shadow: 0 6px 0 var(--purple-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 var(--purple-shadow); }
-.btn-disabled { background: #555; box-shadow: 0 6px 0 #222; cursor: not-allowed; opacity: 0.7; }
 
 .input-field { width: 100%; padding: 16px 20px; border-radius: 16px; border: 3px solid var(--gold); background: #fff; color: #333; font-size: 18px; font-weight: 700; outline: none; margin-bottom: 16px; text-align: center; }
 .screen { display: none; flex-direction: column; min-height: 100vh; padding: 20px; animation: fadeIn 0.3s ease; }
@@ -44,12 +34,6 @@ h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: norma
 .tagline { font-size: 16px; color: #ccc; font-weight: 600; margin-bottom: 30px; }
 
 .lk-card { background: rgba(255,255,255,0.1); border: 3px solid var(--gold); border-radius: 24px; padding: 24px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; }
-
-.avatar-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 16px; }
-.avatar-item { display: flex; flex-direction: column; align-items: center; width: 70px; }
-.avatar-circle { width: 60px; height: 60px; border-radius: 50%; background: #444; display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: bold; color: white; border: 3px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.4); margin-bottom: 6px; }
-.avatar-name { font-size: 12px; font-weight: 600; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-.avatar-host { border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
 
 .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .room-badge { background: #111; padding: 8px 16px; border-radius: 100px; font-weight: 800; color: var(--gold); border: 2px solid var(--gold); }
@@ -73,8 +57,6 @@ h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: norma
 .c-chip.called { background: var(--blue); color: white; }
 .c-chip.last { background: var(--gold); color: #111; transform: scale(1.2); box-shadow: 0 0 10px var(--gold); z-index: 2; }
 
-.admin-panel { display: flex; gap: 10px; margin-top: auto; padding-top: 10px; }
-
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 20px; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
 .modal-box { background: linear-gradient(180deg, #1e3c72, #2a5298); border: 4px solid var(--gold); border-radius: 30px; padding: 30px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.8); transform: translateY(20px); transition: transform 0.3s; }
@@ -86,11 +68,17 @@ h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: norma
 .confetti { position: fixed; width: 10px; height: 10px; background-color: #f00; animation: fall linear forwards; z-index: 1000; pointer-events: none; }
 @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
 .hidden { display: none !important; }
+
+.avatar-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 16px; }
+.avatar-item { display: flex; flex-direction: column; align-items: center; width: 70px; }
+.avatar-circle { width: 60px; height: 60px; border-radius: 50%; background: #444; display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: bold; color: white; border: 3px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.4); margin-bottom: 6px; }
+.avatar-name { font-size: 12px; font-weight: 600; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+.avatar-host { border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
 </style>
 </head>
 <body>
 
-<!-- SCREEN 1: ENTER CODE -->
+<!-- SCREEN 1: ENTER CODE (Only shown if no URL param) -->
 <div id="screen-code" class="screen">
   <div class="logo-container">
     <div class="logo-icon"></div>
@@ -184,19 +172,17 @@ const firebaseConfig = { apiKey: '0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0', aut
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Persistence
 let myId = localStorage.getItem('housie_uid') || 'u_' + Math.random().toString(36).substr(2, 9);
 localStorage.setItem('housie_uid', myId);
 
 let currentRoomCode = null;
-let isHost = false;
-let myName = "";
-let myTicket = null;
-let myMarked = [];
-let calledNumbers = [];
+let playerName = null, myTicket = null;
+let myMarked = [], calledNumbers = [];
 let gameStatus = "waiting";
 let roomRef = null;
 let currentClaimType = "";
+let expiryInterval = null;
+let roomExpiresAt = 0;
 
 // Audio & TTS
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -213,7 +199,6 @@ function playSound(type) {
 }
 function speakNumber(num) { if (!('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const msg = new SpeechSynthesisUtterance(`Number ${num}`); msg.rate = 0.9; msg.pitch = 1.1; window.speechSynthesis.speak(msg); }
 
-// Ticket Gen
 function generateTicket() {
     const colRanges = [[1,9],[10,19],[20,29],[30,39],[40,49],[50,59],[60,69],[70,79],[80,90]];
     let grid = null, attempts = 0;
@@ -250,23 +235,21 @@ function showModal(id) { document.getElementById(id).classList.add('active'); }
 // PLUG AND PLAY ROUTING
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    // Uses 'Id' as requested
     const urlRoom = urlParams.get('Id');
     const savedRoom = localStorage.getItem('housie_current_room');
     
     if (urlRoom) {
         currentRoomCode = urlRoom.toUpperCase();
         document.getElementById('joiningRoomText').textContent = "Joining Room: " + currentRoomCode;
-        // If already saved as this room, try to auto-rejoin
         if (savedRoom === currentRoomCode) {
-            myName = localStorage.getItem('housie_player_name');
-            if (myName) { rejoinGame(); return; }
+            playerName = localStorage.getItem('housie_player_name');
+            if (playerName) { rejoinGame(); return; }
         }
         switchScreen('name');
     } else if (savedRoom) {
         currentRoomCode = savedRoom;
-        myName = localStorage.getItem('housie_player_name');
-        if(myName) { rejoinGame(); } 
+        playerName = localStorage.getItem('housie_player_name');
+        if(playerName) { rejoinGame(); } 
         else { switchScreen('code'); }
     } else {
         switchScreen('code');
@@ -284,8 +267,8 @@ function submitCode() {
 function submitName() {
     const name = document.getElementById('nameInput').value.trim();
     if (!name) return alert("Enter your name");
-    myName = name;
-    localStorage.setItem('housie_player_name', myName);
+    playerName = name;
+    localStorage.setItem('housie_player_name', playerName);
     localStorage.setItem('housie_current_room', currentRoomCode);
     joinGame();
 }
@@ -300,16 +283,15 @@ async function joinGame() {
         if (!room) throw new Error("Room not found!");
         if (room.status !== 'waiting') throw new Error("Game already started!");
 
-        // Check name duplicate
         if (room.players) {
             Object.values(room.players).forEach(p => {
-                if (p.name.toLowerCase() === myName.toLowerCase()) throw new Error("Name already taken!");
+                if (p.name.toLowerCase() === playerName.toLowerCase()) throw new Error("Name already taken!");
             });
         }
 
         myTicket = generateTicket();
         await roomRef.child('players/' + myId).set({
-            name: myName, ticket: myTicket, marked: [], isHost: false
+            name: playerName, ticket: myTicket, marked: [], isHost: false
         });
 
         document.getElementById('lobbyCode').textContent = currentRoomCode;
@@ -330,7 +312,6 @@ async function rejoinGame() {
     const room = snap.val();
     if (room && room.players && room.players[myId]) {
         myTicket = room.players[myId].ticket;
-        isHost = room.host === myId;
         document.getElementById('lobbyCode').textContent = currentRoomCode;
         document.getElementById('gameCode').textContent = currentRoomCode;
         attachRoomListeners();
@@ -369,6 +350,7 @@ function claimJeldhi5() {
     if (myMarked.length < 5) return;
     currentClaimType = "jeldhi5";
     document.getElementById('claimTitle').textContent = "CLAIM JELDHI 5?";
+    document.getElementById('claimText').textContent = "You have 5 marked. Everyone will see if you are wrong!";
     showModal('modal-claim');
 }
 
@@ -376,13 +358,14 @@ function claimFullHouse() {
     if (myMarked.length < 15) return;
     currentClaimType = "fullhouse";
     document.getElementById('claimTitle').textContent = "CLAIM FULL HOUSE?";
+    document.getElementById('claimText').textContent = "You have all 15 marked!";
     showModal('modal-claim');
 }
 
 document.getElementById('confirmClaimBtn').onclick = () => {
     closeModal('modal-claim');
     roomRef.child('claims/' + currentClaimType).transaction(currentData => {
-        if (currentData === null) return { uid: myId, name: myName, valid: true };
+        if (currentData === null) return { uid: myId, name: playerName, valid: true };
         return;
     }, (error, committed) => {
         if (!committed) { playSound('fail'); showInfoModal("TOO LATE", "Someone claimed first!", "😭"); }
@@ -432,6 +415,18 @@ function attachRoomListeners() {
         gameStatus = room.status;
         calledNumbers = room.calledNumbers ? Object.keys(room.calledNumbers).map(Number) : [];
         
+        // Auto-delete after 15 mins if active or waiting
+        if (room.createdAt) {
+            const elapsed = Date.now() - room.createdAt;
+            if (elapsed > 15 * 60 * 1000) {
+                roomRef.remove();
+                localStorage.removeItem('housie_current_room');
+                alert("Game session expired (15 min limit).");
+                window.location.href = window.location.pathname;
+                return;
+            }
+        }
+
         if (gameStatus === 'active' && document.getElementById('screen-lobby').classList.contains('active')) switchScreen('game');
         if (gameStatus === 'ended') document.getElementById('confirmClaimBtn').disabled = true;
         
