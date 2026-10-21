@@ -1,436 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Jeldhi 5 - Admin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0720">
+<title>Housie — Host Console</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-:root { --bg-dark: #0b1a35; --bg-light: #1a3b73; --gold: #ffd700; --gold-shadow: #b8860b; --green: #00e676; --green-shadow: #009624; --blue: #29b6f6; --blue-shadow: #0277bd; --red: #ff5252; --red-shadow: #c62828; --text-light: #ffffff; --cell-bg: #fff8e1; --cell-text: #333; }
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-body { background: linear-gradient(135deg, var(--bg-dark), var(--bg-light)); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; }
-h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: normal; letter-spacing: 1px; }
+:root{--green:#58cc02;--greenD:#46a302;--yellow:#ffc800;--yellowD:#d9a400;--red:#ff4b4b;--redD:#d93a3a;--blue:#1cb0f6;--blueD:#1593cf;--ink:#3c3c3c;--mute:#8a8a8a;--line:#e5e5e5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;font-weight:800;color:var(--ink);min-height:100vh;background:radial-gradient(circle at 12% 8%,#ffffff22 0 70px,transparent 71px),radial-gradient(circle at 92% 40%,#ffffff1a 0 100px,transparent 101px),linear-gradient(#3aa8ff,#1c6fe0) fixed}
+h1,h2,.btn,.ball,.st b{font-family:'Baloo 2',sans-serif}
+.top{display:flex;align-items:center;gap:10px;padding:10px 18px;background:#1c6fe0e6;position:sticky;top:0;z-index:10;backdrop-filter:blur(6px);color:#fff}
+.top svg{width:40px;height:40px}.top h1{font-size:22px;flex:1}.top a{color:#fff;text-decoration:none;font-size:14px;background:#fff3;padding:7px 14px;border-radius:12px}
+main{max-width:1100px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){main{grid-template-columns:1fr}}
+.card{background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:22px;padding:18px}
+.card h2{font-size:19px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.full{grid-column:1/-1}
+.btn{--c:var(--green);--d:var(--greenD);font-weight:800;font-size:16px;letter-spacing:.5px;text-transform:uppercase;color:#fff;border:none;border-radius:14px;padding:11px 18px;cursor:pointer;background:var(--c);box-shadow:0 4px 0 var(--d);text-decoration:none;display:inline-block;transition:transform .07s,box-shadow .07s}
+.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--d)}
+.btn:disabled{--c:#e5e5e5;--d:#cfcfcf;color:#afafaf;cursor:not-allowed}
+.btn.gold{--c:var(--yellow);--d:var(--yellowD);color:#6b4b00}.btn.red{--c:var(--red);--d:var(--redD)}.btn.blue{--c:var(--blue);--d:var(--blueD)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select{font:inherit;padding:11px 14px;border-radius:12px;border:2px solid var(--line);border-bottom-width:4px;background:#f7f7f7;color:var(--ink);outline:none;flex:1;min-width:0}
+input:focus{border-color:var(--blue)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.st{background:#f7f7f7;border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center}.st b{display:block;font-size:26px}.st span{font-size:12px;color:var(--mute)}
+.share{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.qr{border:2px solid var(--line);border-radius:12px;padding:6px;width:110px;height:110px}.qr img{width:100%;height:100%}
+.ball{width:150px;height:150px;border-radius:50%;margin:6px auto 14px;display:grid;place-items:center;font-size:78px;font-weight:800;color:#6b4b00;background:radial-gradient(circle at 32% 26%,#fff9d6,var(--yellow) 55%,#f0a800);border:6px solid #fff;box-shadow:0 7px 0 var(--yellowD),0 0 0 3px #ffc80055}
+.ball.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}@keyframes pop{0%{transform:scale(.3) rotate(-180deg);opacity:0}}
+.strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;justify-content:center}.strip span{width:36px;height:36px;border-radius:50%;background:#f7f7f7;border:2px solid var(--line);display:grid;place-items:center;font-family:'Baloo 2';font-size:16px}
+.win{background:#f7f7f7;border:2px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between}.win.got{background:#d7ffb8;border-color:var(--green);color:var(--greenD)}
+.pl{display:flex;justify-content:space-between;padding:9px 12px;border-radius:12px;background:#f7f7f7;margin-bottom:6px;font-size:15px}
+.pl small{color:var(--mute);font-size:14px}.list{max-height:300px;overflow:auto}
+.feed{max-height:180px;overflow:auto;font-size:14px;color:var(--mute)}.feed div{padding:4px 0}
+.dim{color:var(--mute);font-size:14px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#173a73;color:#fff;padding:10px 20px;border-radius:14px;opacity:0;transition:.3s;pointer-events:none;z-index:50}.toast.show{opacity:1}
+</style></head><body>
+<header class="top"><svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="24" fill="#fff"/><ellipse cx="35" cy="44" rx="9" ry="12" fill="#2b2b2b"/><ellipse cx="65" cy="44" rx="9" ry="12" fill="#2b2b2b"/><path d="M38 64q12 14 24 0" stroke="#2b2b2b" stroke-width="5" fill="#ff6b81" stroke-linecap="round"/></svg><h1>Host Console</h1><a href="index.html" target="_blank">🏠 Player view</a></header>
+<main>
+  <div class="card full" id="shareCard" style="display:none"><h2>🔗 Invite players</h2>
+    <div class="share"><div class="qr" id="qr"></div>
+      <div style="flex:1;min-width:220px"><div class="row"><input id="link" readonly><button class="btn blue" id="copy">Copy</button></div>
+      <div class="row" style="margin-top:10px"><a class="btn gold" id="wa" target="_blank" style="text-decoration:none">💬 WhatsApp</a><button class="btn" id="nat" style="display:none">📤 Share</button></div></div></div></div>
 
-.btn-3d { display: flex; justify-content: center; align-items: center; padding: 16px 24px; border: none; border-radius: 20px; font-size: 18px; font-weight: 800; color: white; text-transform: uppercase; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; width: 100%; margin-bottom: 12px; outline: none; }
-.btn-3d:active { transform: translateY(6px); box-shadow: none !important; }
-.btn-green { background: var(--green); box-shadow: 0 6px 0 var(--green-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 var(--green-shadow); }
-.btn-blue { background: var(--blue); box-shadow: 0 6px 0 var(--blue-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 var(--blue-shadow); }
-.btn-red { background: var(--red); box-shadow: 0 6px 0 var(--red-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 var(--red-shadow); }
-.btn-gold { background: var(--gold); color: #333; box-shadow: 0 6px 0 var(--gold-shadow), 0 10px 20px rgba(0,0,0,0.3); text-shadow: 0 2px 0 rgba(255,255,255,0.5); }
-.btn-disabled { background: #555; box-shadow: 0 6px 0 #222; cursor: not-allowed; opacity: 0.7; }
+  <div class="card full"><div class="stats">
+    <div class="st"><b id="sSt">—</b><span>Status</span></div><div class="st"><b id="sPl">0</b><span>Players</span></div>
+    <div class="st"><b id="sCa">0</b><span>Called</span></div><div class="st"><b id="sW">0/2</b><span>Prizes won</span></div></div></div>
 
-.header { padding: 20px; text-align: center; border-bottom: 3px solid var(--gold); background: rgba(0,0,0,0.3); }
-.logo-text { font-size: 32px; color: white; text-shadow: 0 4px 0 #111; }
-.logo-text span { color: var(--gold); }
-.container { max-width: 600px; margin: 0 auto; padding: 20px; width: 100%; flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  <div class="card"><h2>🎛️ Session</h2>
+    <div class="row"><input id="nm" placeholder="Game name (e.g. Friday Night)" maxlength="40"><button class="btn" id="create">＋ Create</button></div>
+    <div class="row" style="margin-top:12px"><button class="btn gold" id="start" disabled>▶ Start game</button><button class="btn red" id="stop" disabled>■ End</button></div>
+    <p class="dim" id="info" style="margin-top:12px">No session yet.</p></div>
 
-.lk-card { background: rgba(255,255,255,0.1); border: 3px solid var(--gold); border-radius: 24px; padding: 20px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.input-field { width: 100%; padding: 16px; border-radius: 16px; border: 3px solid #ccc; background: #fff; color: #333; font-size: 16px; font-weight: 700; outline: none; margin-bottom: 16px; text-align: center; }
+  <div class="card"><h2>🎲 Number caller <span class="dim" id="rem">90 left</span></h2>
+    <div class="ball" id="ball">–</div>
+    <div class="row"><button class="btn" id="spin" style="flex:2;font-size:20px;padding:16px" disabled>🎲 Call next</button>
+      <button class="btn blue" id="auto" disabled style="flex:1">⏵ Auto</button>
+      <select id="spd" style="flex:1"><option value="6000">6s</option><option value="9000" selected>9s</option><option value="14000">14s</option></select></div>
+    <div class="strip" id="strip"></div></div>
 
-.rotator-number { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; background: radial-gradient(circle at 30% 30%, #333, #000); border: 4px solid var(--gold); display: flex; justify-content: center; align-items: center; font-family: 'Fredoka One', cursive; font-size: 64px; color: var(--gold); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.2); }
-.rotator-number.spin { animation: pop 0.4s ease; }
-@keyframes pop { 0% { transform: scale(0.6); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
-
-.ticket-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; margin-top: 10px; }
-.t-cell { aspect-ratio: 1/1; display: flex; justify-content: center; align-items: center; background: var(--cell-bg); border-radius: 6px; font-size: 16px; font-weight: 800; color: var(--cell-text); user-select: none; }
-.t-cell.empty { background: transparent; }
-.t-cell.marked { background: var(--gold); color: #111; }
-.t-cell.called-unmarked { background: #e3f2fd; border: 2px solid var(--blue); color: var(--blue); }
-.t-cell.clickable { cursor: pointer; }
-
-.avatar-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 16px; }
-.avatar-item { display: flex; flex-direction: column; align-items: center; width: 70px; }
-.avatar-circle { width: 60px; height: 60px; border-radius: 50%; background: #444; display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: bold; border: 3px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.4); margin-bottom: 6px; }
-.avatar-name { font-size: 12px; font-weight: 600; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-.avatar-host { border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
-
-.room-code-box { background: #111; border: 3px dashed var(--gold); border-radius: 16px; padding: 16px; text-align: center; margin-bottom: 20px; }
-.room-code { font-size: 40px; font-family: 'Fredoka One'; color: var(--gold); letter-spacing: 8px; }
-.copy-btn { background: var(--blue); color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 14px; }
-
-.winner-list { margin-top: 20px; }
-.winner-item { background: rgba(255,215,0,0.2); border: 2px solid var(--gold); border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; font-weight: bold; }
-.hidden { display: none !important; }
-</style>
-</head>
-<body>
-
-<div class="header">
-  <h1 class="logo-text">Jeldhi <span>5</span> Admin</h1>
-</div>
-
-<div class="container">
-  
-  <div id="view-lobby">
-    <!-- Case 1: Create Room -->
-    <div class="lk-card" id="create-room-box">
-      <h2 style="text-align:center; color:var(--gold); margin-bottom:16px;">Create New Game</h2>
-      <input type="text" id="adminNameInput" class="input-field" placeholder="Your Host Name" maxlength="15">
-      <button class="btn-3d btn-green" onclick="createRoom()">🎲 CREATE ROOM</button>
-    </div>
-
-    <!-- Case 2: Join Existing Room as Host -->
-    <div class="lk-card" id="join-host-box" style="display:none;">
-      <h2 style="text-align:center; color:var(--gold); margin-bottom:16px;">Host Existing Room</h2>
-      <input type="text" id="hostCodeInput" class="input-field" placeholder="ENTER CODE" maxlength="6" style="text-transform:uppercase;">
-      <button class="btn-3d btn-blue" onclick="hostJoinExisting()">HOST ROOM</button>
-    </div>
-
-    <div style="text-align:center;">
-      <button id="toggleHostBtn" style="background:none; border:none; color:var(--gold); text-decoration:underline; cursor:pointer; font-size:14px;" onclick="toggleHostMode()">Already have a code? Host existing room</button>
-    </div>
-
-    <!-- Waiting Room -->
-    <div class="lk-card hidden" id="room-waiting-box" style="margin-top:20px;">
-      <div class="room-code-box">
-        <div style="font-size:12px; color:#aaa; letter-spacing:2px;">ROOM CODE</div>
-        <div class="room-code" id="displayCode">------</div>
-        <button class="copy-btn" onclick="copyLink()">📋 Copy Invite Link</button>
-        <div style="font-size:12px; color:#aaa; margin-top:8px;" id="timeLeft">Expires in 15:00</div>
-      </div>
-      
-      <h3 style="text-align:center; margin-bottom:10px;">Players Joined (<span id="playerCount">1</span>)</h3>
-      <div class="avatar-grid" id="lobbyPlayers"></div>
-      
-      <button class="btn-3d btn-green" style="margin-top:20px;" onclick="startGame()">▶ START GAME</button>
-    </div>
-  </div>
-
-  <!-- Game View -->
-  <div id="view-game" class="hidden">
-    <div class="lk-card" style="text-align:center;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span style="color:var(--gold); font-weight:bold;">CALLED: <span id="calledCount">0</span>/90</span>
-        <span style="color:var(--gold); font-weight:bold;" id="hostProgressText">YOUR MARKS: 0/15</span>
-      </div>
-      <div class="rotator-number" id="bigNumber">--</div>
-      
-      <button class="btn-3d btn-green" id="spinBtn" onclick="callNumber()" style="font-size:22px; padding:16px;">🎲 CALL NUMBER</button>
-      <button class="btn-3d btn-gold" id="claim15Btn" onclick="claimFullHouse()" style="opacity:0.5; margin-bottom:8px;">👑 CLAIM FULL HOUSE</button>
-      <button class="btn-3d btn-red" onclick="stopGame()" style="padding:10px; font-size:14px;">⛔ END SESSION</button>
-    </div>
-
-    <div class="lk-card">
-      <h3 style="color:var(--gold); margin-bottom:10px; text-align:center;">YOUR TICKET</h3>
-      <div style="background:#1a3b73; border-radius:12px; padding:8px; border:2px solid var(--gold);">
-        <div class="ticket-grid" id="adminTicketGrid"></div>
-      </div>
-    </div>
-
-    <!-- Claims Board (Suspense feature) -->
-    <div class="lk-card">
-      <h3 style="color:var(--gold); margin-bottom:10px;">Leaderboard</h3>
-      <div class="winner-list" id="winnersList"></div>
-    </div>
-  </div>
-
-</div>
+  <div class="card"><h2>🏆 Prizes</h2><div id="prizes"></div><h2 style="margin-top:14px">📣 Live feed</h2><div class="feed" id="feed"></div></div>
+  <div class="card"><h2>👥 Players <span class="dim" id="plN">0</span></h2><div class="list" id="plist"><p class="dim">No players yet.</p></div></div>
+</main><div class="toast" id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-const firebaseConfig = { apiKey: '0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0', authDomain: 'uesi-ap-default-rtdb.firebaseio.com', databaseURL: 'https://uesi-ap-default-rtdb.firebaseio.com', projectId: 'uesi-ap' };
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+firebase.initializeApp({apiKey:'0AzyPiDT3wSi6WAuNX7YzbyJcvUgV0nyoxMwahn0',authDomain:'uesi-ap-default-rtdb.firebaseio.com',databaseURL:'https://uesi-ap-default-rtdb.firebaseio.com',projectId:'uesi-ap'});
+const db=firebase.database(),$=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+let sid=null,offs=[],S=null,timer=null,url='';
+const toast=t=>{const e=$('toast');e.textContent=t;e.className='toast show';setTimeout(()=>e.className='toast',2200)};
+const link=id=>location.origin+location.pathname.replace(/[^/]*$/,'')+'index.html?session='+encodeURIComponent(id);
 
-let myId = localStorage.getItem('housie_uid') || 'host_' + Math.random().toString(36).substr(2, 5);
-localStorage.setItem('housie_uid', myId);
-let currentRoomCode = null;
-let roomRef = null;
-let gameStatus = "waiting";
-let myTicket = null;
-let myMarked = [];
-let calledNumbers = [];
-let expiryInterval = null;
-let roomExpiresAt = 0;
+db.ref('housie/activeSessionId').on('value',s=>{sid=s.val();offs.forEach(f=>f());offs=[];stopAuto();if(!sid){S=null;$('shareCard').style.display='none';render();return}
+ const r=db.ref('housie/sessions/'+sid),f=r.on('value',x=>{S=x.val();render()});offs.push(()=>r.off('value',f));
+ const e=r.child('events').orderByChild('at').startAt(Date.now()-1000),g=e.on('child_added',x=>{const v=x.val();if(v.type==='react')return;
+  const d=document.createElement('div');d.textContent=v.type==='win'?`🏆 ${v.name} won ${v.what}`:`😬 ${v.name} false claim (${v.what})`;$('feed').prepend(d)});offs.push(()=>e.off('child_added',g))});
 
-// Audio & TTS
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-function playSound(type) {
-    if(audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    if (type === 'call') { osc.type='triangle'; osc.frequency.setValueAtTime(500, audioCtx.currentTime); osc.frequency.setValueAtTime(700, audioCtx.currentTime+0.1); osc.frequency.setValueAtTime(900, audioCtx.currentTime+0.2); gain.gain.setValueAtTime(0.2, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.4); osc.start(); osc.stop(audioCtx.currentTime+0.4); }
-    else if (type === 'mark') { osc.type='square'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime+0.1); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.1); osc.start(); osc.stop(audioCtx.currentTime+0.1); }
-    else if (type === 'fail') { osc.type='sawtooth'; osc.frequency.setValueAtTime(300, audioCtx.currentTime); osc.frequency.linearRampToValueAtTime(150, audioCtx.currentTime+0.3); gain.gain.setValueAtTime(0.2, audioCtx.currentTime); gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+0.3); osc.start(); osc.stop(audioCtx.currentTime+0.3); }
-    else if (type === 'tap') { osc.type='sine'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.1); osc.start(); osc.stop(audioCtx.currentTime+0.1); }
-}
-function speakNumber(num) { if (!('speechSynthesis' in window)) return; window.speechSynthesis.cancel(); const msg = new SpeechSynthesisUtterance(`Number ${num}`); msg.rate = 0.9; msg.pitch = 1.1; window.speechSynthesis.speak(msg); }
+function render(){const s=S||{},called=Object.keys(s.calledNumbers||{}).map(Number),pls=Object.entries(s.players||{}),cl=s.claims||{};
+ const act=s.status==='active';
+ $('sSt').textContent=!S?'—':act?'🟢 Live':s.status==='waiting'?'⏳ Lobby':'⛔ Ended';$('sPl').textContent=pls.length;$('sCa').textContent=called.length;$('sW').textContent=(cl.first5?1:0)+(cl.full?1:0)+'/2';
+ $('start').disabled=s.status!=='waiting';$('stop').disabled=!act;$('spin').disabled=!act||called.length>=90;$('auto').disabled=!act;
+ $('info').innerHTML=S?`<b style="color:#fff">${esc(s.name||'')}</b> · ${s.status}`:'Create a session to begin.';
+ $('rem').textContent=(90-called.length)+' left';
+ const sorted=Object.entries(s.calledNumbers||{}).sort((a,b)=>(a[1]===true?0:a[1])-(b[1]===true?0:b[1])).map(x=>+x[0]);
+ const last=s.lastCalled;if(last&&$('ball').textContent!=last){$('ball').textContent=last;$('ball').classList.remove('pop');void $('ball').offsetWidth;$('ball').classList.add('pop')}if(!last)$('ball').textContent='–';
+ $('strip').innerHTML=sorted.slice(-14,-1).reverse().map(n=>`<span>${n}</span>`).join('');
+ $('prizes').innerHTML=[['first5','🙋 Jeldhi 5'],['full','🏆 Full House']].map(([k,l])=>`<div class="win ${cl[k]?'got':''}"><span>${l}</span><b>${cl[k]?esc(cl[k].name):'— open —'}</b></div>`).join('');
+ $('plN').textContent=pls.length;
+ $('plist').innerHTML=pls.length?pls.map(([,p])=>p).sort((a,b)=>(b.marked||[]).length-(a.marked||[]).length).map(p=>`<div class="pl"><span>${esc(p.name)}</span><small>${(p.marked||[]).length}/15 ${p.won15?'🏆':p.won5?'🙋':''}</small></div>`).join(''):'<p class="dim">No players yet.</p>';
+ if(sid){url=link(sid);$('shareCard').style.display='block';$('link').value=url;$('wa').href='https://wa.me/?text='+encodeURIComponent('🎲 Join my Housie game: '+url);
+  if(!$('qr').dataset.u||$('qr').dataset.u!==url){$('qr').dataset.u=url;$('qr').innerHTML=`<img alt="QR" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(url)}">`}}
+ if(cl.full)stopAuto();if(!act)stopAuto()}
 
-function generateCode() {
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let code = "";
-    for(let i=0; i<6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
-    return code;
-}
-
-function generateTicket() {
-    const colRanges = [[1,9],[10,19],[20,29],[30,39],[40,49],[50,59],[60,69],[70,79],[80,90]];
-    let grid = null, attempts = 0;
-    while (attempts < 500 && !grid) {
-        attempts++;
-        const g = Array(3).fill().map(() => Array(9).fill(null));
-        for (let r = 0; r < 3; r++) {
-            const cols = [0,1,2,3,4,5,6,7,8].sort(() => Math.random() - 0.5).slice(0, 5);
-            cols.forEach(c => g[r][c] = 'fill');
-        }
-        let ok = true;
-        for (let c = 0; c < 9; c++) if (!g[0][c] && !g[1][c] && !g[2][c]) { ok = false; break; }
-        if (ok) grid = g;
-    }
-    if (!grid) return generateTicket();
-    for (let c = 0; c < 9; c++) {
-        const [min, max] = colRanges[c];
-        const avail = [];
-        for (let n = min; n <= max; n++) avail.push(n);
-        avail.sort(() => Math.random() - 0.5);
-        const rows = [0,1,2].filter(r => grid[r][c] === 'fill');
-        rows.forEach((r, i) => grid[r][c] = avail[i]);
-    }
-    return grid;
-}
-
-function toggleHostMode() {
-    const createBox = document.getElementById('create-room-box');
-    const hostBox = document.getElementById('join-host-box');
-    const toggleBtn = document.getElementById('toggleHostBtn');
-    if (hostBox.style.display === 'none') {
-        createBox.style.display = 'none';
-        hostBox.style.display = 'block';
-        toggleBtn.textContent = "Need a new room? Create one";
-    } else {
-        createBox.style.display = 'block';
-        hostBox.style.display = 'none';
-        toggleBtn.textContent = "Already have a code? Host existing room";
-    }
-}
-
-async function createRoom() {
-    const name = document.getElementById('adminNameInput').value.trim();
-    if (!name) return alert("Enter your name first!");
-
-    currentRoomCode = generateCode();
-    roomRef = db.ref('housie/rooms/' + currentRoomCode);
-    myTicket = generateTicket();
-    
-    // CLEANUP OLD ROOMS (Auto-delete rooms older than 15 mins)
-    const now = Date.now();
-    db.ref('housie/rooms').once('value').then(snap => {
-        snap.forEach(child => {
-            const r = child.val();
-            if (r.createdAt && (now - r.createdAt > 15 * 60 * 1000)) {
-                db.ref('housie/rooms/' + child.key).remove();
-            }
-        });
-    });
-
-    await roomRef.set({
-        host: myId,
-        status: 'waiting',
-        createdAt: now,
-        calledNumbers: {},
-        lastCalled: null,
-        players: {
-            [myId]: { name: name, isHost: true, ticket: myTicket, marked: [] }
-        }
-    });
-
-    localStorage.setItem('housie_current_room', currentRoomCode);
-    localStorage.setItem('housie_player_name', name);
-    setupLobby();
-}
-
-async function hostJoinExisting() {
-    const code = document.getElementById('hostCodeInput').value.trim().toUpperCase();
-    const name = document.getElementById('adminNameInput').value.trim();
-    if (code.length !== 6) return alert("Enter 6-character code");
-    if (!name) return alert("Enter your host name above first!");
-
-    roomRef = db.ref('housie/rooms/' + code);
-    const snap = await roomRef.once('value');
-    const room = snap.val();
-    
-    if (!room) return alert("Room not found!");
-    if (room.host !== myId) {
-        // If it's not ours, we can't host it unless we know the secret, 
-        // but for simplicity, we just override it as host in this local instance.
-    }
-
-    currentRoomCode = code;
-    myTicket = room.players?.[myId]?.ticket || generateTicket();
-    
-    await roomRef.child('host').set(myId);
-    await roomRef.child('players/' + myId).set({ name: name, isHost: true, ticket: myTicket, marked: [] });
-    
-    localStorage.setItem('housie_current_room', currentRoomCode);
-    localStorage.setItem('housie_player_name', name);
-    setupLobby();
-}
-
-function setupLobby() {
-    document.getElementById('create-room-box').style.display = 'none';
-    document.getElementById('join-host-box').style.display = 'none';
-    document.getElementById('toggleHostBtn').style.display = 'none';
-    document.getElementById('room-waiting-box').classList.remove('hidden');
-    document.getElementById('displayCode').textContent = currentRoomCode;
-    
-    // Start expiry timer
-    roomRef.child('createdAt').once('value').then(s => {
-        const created = s.val();
-        if(created) {
-            roomExpiresAt = created + (15 * 60 * 1000);
-            startExpiryTimer();
-        }
-    });
-
-    attachListeners();
-}
-
-function startExpiryTimer() {
-    if(expiryInterval) clearInterval(expiryInterval);
-    expiryInterval = setInterval(() => {
-        const now = Date.now();
-        const left = roomExpiresAt - now;
-        if (left <= 0) {
-            clearInterval(expiryInterval);
-            db.ref('housie/rooms/' + currentRoomCode).remove();
-            localStorage.removeItem('housie_current_room');
-            alert("Room expired (15 min limit). Returning to home.");
-            window.location.href = window.location.pathname;
-        } else {
-            const m = Math.floor(left / 60000);
-            const s = Math.floor((left % 60000) / 1000);
-            const el = document.getElementById('timeLeft');
-            if(el) el.textContent = `Expires in ${m}:${s.toString().padStart(2, '0')}`;
-        }
-    }, 1000);
-}
-
-function copyLink() {
-    const base = window.location.href.split('?')[0].replace('admin.html', 'index.html');
-    const url = base + '?Id=' + currentRoomCode;
-    navigator.clipboard.writeText(url).then(() => alert("Link copied:\n" + url));
-}
-
-async function startGame() {
-    if (!roomRef) return;
-    await roomRef.child('status').set('active');
-}
-
-async function callNumber() {
-    if (gameStatus !== 'active') return;
-    playSound('call');
-    
-    const snap = await roomRef.once('value');
-    const room = snap.val();
-    const called = room.calledNumbers || {};
-    
-    if (Object.keys(called).length >= 90) return alert("All 90 called!");
-    
-    let num;
-    do { num = Math.floor(Math.random() * 90) + 1; } while (called[num]);
-    
-    await roomRef.child('calledNumbers/' + num).set(true);
-    await roomRef.child('lastCalled').set(num);
-    speakNumber(num);
-}
-
-async function stopGame() {
-    if(!confirm("End game for everyone?")) return;
-    await roomRef.child('status').set('ended');
-}
-
-async function handleHostMark(num) {
-    if (gameStatus !== 'active' || myMarked.includes(num) || !calledNumbers.includes(num)) return;
-    myMarked.push(num);
-    playSound('mark');
-    await roomRef.child(`players/${myId}/marked`).set(myMarked);
-}
-
-function claimFullHouse() {
-    if (myMarked.length < 15) return;
-    if (confirm("Claim Full House? Everyone will see if you are wrong!")) {
-        roomRef.child('claims/fullhouse').transaction(currentData => {
-            if (currentData === null) return { uid: myId, name: localStorage.getItem('housie_player_name') || 'Host', valid: true };
-            return;
-        }, (error, committed) => {
-            if (!committed) { playSound('fail'); alert("Too late! Someone claimed first."); }
-        });
-    }
-}
-
-function attachListeners() {
-    roomRef.on('value', snap => {
-        const room = snap.val();
-        if (!room) { window.location.href = window.location.pathname; return; }
-        gameStatus = room.status;
-        calledNumbers = room.calledNumbers ? Object.keys(room.calledNumbers).map(Number) : [];
-        
-        const players = room.players || {};
-        
-        if (gameStatus === 'waiting') {
-            document.getElementById('playerCount').textContent = Object.keys(players).length;
-            const grid = document.getElementById('lobbyPlayers');
-            grid.innerHTML = '';
-            Object.keys(players).forEach(uid => {
-                const p = players[uid];
-                grid.innerHTML += `<div class="avatar-item"><div class="avatar-circle ${p.isHost ? 'avatar-host' : ''}">${p.name.charAt(0).toUpperCase()}</div><div class="avatar-name">${p.name}</div></div>`;
-            });
-        } 
-        else if (gameStatus === 'active' || gameStatus === 'ended') {
-            document.getElementById('view-lobby').classList.add('hidden');
-            document.getElementById('view-game').classList.remove('hidden');
-            document.getElementById('calledCount').textContent = calledNumbers.length;
-            
-            if (players[myId]) {
-                myMarked = players[myId].marked || [];
-                document.getElementById('hostProgressText').textContent = `YOUR MARKS: ${myMarked.length}/15`;
-                document.getElementById('claim15Btn').style.opacity = myMarked.length >= 15 ? '1' : '0.5';
-                renderHostTicket();
-            }
-
-            if (room.lastCalled && document.getElementById('bigNumber').textContent !== String(room.lastCalled)) {
-                const el = document.getElementById('bigNumber');
-                el.textContent = room.lastCalled;
-                el.classList.remove('spin'); void el.offsetWidth; el.classList.add('spin');
-            }
-            
-            const winnersBox = document.getElementById('winnersList');
-            let html = '';
-            if (room.claims) {
-                if (room.claims.jeldhi5) html += `<div class="winner-item"><span>🏆 Jeldhi 5</span> <span>${room.claims.jeldhi5.name}</span></div>`;
-                if (room.claims.fullhouse) html += `<div class="winner-item" style="background:#00e676; color:#111;"><span>👑 Full House</span> <span>${room.claims.fullhouse.name}</span></div>`;
-            }
-            winnersBox.innerHTML = html || '<div style="font-size:14px; color:#aaa; text-align:center;">No winners yet...</div>';
-            
-            if (gameStatus === 'ended') {
-                const btn = document.getElementById('spinBtn');
-                btn.classList.add('btn-disabled'); btn.disabled = true;
-            }
-        }
-    });
-}
-
-function renderHostTicket() {
-    const grid = document.getElementById('adminTicketGrid'); grid.innerHTML = '';
-    if (!myTicket) return;
-    for (let r = 0; r < 3; r++) for (let c = 0; c < 9; c++) {
-        const num = myTicket[r][c]; const cell = document.createElement('div');
-        if (num === null) cell.className = 't-cell empty';
-        else {
-            cell.className = 't-cell'; cell.textContent = num;
-            if (myMarked.includes(num)) cell.classList.add('marked');
-            else if (calledNumbers.includes(num)) {
-                cell.classList.add('called-unmarked', 'clickable');
-                cell.onclick = () => handleHostMark(num);
-            }
-        }
-        grid.appendChild(cell);
-    }
-}
-</script>
-</body>
-</html>
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(url)}catch(e){$('link').select();document.execCommand('copy')}toast('Link copied!')};
+if(navigator.share){$('nat').style.display='inline-block';$('nat').onclick=()=>navigator.share({title:'Housie',text:'🎲 Join my Housie game',url}).catch(()=>{})}
+$('create').onclick=async()=>{const n=$('nm').value.trim();if(!n)return toast('Enter a game name');const id='s_'+Date.now();
+ await db.ref('housie/sessions/'+id).set({name:n,status:'waiting',createdAt:Date.now(),calledNumbers:{},players:{}});await db.ref('housie/activeSessionId').set(id);$('nm').value='';$('feed').innerHTML='';toast('Session created')};
+$('start').onclick=()=>db.ref('housie/sessions/'+sid).update({status:'active',startedAt:Date.now()}).then(()=>toast('Game started — players can join'));
+$('stop').onclick=()=>{if(confirm('End this game for everyone?'))db.ref('housie/sessions/'+sid).update({status:'stopped',stoppedAt:Date.now()})};
+async function spin(){if(!sid||!S||S.status!=='active')return;const called=Object.keys(S.calledNumbers||{}).map(Number);if(called.length>=90)return stopAuto();
+ const left=[];for(let i=1;i<=90;i++)if(!called.includes(i))left.push(i);const n=left[Math.random()*left.length|0];
+ await db.ref('housie/sessions/'+sid+'/calledNumbers/'+n).set(Date.now());await db.ref('housie/sessions/'+sid+'/lastCalled').set(n)}
+$('spin').onclick=spin;
+function stopAuto(){if(timer){clearInterval(timer);timer=null}$('auto').textContent='⏵ Auto'}
+$('auto').onclick=()=>{if(timer)return stopAuto();spin();timer=setInterval(spin,+$('spd').value);$('auto').textContent='⏸ Pause'};
+$('spd').onchange=()=>{if(timer){clearInterval(timer);timer=setInterval(spin,+$('spd').value)}};
+render();
+</script></body></html>
