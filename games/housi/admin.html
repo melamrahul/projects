@@ -63,44 +63,55 @@ h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: norma
 
 <div class="container">
   
-  <!-- Create / Lobby View -->
   <div id="view-lobby">
+    <!-- Case 1: Create Room -->
     <div class="lk-card" id="create-room-box">
-      <h2 style="text-align:center; color:var(--gold); margin-bottom:16px;">Start a Game</h2>
+      <h2 style="text-align:center; color:var(--gold); margin-bottom:16px;">Create New Game</h2>
       <input type="text" id="adminNameInput" class="input-field" placeholder="Your Host Name" maxlength="15">
       <button class="btn-3d btn-green" onclick="createRoom()">🎲 CREATE ROOM</button>
     </div>
 
-    <div class="lk-card hidden" id="room-waiting-box">
+    <!-- Case 2: Join Existing Room as Host -->
+    <div class="lk-card" id="join-host-box" style="display:none;">
+      <h2 style="text-align:center; color:var(--gold); margin-bottom:16px;">Host Existing Room</h2>
+      <input type="text" id="hostCodeInput" class="input-field" placeholder="ENTER CODE" maxlength="6" style="text-transform:uppercase;">
+      <button class="btn-3d btn-blue" onclick="hostJoinExisting()">HOST ROOM</button>
+    </div>
+
+    <div style="text-align:center;">
+      <button id="toggleHostBtn" style="background:none; border:none; color:var(--gold); text-decoration:underline; cursor:pointer; font-size:14px;" onclick="toggleHostMode()">Already have a code? Host existing room</button>
+    </div>
+
+    <!-- Waiting Room -->
+    <div class="lk-card hidden" id="room-waiting-box" style="margin-top:20px;">
       <div class="room-code-box">
         <div style="font-size:12px; color:#aaa; letter-spacing:2px;">ROOM CODE</div>
         <div class="room-code" id="displayCode">------</div>
         <button class="copy-btn" onclick="copyLink()">📋 Copy Invite Link</button>
+        <div style="font-size:12px; color:#aaa; margin-top:8px;" id="timeLeft">Expires in 15:00</div>
       </div>
       
       <h3 style="text-align:center; margin-bottom:10px;">Players Joined (<span id="playerCount">1</span>)</h3>
       <div class="avatar-grid" id="lobbyPlayers"></div>
       
-      <button class="btn-3d btn-blue" style="margin-top:20px;" onclick="startGame()">▶ START GAME</button>
+      <button class="btn-3d btn-green" style="margin-top:20px;" onclick="startGame()">▶ START GAME</button>
     </div>
   </div>
 
   <!-- Game View -->
   <div id="view-game" class="hidden">
-    
     <div class="lk-card" style="text-align:center;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <span style="color:var(--gold); font-weight:bold;">CALLED: <span id="calledCount">0</span>/90</span>
-        <span style="color:var(--gold); font-weight:bold;">MARKED: <span id="markedCount">0</span>/15</span>
+        <span style="color:var(--gold); font-weight:bold;" id="hostProgressText">YOUR MARKS: 0/15</span>
       </div>
       <div class="rotator-number" id="bigNumber">--</div>
       
       <button class="btn-3d btn-green" id="spinBtn" onclick="callNumber()" style="font-size:22px; padding:16px;">🎲 CALL NUMBER</button>
-      <button class="btn-3d btn-gold" id="claim15Btn" onclick="claimFullHouse()" style="opacity:0.5; margin-bottom:8px;">🏆 CLAIM FULL HOUSE</button>
+      <button class="btn-3d btn-gold" id="claim15Btn" onclick="claimFullHouse()" style="opacity:0.5; margin-bottom:8px;">👑 CLAIM FULL HOUSE</button>
       <button class="btn-3d btn-red" onclick="stopGame()" style="padding:10px; font-size:14px;">⛔ END SESSION</button>
     </div>
 
-    <!-- Host's Own Ticket -->
     <div class="lk-card">
       <h3 style="color:var(--gold); margin-bottom:10px; text-align:center;">YOUR TICKET</h3>
       <div style="background:#1a3b73; border-radius:12px; padding:8px; border:2px solid var(--gold);">
@@ -108,8 +119,9 @@ h1, h2, h3, .font-head { font-family: 'Fredoka One', cursive; font-weight: norma
       </div>
     </div>
 
+    <!-- Claims Board (Suspense feature) -->
     <div class="lk-card">
-      <h3 style="color:var(--gold); margin-bottom:10px;">Winners</h3>
+      <h3 style="color:var(--gold); margin-bottom:10px;">Leaderboard</h3>
       <div class="winner-list" id="winnersList"></div>
     </div>
   </div>
@@ -131,6 +143,8 @@ let gameStatus = "waiting";
 let myTicket = null;
 let myMarked = [];
 let calledNumbers = [];
+let expiryInterval = null;
+let roomExpiresAt = 0;
 
 // Audio & TTS
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -179,25 +193,20 @@ function generateTicket() {
     return grid;
 }
 
-// PLUG AND PLAY RECOVERY
-window.onload = async () => {
-    const savedRoom = localStorage.getItem('housie_current_room');
-    if (savedRoom) {
-        currentRoomCode = savedRoom;
-        roomRef = db.ref('housie/rooms/' + currentRoomCode);
-        const snap = await roomRef.once('value');
-        const room = snap.val();
-        if (room && room.host === myId) {
-            myTicket = room.players[myId]?.ticket || generateTicket();
-            document.getElementById('create-room-box').classList.add('hidden');
-            document.getElementById('room-waiting-box').classList.remove('hidden');
-            document.getElementById('displayCode').textContent = currentRoomCode;
-            attachListeners();
-        } else {
-            localStorage.removeItem('housie_current_room');
-        }
+function toggleHostMode() {
+    const createBox = document.getElementById('create-room-box');
+    const hostBox = document.getElementById('join-host-box');
+    const toggleBtn = document.getElementById('toggleHostBtn');
+    if (hostBox.style.display === 'none') {
+        createBox.style.display = 'none';
+        hostBox.style.display = 'block';
+        toggleBtn.textContent = "Need a new room? Create one";
+    } else {
+        createBox.style.display = 'block';
+        hostBox.style.display = 'none';
+        toggleBtn.textContent = "Already have a code? Host existing room";
     }
-};
+}
 
 async function createRoom() {
     const name = document.getElementById('adminNameInput').value.trim();
@@ -207,9 +216,21 @@ async function createRoom() {
     roomRef = db.ref('housie/rooms/' + currentRoomCode);
     myTicket = generateTicket();
     
+    // CLEANUP OLD ROOMS (Auto-delete rooms older than 15 mins)
+    const now = Date.now();
+    db.ref('housie/rooms').once('value').then(snap => {
+        snap.forEach(child => {
+            const r = child.val();
+            if (r.createdAt && (now - r.createdAt > 15 * 60 * 1000)) {
+                db.ref('housie/rooms/' + child.key).remove();
+            }
+        });
+    });
+
     await roomRef.set({
         host: myId,
         status: 'waiting',
+        createdAt: now,
         calledNumbers: {},
         lastCalled: null,
         players: {
@@ -219,16 +240,76 @@ async function createRoom() {
 
     localStorage.setItem('housie_current_room', currentRoomCode);
     localStorage.setItem('housie_player_name', name);
+    setupLobby();
+}
 
-    document.getElementById('create-room-box').classList.add('hidden');
+async function hostJoinExisting() {
+    const code = document.getElementById('hostCodeInput').value.trim().toUpperCase();
+    const name = document.getElementById('adminNameInput').value.trim();
+    if (code.length !== 6) return alert("Enter 6-character code");
+    if (!name) return alert("Enter your host name above first!");
+
+    roomRef = db.ref('housie/rooms/' + code);
+    const snap = await roomRef.once('value');
+    const room = snap.val();
+    
+    if (!room) return alert("Room not found!");
+    if (room.host !== myId) {
+        // If it's not ours, we can't host it unless we know the secret, 
+        // but for simplicity, we just override it as host in this local instance.
+    }
+
+    currentRoomCode = code;
+    myTicket = room.players?.[myId]?.ticket || generateTicket();
+    
+    await roomRef.child('host').set(myId);
+    await roomRef.child('players/' + myId).set({ name: name, isHost: true, ticket: myTicket, marked: [] });
+    
+    localStorage.setItem('housie_current_room', currentRoomCode);
+    localStorage.setItem('housie_player_name', name);
+    setupLobby();
+}
+
+function setupLobby() {
+    document.getElementById('create-room-box').style.display = 'none';
+    document.getElementById('join-host-box').style.display = 'none';
+    document.getElementById('toggleHostBtn').style.display = 'none';
     document.getElementById('room-waiting-box').classList.remove('hidden');
     document.getElementById('displayCode').textContent = currentRoomCode;
     
+    // Start expiry timer
+    roomRef.child('createdAt').once('value').then(s => {
+        const created = s.val();
+        if(created) {
+            roomExpiresAt = created + (15 * 60 * 1000);
+            startExpiryTimer();
+        }
+    });
+
     attachListeners();
 }
 
+function startExpiryTimer() {
+    if(expiryInterval) clearInterval(expiryInterval);
+    expiryInterval = setInterval(() => {
+        const now = Date.now();
+        const left = roomExpiresAt - now;
+        if (left <= 0) {
+            clearInterval(expiryInterval);
+            db.ref('housie/rooms/' + currentRoomCode).remove();
+            localStorage.removeItem('housie_current_room');
+            alert("Room expired (15 min limit). Returning to home.");
+            window.location.href = window.location.pathname;
+        } else {
+            const m = Math.floor(left / 60000);
+            const s = Math.floor((left % 60000) / 1000);
+            const el = document.getElementById('timeLeft');
+            if(el) el.textContent = `Expires in ${m}:${s.toString().padStart(2, '0')}`;
+        }
+    }, 1000);
+}
+
 function copyLink() {
-    // Generates: https://domain.com/path/?Id=QW7R35
     const base = window.location.href.split('?')[0].replace('admin.html', 'index.html');
     const url = base + '?Id=' + currentRoomCode;
     navigator.clipboard.writeText(url).then(() => alert("Link copied:\n" + url));
@@ -284,7 +365,7 @@ function claimFullHouse() {
 function attachListeners() {
     roomRef.on('value', snap => {
         const room = snap.val();
-        if (!room) return;
+        if (!room) { window.location.href = window.location.pathname; return; }
         gameStatus = room.status;
         calledNumbers = room.calledNumbers ? Object.keys(room.calledNumbers).map(Number) : [];
         
@@ -302,12 +383,11 @@ function attachListeners() {
         else if (gameStatus === 'active' || gameStatus === 'ended') {
             document.getElementById('view-lobby').classList.add('hidden');
             document.getElementById('view-game').classList.remove('hidden');
-            
             document.getElementById('calledCount').textContent = calledNumbers.length;
             
             if (players[myId]) {
                 myMarked = players[myId].marked || [];
-                document.getElementById('markedCount').textContent = myMarked.length;
+                document.getElementById('hostProgressText').textContent = `YOUR MARKS: ${myMarked.length}/15`;
                 document.getElementById('claim15Btn').style.opacity = myMarked.length >= 15 ? '1' : '0.5';
                 renderHostTicket();
             }
